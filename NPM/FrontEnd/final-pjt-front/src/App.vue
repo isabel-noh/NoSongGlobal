@@ -2,17 +2,36 @@
   <div id="app">
     <nav>
       <div class="nav1">
-        <router-link :to="{ name : 'home' }"> <span id="logo">npm</span>  <span id="logo_desc">new perspective of movie</span></router-link>
+        <router-link :to="{ name : 'home' }" > 
+          <span id="logo" @click="hideSearchBar">npm</span> 
+          <span id="logo_desc" @click="hideSearchBar">new perspective of movie</span>
+        </router-link>
       </div>
       <div class="nav2">
-        <router-link :to="{ name : 'info' }">Info</router-link> |
+        <router-link :to="{ name : 'info' }" @click.native="hideSearchBar">Info</router-link> |
         <!-- 검색 기능 -->
-        <router-link :to="{ name : 'journal' }">Journal</router-link> | 
+        <a @click="showSearchBar = !showSearchBar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+          </svg> |
+        </a>
+        <router-link @click.native="hideSearchBar" :to="{ name : 'journal' }">Journal</router-link> | 
         <!-- user정보에 따라 바뀜 -->
-        <button v-if="!isLogin" @click="openModal = !openModal">Login</button>
-        <router-link  v-if="isLogin" :to="{ name : 'myPage' }">MyPage</router-link>
+        <button v-if="!isLogin" @click="openModal = !openModal, hideSearchBar()" >Login</button>
+        <div class="btn-group" v-if="isLogin">
+          <button type="button" class="btn btn-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Action
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" @click="logOut">sign out</a></li>
+            <li><router-link class="dropdown-item" :to="{ name : 'myPage' }" >MyPage</router-link></li>
+          </ul>
+        </div>
       </div>
     </nav>
+    <Transition>
+      <SearchBar v-if="showSearchBar"/>
+    </Transition>
     <Transition>
       <LoginModal v-if="openModal" @closeModal="closeModal"/>
     </Transition>
@@ -22,27 +41,40 @@
 
 <script>
 import LoginModal from '@/components/LoginModal'
+import SearchBar from '@/components/SearchBar'
+
 export default {
   name: 'App',
   components: {
-    LoginModal
+    LoginModal,
+    SearchBar
   },
   data(){
     return {
       isLogin : false,
       openModal: false,
+      showSearchBar: false,
     }
   },
   methods: {
     isLoggedIn(){
-      this.isLogin = this.$store.getters.isLogin()
+      this.isLogin = this.$store.getters.isLogin
     },
     closeModal(){
       this.openModal = false
+    },
+    hideSearchBar(){
+      this.showSearchBar = false
+    },
+    logOut(){
+      this.$store.dispatch('logOut')
     }
   },
-  create(){
+  mounted(){
     this.isLoggedIn()
+  },
+  updated(){
+    this.isLoggedIn()          
   }
 }
 </script>
