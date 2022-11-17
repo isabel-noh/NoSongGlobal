@@ -42,9 +42,9 @@ export default {
           password: password,
         }
         this.$store.dispatch('logIn', payload)
+        this.$emit('closeModal')
       },
       closeModal(){
-        console.log('모달을 닫자')
         this.$emit('closeModal')
       },
 
