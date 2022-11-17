@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import createPersistedState from "vuex-persistedstate";
-// import router from '@/router'
+import router from '@/router'
 
 Vue.use(Vuex)
 
@@ -14,6 +14,8 @@ export default new Vuex.Store({
   ],
   state: {
     token: null,
+    nickname: null,
+    movieList: [],
   },
   getters: {
     isLogin(state) {
@@ -21,16 +23,29 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    LOG_IN(state, token){
-      state.token = token
-      this.$router.push({ name : 'home' })
+    LOG_IN(state, data){
+      state.token = data.token
+      state.nickname = data.nickname
+      if(router.currentRoute.name != 'home'){
+        router.push({ name : 'home' })
+      } else {
+        router.go(router.currentRoute)
+      }
+    }, 
+    SEARCH_RESULT(state, data){
+      state.movieList = data
+      if(router.currentRoute.name != 'home'){
+        router.push({ name : 'home' })
+      } else {
+        router.go(router.currentRoute)
+      }
     }
   },
   actions: {
     signUp(context, userData) {
       axios({
         method: 'POST',
-        url: `${API_URL}/accounts/signup`,
+        url: `${API_URL}/accounts/signUp`,
         data: {
           name: userData.name,
           nickname: userData.nickname,
@@ -41,7 +56,7 @@ export default new Vuex.Store({
         }
       }).
       then(() => {
-        this.$router.push({ name: 'login'})
+        router.push({ name: 'login'})
       }).
       catch((error) => {
         console.log(error)
@@ -57,11 +72,36 @@ export default new Vuex.Store({
         }
       })
       .then((response) => {
-        console.log(response)
         context.commit('LOG_IN', response.data)
       })
       .catch((error) => {
         alert('유저정보를 확인해주세요.')
+        console.log(error)
+      })
+      
+    },
+    logOut() {
+      localStorage.removeItem('vuex')
+      if(router.currentRoute.name != 'home'){
+        router.push({ name : 'home' })
+      } else {
+        router.go(router.currentRoute)
+      }
+    },
+
+    search(context, keyword){
+      axios({
+        method: 'GET',
+        url: `${API_URL}/movieList`,
+        params:{
+          keyword:keyword
+        }
+      })
+      .then((response) => {
+        console.log(response.data)
+        context.commit('SEARCH_RESULT', response.data)
+      })
+      .catch((error) => {
         console.log(error)
       })
     }
