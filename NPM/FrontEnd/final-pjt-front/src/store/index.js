@@ -45,8 +45,9 @@ export default new Vuex.Store({
     signUp(context, userData) {
       axios({
         method: 'POST',
-        url: `${API_URL}/accounts/signUp`,
+        url: `${API_URL}/accounts/signup/`,
         data: {
+          username: userData.email,
           name: userData.name,
           nickname: userData.nickname,
           email: userData.email,
@@ -65,7 +66,7 @@ export default new Vuex.Store({
     logIn(context, userData) {
       axios({
         method: 'POST',
-        urls: `${API_URL}/accounts/logIn`,
+        urls: `${API_URL}/accounts/login/`,
         data: {
           username: userData.username,
           password: userData.password,
