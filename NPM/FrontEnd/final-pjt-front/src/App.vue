@@ -17,9 +17,9 @@
         </a>
         <router-link @click.native="hideSearchBar" :to="{ name : 'journal' }">Journal</router-link> | 
         <!-- user정보에 따라 바뀜 -->
-        <button v-if="!isLogin" @click="openModal = !openModal, hideSearchBar()" >Login</button>
+        <button class="btn btn-light" v-if="!isLogin" @click="openModal = !openModal, hideSearchBar()" >Login</button>
         <div class="btn-group" v-if="isLogin">
-          <button style="fond-family:'Do Hyeon'; font-weight: bold;" type="button" class="btn btn-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <button style="fond-family:'Do Hyeon'; font-weight: bold;" type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             {{}}
           </button>
           <ul class="dropdown-menu">
