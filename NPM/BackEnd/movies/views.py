@@ -24,9 +24,18 @@ def movie_addall(request):
         text = res.text
         movies_json = json.loads(text)['results']
         Movies = movies_json
-        print(page)
-        for movie_1 in Movies: # 모델컬럼에 맞춰서 저장해야함
-            a = Movie(title = movie_1['title'], release_date = movie_1['release_date'], popularity = movie_1['popularity'], overview = movie_1['overview'], poster_path=movie_1['poster_path'])
+        for movie_1 in Movies:
+            a = Movie(
+                movie_id=movie_1['id'],
+                title=movie_1['title'],
+                original_title=movie_1['original_title'],
+                overview=movie_1['overview'],
+                poster_path=movie_1['poster_path'],
+                backdrop_path=movie_1['backdrop_path'],
+                release_date=movie_1['release_date'],
+                vote_average=movie_1['vote_average'],
+                popularity=movie_1['popularity'],
+                genres=json.dumps(movie_1['genre_ids'])
+            )
             a.save()
     return Response(request)
-# movie_addall()
