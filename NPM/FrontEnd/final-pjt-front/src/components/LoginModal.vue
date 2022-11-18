@@ -65,6 +65,13 @@ export default {
   height: 100%;
   background: rgba(0, 0, 0, 0.7);
 }
+
+@media (max-width: 900px) {
+  #login-div {
+    width: 500px;
+  }
+}
+
 #login-div{
   padding-top: 2px;
   width: 20%;

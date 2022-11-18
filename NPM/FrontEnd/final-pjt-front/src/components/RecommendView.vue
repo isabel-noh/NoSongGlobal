@@ -30,8 +30,8 @@ export default {
 }
 #recommend-title{
     text-align: initial;
-    font-family: sans-serif;
-    color: white;
+    font-family: "Do Hyeon", sans-serif;
+    color: black;
 }
 .card {
     position: relative;

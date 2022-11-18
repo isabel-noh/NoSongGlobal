@@ -17,6 +17,7 @@ export default new Vuex.Store({
     token: null,
     nickname: null,
     movieList: [],
+    soundtrackList: [],
   },
   getters: {
     isLogin(state) {

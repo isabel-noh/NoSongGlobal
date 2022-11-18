@@ -19,8 +19,8 @@
         <!-- user정보에 따라 바뀜 -->
         <button v-if="!isLogin" @click="openModal = !openModal, hideSearchBar()" >Login</button>
         <div class="btn-group" v-if="isLogin">
-          <button type="button" class="btn btn-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            Action
+          <button style="fond-family:'Do Hyeon'; font-weight: bold;" type="button" class="btn btn-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            {{}}
           </button>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" @click="logOut">sign out</a></li>
@@ -51,6 +51,7 @@ export default {
   },
   data(){
     return {
+      nickname: null,
       isLogin : false,
       openModal: false,
       showSearchBar: false,
@@ -82,6 +83,7 @@ export default {
 
 <style>
 #app {
+  min-width: 672px;
   font-family: 'Do Hyeon', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -94,13 +96,13 @@ export default {
 
 nav {
   font-family: 'Do Hyeon';
-  padding: 30px 0px;
+  padding: 20px 0px;
   display: flex;
   justify-content: space-between;
 }
 
 nav a {
-  font-family: "Hannah";
+  font-family: 'Do Hyeon';
   font-weight: bold;
   color: black;
   text-decoration: none;
@@ -111,15 +113,27 @@ nav a.router-link-exact-active {
 }
 
 #logo {
-  font-size: 2rem;
+  font-size: 4rem;
   color: #202945;
   text-decoration: none;
 }
 
+@media (max-width: 900px) {
+  #logo {
+    font-size: 2rem;
+  }
+}
+
 a #logo_desc {
-  font-size: 1rem;
+  font-size: 1.5rem;
   color: lightgray;
   text-decoration: none;
+}
+
+@media (max-width: 900px) {
+  a #logo_desc {
+    font-size: 1rem;
+  }
 }
 
 .nav2{
