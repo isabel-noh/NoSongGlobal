@@ -1,7 +1,7 @@
 <template>
   <div class="MovieListView">
     <div style="display: flex">
-        <div style="margin-right:10px;">
+        <div class="select_genre" style="margin-right:10px;">
             <select class="form-select form-select-sm" aria-label=".form-select-sm example">
             <option selected>GENRE</option>
             <option value="genre1">Romance</option>
@@ -13,7 +13,7 @@
             <option value="genre7">Horror</option>
             </select>
         </div>
-        <div>
+        <div class="select_sorting">
             <select class="form-select form-select-sm" aria-label=".form-select-sm example">
             <option selected>Sort by</option>
             <option value="new">New</option>
