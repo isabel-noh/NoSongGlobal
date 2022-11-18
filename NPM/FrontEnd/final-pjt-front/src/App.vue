@@ -81,18 +81,8 @@ export default {
 
 
 <style>
-.v-application {
-  font-family: 'Hannah', sans-serif !important;
-}
-@font-face {
-  font-family: "Hannah";
-  font-style: normal;
-  src: url('./fonts/BMHANNA_11yrs_ttf.ttf') format("tff");
-  font-weight: 400;
-}
-
 #app {
-  font-family: "Hannah", Helvetica, Arial, sans-serif;
+  font-family: 'Do Hyeon', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -103,7 +93,7 @@ export default {
 }
 
 nav {
-  font-family: 'Hannah';
+  font-family: 'Do Hyeon';
   padding: 30px 0px;
   display: flex;
   justify-content: space-between;

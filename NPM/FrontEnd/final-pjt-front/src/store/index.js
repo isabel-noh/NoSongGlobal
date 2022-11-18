@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
+import axios from 'axios';
 import createPersistedState from "vuex-persistedstate";
 import router from '@/router'
 
 Vue.use(Vuex)
+
 
 const API_URL = 'http://127.0.0.1:8000'
 
@@ -24,7 +25,7 @@ export default new Vuex.Store({
   },
   mutations: {
     LOG_IN(state, data){
-      state.token = data.token
+      state.token = data.key
       state.nickname = data.nickname
       if(router.currentRoute.name != 'home'){
         router.push({ name : 'home' })
@@ -64,12 +65,13 @@ export default new Vuex.Store({
       })
     },
     logIn(context, userData) {
+      console.log(userData)
       axios({
-        method: 'POST',
-        urls: `${API_URL}/accounts/login/`,
+        method:'POST',
+        url:`${API_URL}/accounts/login/`,
         data: {
           username: userData.username,
-          password: userData.password,
+          password: userData.password
         }
       })
       .then((response) => {

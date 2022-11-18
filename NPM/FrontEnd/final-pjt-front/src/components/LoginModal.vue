@@ -41,6 +41,7 @@ export default {
           username: username,
           password: password,
         }
+        // console.log(payload)
         this.$store.dispatch('logIn', payload)
         this.$emit('closeModal')
       },
