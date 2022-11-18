@@ -183,3 +183,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # User 나타내는데 사용하는 모델을 커스텀 User 모델로 지정
 AUTH_USER_MODEL = 'accounts.User'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_EMAIL_VERIFICATION = "none"
