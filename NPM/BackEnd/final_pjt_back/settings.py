@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     # Django Apps
     'accounts',
     'journals',
+    'movies',
     
     'rest_framework',
 
@@ -55,7 +56,7 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
 
     # OpenAPI 3.0
-    # 'drf_spectacular',
+    'drf_spectacular',
     
     'django.contrib.contenttypes',
     'django.contrib.sessions',
