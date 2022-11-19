@@ -8,6 +8,13 @@ class Genre(models.Model):
     name = models.CharField(max_length=50)
 
 
+# class Actor(models.Model):
+#     # movie_id = models.ManyToManyField(Movie)
+#     actor_name = models.TextField(blank=True, null=True, default=None)
+#     profile_path = models.TextField(blank=True, null=True)
+#     character = models.CharField(max_length=200)
+
+
 
 class Movie(models.Model):
     movie_id = models.IntegerField(primary_key=True)
@@ -16,7 +23,12 @@ class Movie(models.Model):
     release_date = models.DateField(blank=True, null=True)
     popularity = models.FloatField(blank=True, null=True)
     vote_average = models.FloatField(blank=True, null=True)
+    # actors = models.ManyToManyField(Actor)
+    # actors = models.TextField(blank=True, null=True)
     overview = models.TextField(blank=True, null=True)
     poster_path = models.CharField(max_length=300, blank=True, null=True)
     backdrop_path = models.CharField(max_length=300, blank=True, null=True)
     genres = models.ManyToManyField(Genre)
+    # genres = models.TextField(blank=True, null=True)
+
+
