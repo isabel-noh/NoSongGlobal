@@ -1,10 +1,11 @@
 <template>
   <div class="signUp">
     <div id="signup-logo">
-        <h2>New<br/>
+        <!-- <h2>New<br/>
         Perspective<br/>
         of<br/>
-        Movie</h2>
+        Movie</h2> -->
+        <h2>회원가입</h2>
     </div>
     <form @submit.prevent="signup">
         <div class="signup-form">
@@ -128,7 +129,7 @@ export default {
 #signup-logo{
     width: 40% ;
     margin: auto  ;
-    text-align: left ;
+    /* text-align: left ; */
 }
 .signup-form {
     width: 50% ;

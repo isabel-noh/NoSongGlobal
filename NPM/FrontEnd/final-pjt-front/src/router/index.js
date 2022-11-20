@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
+import MovieDetailView from '@/views/MovieDetailView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 import NotFound404View from '@/views/NotFound404View.vue'
 
@@ -16,6 +17,11 @@ const routes = [
     path: '/signUp',
     name: 'signUp',
     component: SignUpView
+  },
+  {
+    path: '/movie/:movie_id',
+    name: 'movieDetail',
+    component: MovieDetailView,
   },
   {
     path: '/mypage',

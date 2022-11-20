@@ -22,7 +22,8 @@ export default new Vuex.Store({
   getters: {
     isLogin(state) {
       return state.token ? true : false
-    }
+    },
+
   },
   mutations: {
     LOG_IN(state, data){
@@ -41,7 +42,7 @@ export default new Vuex.Store({
       } else {
         router.go(router.currentRoute)
       }
-    }
+    },
   },
   actions: {
     signUp(context, userData) {
@@ -59,7 +60,7 @@ export default new Vuex.Store({
         }
       }).
       then(() => {
-        router.push({ name: 'login'})
+        router.push({ name: 'home'})
       }).
       catch((error) => {
         console.log(error)
@@ -91,8 +92,8 @@ export default new Vuex.Store({
       } else {
         router.go(router.currentRoute)
       }
-    },
-
+    }
+    ,
     search(context, keyword){
       axios({
         method: 'GET',

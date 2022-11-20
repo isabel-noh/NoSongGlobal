@@ -80,4 +80,10 @@ export default {
 #music-recommend-title{
     text-align: initial;
 }
+h5{
+    font-family: 'Do Hyeon';
+}
+select, option{
+    font-family: 'Do Hyeon';
+}
 </style>

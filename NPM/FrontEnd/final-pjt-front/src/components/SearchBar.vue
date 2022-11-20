@@ -1,8 +1,8 @@
 <template>
   <div class="searchBar">
     <form @submit.prevent="searchKeyword">
-        <input type="text" v-model="keyword">    
-        <input type="submit" value="검색">
+        <input class="search-input" type="text" v-model="keyword">    
+        <button type="submit" class="btn btn-light" value="검색">검색</button>
     </form>    
   </div>
 </template>
@@ -17,6 +17,7 @@ export default {
     },
     methods: {
         searchKeyword(){
+            console.log(this.keyword)
             const keyword = this.keyword
             this.$store.dispatch('search', keyword)
             this.keyword = null
@@ -32,5 +33,15 @@ export default {
 </script>
 
 <style>
-
+.searchBar {
+    padding: 10px;
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+}
+.search-input {
+    width: 50%;
+    border: none;
+    height: 50px;
+    margin-right: 10px;
+}
 </style>
