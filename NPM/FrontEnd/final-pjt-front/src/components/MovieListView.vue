@@ -40,17 +40,20 @@
             style="cursor : pointer;" 
             v-for="(movie) in movieList" 
             :key="movie?.movie_id">
-            <router-link :to="{ name : 'movieDetail', params: { movie_id: movie?.movie_id}}">
+            <router-link :to="{ name : 'movieDetail', params: { movie_id: movie.movie_id}}">
             <!-- @click="getDetailMovie(movie?.movie_id)"> -->
             <div class="card h-100">
-                <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" class="card-img"/>
-                <div class="card-img-overlay sticky-bottom" style="bottom: 20px;">
+                <figure>
+                    <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" class="card-img"/>
+                </figure>
+                <div class="card-img-overlay sticky-bottom" style="bottom: 90px; margin:0px; padding:0px;">
                     <div class="movie-title-and-movie-genre">
-                        <h5 class="card-title">{{movie?.title}}</h5>
-                        <p class="card-text">{{movie?.genre}}</p>
+                        <h4 style="font-family:'Do Hyeon';" class="card-title">{{movie?.title}}</h4>
+                        <!-- 장르 -->
+                        <!-- <p class="card-text">{{movie?.genre}}</p> -->
+                        <button class="btn btn-bright" style="margin:0px;">더보기</button>
                     </div>
-                    <p class="card-text">{{movie?.actors}}</p>
-                    <p class="card-text">{{movie?.release_date}}</p>
+                    <!-- <p class="card-text">{{movie?.release_date}}</p> -->
                 </div>
             </div>
             </router-link>
@@ -83,6 +86,7 @@ export default {
                 url: `${API_URL}/movies/movieList/`
             })
             .then((response) => {
+                console.log(response.data)
                 this.movieList = response.data
             })
             .catch((error) => {
@@ -122,6 +126,17 @@ export default {
 <style>
 a {
     text-decoration: none;
+    color: transparent;
+}
+a:hover{
     color: black;
+}
+.card figure img {
+  opacity: 1;
+  -webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
+}
+.card:hover img{
+    opacity: .3;
 }
 </style>

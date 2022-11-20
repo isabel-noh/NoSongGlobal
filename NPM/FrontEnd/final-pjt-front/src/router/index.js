@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import MovieDetailView from '@/views/MovieDetailView.vue'
+import CreateJournalView from '@/views/CreateJournalView'
 import SignUpView from '@/views/SignUpView.vue'
 import NotFound404View from '@/views/NotFound404View.vue'
 
@@ -22,6 +23,11 @@ const routes = [
     path: '/movie/:movie_id',
     name: 'movieDetail',
     component: MovieDetailView,
+  },
+  {
+    path: '/addJournal',
+    name: 'createJournal',
+    component: CreateJournalView,
   },
   {
     path: '/mypage',
