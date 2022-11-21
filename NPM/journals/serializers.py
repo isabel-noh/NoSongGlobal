@@ -7,7 +7,7 @@ class JournalListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Journal
-        fields = '__all__'
+        fields = ('title',)
 
 
 # 해당 저널의 댓글 목록 제공
@@ -15,7 +15,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = '__all__'
+        fields = ('content',)
 
 
 # 단일 저널 정보 제공
@@ -26,4 +26,4 @@ class JournalSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Journal
-        fields = '__all__'
+        fields = ('title', 'content',)

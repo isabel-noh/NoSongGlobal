@@ -13,10 +13,9 @@ from .serializers import JournalListSerializer, JournalSerializer, CommentSerial
 
 
 # 전체 저널 목록 제공 & 저널 생성
-@api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
+@api_view(['GET'])
+# @permission_classes([IsAuthenticated])
 def all(request):
-    request.method == 'GET':
     # journals = Journal.objects.all()
     journals = get_list_or_404(Journal)
     serializer = JournalListSerializer(journals, many=True)
@@ -25,9 +24,9 @@ def all(request):
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def create(request):
-    request.method == 'POST':
+    # request.method == 'POST':
     serializer = JournalSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(user=request.user)
