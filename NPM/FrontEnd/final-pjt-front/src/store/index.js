@@ -124,9 +124,11 @@ export default new Vuex.Store({
         url:`${API_URL}/movies/journal/create/`,
         headers:{
           'Content-Type': 'multipart/form-data',
-          'Authorization': `${user}`,
+          'Authorization': `Token ${user.token}`,
         },
-        data: formdata,
+        data: 
+          formdata,
+        
       })
       .then((res) => {
         console.log(res.data)
