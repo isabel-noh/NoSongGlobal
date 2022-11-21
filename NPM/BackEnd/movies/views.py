@@ -139,7 +139,7 @@ def all(request):
 
 
 @api_view(['GET', 'POST'])
-# @login_required
+@login_required
 # @permission_classes([IsAuthenticated])
 def create(request):
     if request.method == 'POST':
