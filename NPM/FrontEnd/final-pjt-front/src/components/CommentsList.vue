@@ -1,7 +1,7 @@
 <template>
   <div class="comment-list">
     <div>
-        <CommentItem v-for="comment in commentList" 
+        <CommentItem v-for="comment in commentsList" 
             :key="comment.comment_id"
             :comment="comment"/>
     </div>
@@ -18,7 +18,7 @@ export default {
     },
     data(){
         return{
-            commentsList = [],
+            commentsList : [],
         }
     },
     props:{
