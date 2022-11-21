@@ -61,9 +61,9 @@ class JournalSerializer(serializers.ModelSerializer):
 
     comment_set = CommentSerializer(many=True, read_only=True)
     comment_count = serializers.IntegerField(source='comment_set.count', read_only=True)
-    username = serializers.CharField(source='user.username', read_only=True)
+    nickname = serializers.CharField(source='user.nickname', read_only=True)
     
     class Meta:
         model = Journal
-        fields = ('title', 'content', 'comment_set', 'comment_count', 'username',)
+        fields = '__all__'
         read_only_fields = ('user', )

@@ -10,7 +10,7 @@ class Journal(models.Model):
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # movie_id = models.IntegerField()
     movie_title = models.CharField(max_length=100)
-    poster_path = models.CharField(max_length=300, blank=True, null=True)
+    poster_path = models.models.FileField(upload_to=None, max_length=100)(max_length=300, blank=True, null=True)
     watched_at = models.DateField()
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
