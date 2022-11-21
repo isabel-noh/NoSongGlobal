@@ -2,7 +2,7 @@
   <div class="JournalDetailView">
     <h1 id="journal-title-h1">Remember Movie Moment</h1>
     <div style="max-height:300px; box-sizing:content-box; overflow:hidden;">
-        <img :src="journal?.poster_path" style="border-radius: 0px; ">
+        <img :src="journal?.journal_image" style="border-radius: 0px; ">
     </div>
     <div class="youtube_music_player"></div>
     <div class="journal_content">
@@ -59,10 +59,7 @@ export default {
         getJournal(){
             axios({
                 method:'GET',
-                url: `${API_URL}/journal`,
-                params:{
-                    journal_id:this.$route.params.journal_id
-                }
+                url: `${API_URL}/journal/${this.$route.params.journal_id}`,
             })
             .then((response) => {
                 this.journal = response.data
