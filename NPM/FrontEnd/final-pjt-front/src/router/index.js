@@ -29,7 +29,16 @@ const routes = [
   {
     path: '/mypage',
     name: 'myPage',
-    component: () => import('../views/MyPageView.vue')
+    component: () => import('../views/MyPageView.vue'),
+    beforeEnter(to, from, next){
+      const isLoggedIn = store.getters.isLogin
+      if(isLoggedIn === true){
+        next()
+      } else {
+        alert('로그인된 회원님만 마이페이지를 볼 수 있어요.')
+        next({ name : 'home' })
+      }
+    }
   },
   {
     path: '/info',

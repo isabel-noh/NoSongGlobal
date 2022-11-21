@@ -144,8 +144,13 @@ export default {
     background-color: transparent;
     border: none;
 }
-.signup-form input[type=text], input[type=email], input[type=password] {
+.signup-form input[type=text], input[type=email] {
     width: 70%;
+    color: black;
+}
+#password1, #password2 {
+    width: 70%;
+    color: black;
 }
 .signup-form input[type=submit] {
     border: 1px solid black;
