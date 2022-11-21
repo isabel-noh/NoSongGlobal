@@ -138,18 +138,31 @@ def all(request):
     
 
 
+<<<<<<< HEAD
 @api_view(['GET', 'POST'])
+=======
+@api_view(['POST'])
+>>>>>>> c1df400195af4b4f7cbee2b3ea85ead04e0a0f19
 @login_required
 # @permission_classes([IsAuthenticated])
 def create(request):
-    if request.method == 'POST':
-        serializer = JournalSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save(user=request.user)
-            data = {
-                'Create' : '게시글이 작성되었습니다.'
-            }
-            return Response(data, serializer.data, status=status.HTTP_201_CREATED)
+    # if request.method == "GET":
+    #     data = get_list_or_404(Journal)
+
+    # if request.method == 'POST':
+    data = request.data
+    journal = Journal(user=request.user,title= data['title'], content = data['content'], movie_title = data['movie_title'], poster_path=data['poster_path'], watched_at=data['watched_at'])
+    print(journal)
+    journal.save()
+    print(journal.id)
+    journal = Journal.objects.get(pk=journal.id)
+    serializer = JournalSerializer(journal)
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
+    # serializer = JournalSerializer(data=request.data)
+    # print(serializer.data)
+    # if serializer.is_valid(raise_exception=True): # 여기서 안들어감
+    #     serializer.save(user=request.user)
+    #     return Response(serializer.data, status=status.HTTP_201_CREATED)
         
     
 

@@ -141,7 +141,9 @@ export default new Vuex.Store({
           'Content-Type': 'multipart/form-data',
           'Authorization': `Token ${user.token}`,
         },
-        data: formdata,
+        data: 
+          formdata,
+        
       })
       .then((res) => {
         console.log(res.data)

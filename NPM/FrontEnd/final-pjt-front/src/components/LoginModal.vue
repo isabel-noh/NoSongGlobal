@@ -1,7 +1,7 @@
 <template>
   <div class="loginModal" @click="closeModal">
     <div id="login-div">
-      <form id="login-form" @submit.prevent="login" @click.stop=''>
+      <form id="login-form" @submit.prevent="login" @click.stop='' method="POST">
         <div id="input-div">
           <h4 style="margin-top:10px;">Login</h4>
           <div class="user-info-box">
