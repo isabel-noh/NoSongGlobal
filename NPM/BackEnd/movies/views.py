@@ -138,11 +138,7 @@ def all(request):
     
 
 
-<<<<<<< HEAD
-@api_view(['GET', 'POST'])
-=======
 @api_view(['POST'])
->>>>>>> c1df400195af4b4f7cbee2b3ea85ead04e0a0f19
 @login_required
 # @permission_classes([IsAuthenticated])
 def create(request):
