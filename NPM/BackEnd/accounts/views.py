@@ -7,16 +7,20 @@ from django.shortcuts import render, get_object_or_404
 # from django.views.decorators.http import require_POST, require_http_methods
 # from django.http import JsonResponse
 # from rest_framework.authtoken.models import Token
-# from rest_framework.response import Response
-# from rest_framework.decorators import api_view
-# from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework import status
 
-# from .models import User
+from .models import User
 # from .serializers import UserSerializer
 
 # # Create your views here.
-# @api_view(['POST'])
-# def signup(request):
+@api_view(['POST'])
+def signup(request):
+    data = request.data
+    print(data)
+    user_data = User()
+    return Response(status=status.HTTP_201_CREATED)
 
 #     # client로부터 온 데이터에서 비밀번호 갖고오기
 #     password_1 = request.data.get('password1')

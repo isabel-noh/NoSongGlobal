@@ -124,10 +124,14 @@ def movie_detail(request, movie_pk):
     return Response(serializer.data) 
 
 
+
+
+
+
 # 저널 부분
 
 
-# 전체 저널 목록 제공 & 저널 생성
+# 전체 저널 목록 제공
 @api_view(['GET'])
 # @permission_classes([IsAuthenticated])
 def all(request):
@@ -137,7 +141,7 @@ def all(request):
     return Response(serializer.data)
     
 
-
+# 새로운 저널 생성
 @api_view(['POST'])
 @login_required
 # @permission_classes([IsAuthenticated])
@@ -147,10 +151,14 @@ def create(request):
 
     # if request.method == 'POST':
     data = request.data
-    journal = Journal(user=request.user,title= data['title'], content = data['content'], movie_title = data['movie_title'], poster_path=data['poster_path'], watched_at=data['watched_at'])
-    print(journal)
+    photo = request.FILES
+    print(request.FILES)
+    print(photo['journal_image'])
+    # 각 값을 journal model field에 맞게 저장
+    journal = Journal(user=request.user, title= data['title'], content = data['content'], movie_title = data['movie_title'], journal_image = photo['journal_image'], watched_at=data['watched_at'])
+    # print(journal)
     journal.save()
-    print(journal.id)
+    # print(journal.id)
     journal = Journal.objects.get(pk=journal.id)
     serializer = JournalSerializer(journal)
     return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -181,10 +189,8 @@ def detail(request, journal_id):
 
     elif request.method == 'DELETE':
         journal.delete()
-        data = {
-            'Delete' : f'{journal_id}번째 게시글이 삭제되었습니다.'
-        }
-        return Response(data, status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 
 # 댓글 생성
