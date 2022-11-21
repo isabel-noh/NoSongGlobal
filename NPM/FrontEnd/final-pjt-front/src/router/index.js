@@ -7,6 +7,8 @@ import SignUpView from '@/views/SignUpView.vue'
 import NotFound404View from '@/views/NotFound404View.vue'
 import JournalDetailView from '@/views/JournalDetailView'
 
+const isLoggedIn = this.$store.getters.isLogin
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -26,11 +28,6 @@ const routes = [
     component: MovieDetailView,
   },
   {
-    path: '/addJournal',
-    name: 'createJournal',
-    component: CreateJournalView,
-  },
-  {
     path: '/mypage',
     name: 'myPage',
     component: () => import('../views/MyPageView.vue')
@@ -41,13 +38,26 @@ const routes = [
     component: () => import('../views/InfoView.vue')
   },
   {
+    path: '/addJournal',
+    name: 'createJournal',
+    component: CreateJournalView,
+    beforeEnter(to, from, next){
+      if(isLoggedIn === true){
+        next()
+      } else {
+        alert('글 작성을 위해서 로그인을 해주세요.')
+        next({ name : 'journal' })
+      }
+    }
+  },
+  {
     path: '/journal',
     name: 'journal',
     component: () => import('../views/JournalView.vue')
   },
   {
     path: '/journal/:journal_id',
-    name: 'journal',
+    name: 'journalDetail',
     component: JournalDetailView,
   },
   {

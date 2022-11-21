@@ -4,13 +4,22 @@
       <form id="login-form" @submit.prevent="login" @click.stop='' method="POST">
         <div id="input-div">
           <h4 style="margin-top:10px;">Login</h4>
-          <label for="username">이메일: </label><input type="email" v-model="username"/>
-          <label for="password">비밀번호: </label><input type="password" v-model="password"/>
+          <div class="user-info-box">
+            <label for="username">이메일: </label><input type="email" v-model="username"/>
+          </div>
+          <div class="user-info-box">
+            <label for="password">비밀번호: </label><input type="password" v-model="password"/>
+          </div>
         </div>
-        <input type="submit" value="로그인하기">
+        <button type="submit" class="btn btn-dark">로그인하기</button>
       </form>
-      <div style="margin-top: 4px;">
-        <p>회원이 아니신가요? <router-link @click.native="closeModal" :to="{name: 'signUp'}" >회원가입하러 가기</router-link></p>
+      <div style="padding: 10px 0px;">
+        <p style="margin:0px;">회원이 아니신가요? 
+          <router-link 
+            id="goToSignUp"
+            @click.native="closeModal"
+            :to="{name: 'signUp'}" >회원가입하러 가기</router-link>
+        </p>
       </div>
     </div>
   </div>
@@ -68,13 +77,15 @@ export default {
 
 @media (max-width: 900px) {
   #login-div {
-    width: 500px;
+    width: 400px;
   }
 }
-
+.user-info-box{
+  margin: 0px auto 10px auto;
+}
 #login-div{
   padding-top: 2px;
-  width: 20%;
+  max-width: 300px;
   margin: 20% auto 2% auto;
   height: auto;
   border-radius: 10px;
@@ -92,5 +103,11 @@ export default {
 }
 #login-form input {
   margin: 4px auto;
+}
+#goToSignUp{
+  color: aliceblue;
+}
+#goToSignUp:hover{
+  color: blanchedalmond;
 }
 </style>
