@@ -109,7 +109,34 @@ export default new Vuex.Store({
       .catch((error) => {
         console.log(error)
       })
+    },
+    addJournal(context, data){
+      const formdata = new FormData()
+      formdata.append('title', data.journal_title)
+      formdata.append('content', data.journal_content)
+      formdata.append('poster_path', data.journal_img)
+      formdata.append('movie_title', data.movie_title)
+      formdata.append('watched_at', data.journal_date)
+      const local = localStorage.getItem('vuex')
+      const user = JSON.parse(local)
+      axios({
+        method:'POST',
+        url:`${API_URL}/movies/journal/create/`,
+        headers:{
+          'Content-Type': 'multipart/form-data',
+          'Authorization': `${user}`,
+        },
+        data: formdata,
+      })
+      .then((res) => {
+        console.log(res.data)
+        router.push({name : 'journal_detail', params:{journal_id : data.journal_id}})
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     }
+
   },
   modules: {
     

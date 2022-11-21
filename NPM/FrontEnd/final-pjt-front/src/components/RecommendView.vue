@@ -1,7 +1,7 @@
 <template>
   <div class="recommend">
     <h4 id="recommend-title">user.name님을 위한 추천 영화</h4>
-    <div class="card text-bg-dartk">
+    <div class="card text-bg-dartk" style="position: relative; width: 100%; max-height: 300px;overflow: hidden;border: none;">
         <img src="@/assets/example1.jpeg" class="card-img" alt="...">
         <div style="position:absolute; bottom: 3%; left: 2%; text-align:left;">
             <h5 class="card-title">Movie title</h5>
@@ -32,14 +32,6 @@ export default {
     text-align: initial;
     font-family: "Do Hyeon", sans-serif;
     color: black;
-}
-.card {
-    position: relative;
-    width: 100%;
-    max-height: 300px;
-    overflow: hidden;
-    border: none;
-    /* text-align: start; */
 }
 img {
   max-width: 100%;

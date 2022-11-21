@@ -40,7 +40,7 @@ export default {
       }
     },
     methods: {
-      getMovieDetail(){0
+      getMovieDetail(){
         axios({
           method:'GET',
           url: `${API_URL}/movies/movieList/`+`${this.$route.params.movie_id}`,

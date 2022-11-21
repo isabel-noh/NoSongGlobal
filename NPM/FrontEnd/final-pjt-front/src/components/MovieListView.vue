@@ -42,16 +42,15 @@
             :key="movie?.movie_id">
             <router-link :to="{ name : 'movieDetail', params: { movie_id: movie.movie_id}}">
             <!-- @click="getDetailMovie(movie?.movie_id)"> -->
-            <div class="card h-100">
+            <div class="card h-100" style="border:none;">
                 <figure>
                     <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" class="card-img"/>
                 </figure>
-                <div class="card-img-overlay sticky-bottom" style="bottom: 90px; margin:0px; padding:0px;">
+                <div class="card-img-overlay" style="top: 50%; right: 0px; left: 0px;margin:0px; padding:0px;">
                     <div class="movie-title-and-movie-genre">
                         <h4 style="font-family:'Do Hyeon';" class="card-title">{{movie?.title}}</h4>
                         <!-- 장르 -->
                         <!-- <p class="card-text">{{movie?.genre}}</p> -->
-                        <button class="btn btn-bright" style="margin:0px;">더보기</button>
                     </div>
                     <!-- <p class="card-text">{{movie?.release_date}}</p> -->
                 </div>

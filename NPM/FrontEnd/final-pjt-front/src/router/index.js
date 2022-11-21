@@ -5,6 +5,7 @@ import MovieDetailView from '@/views/MovieDetailView.vue'
 import CreateJournalView from '@/views/CreateJournalView'
 import SignUpView from '@/views/SignUpView.vue'
 import NotFound404View from '@/views/NotFound404View.vue'
+import JournalDetailView from '@/views/JournalDetailView'
 
 Vue.use(VueRouter)
 
@@ -43,6 +44,11 @@ const routes = [
     path: '/journal',
     name: 'journal',
     component: () => import('../views/JournalView.vue')
+  },
+  {
+    path: '/journal/:journal_id',
+    name: 'journal',
+    component: JournalDetailView,
   },
   {
     path: '/404NotFound',
