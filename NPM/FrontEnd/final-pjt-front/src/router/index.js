@@ -1,13 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '@/store'
 import HomeView from '@/views/HomeView.vue'
 import MovieDetailView from '@/views/MovieDetailView.vue'
 import CreateJournalView from '@/views/CreateJournalView'
 import SignUpView from '@/views/SignUpView.vue'
 import NotFound404View from '@/views/NotFound404View.vue'
 import JournalDetailView from '@/views/JournalDetailView'
-
-const isLoggedIn = this.$store.getters.isLogin
 
 Vue.use(VueRouter)
 
@@ -42,6 +41,7 @@ const routes = [
     name: 'createJournal',
     component: CreateJournalView,
     beforeEnter(to, from, next){
+      const isLoggedIn = store.getters.isLogin
       if(isLoggedIn === true){
         next()
       } else {

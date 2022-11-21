@@ -109,9 +109,6 @@ export default {
                 console.log(error)
             })
         },
-        // getDetailMovie(movie_id){
-        //     this.$router.push({name:'movieDetail', param:{movie_id : movie_id}})
-        // }
     },
     created(){
         this.getMovieList()
@@ -121,12 +118,9 @@ export default {
 </script>
 
 <style>
-a {
+h4 {
     text-decoration: none;
     color: transparent;
-}
-a:hover{
-    color: black;
 }
 .card figure img {
   opacity: 1;
@@ -135,5 +129,8 @@ a:hover{
 }
 .card:hover img{
     opacity: .3;
+}
+.card:hover h4{
+    color: black;
 }
 </style>

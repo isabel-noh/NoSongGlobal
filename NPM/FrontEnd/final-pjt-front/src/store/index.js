@@ -75,7 +75,6 @@ export default new Vuex.Store({
       })
     },
     logIn(context, userData) {
-      console.log(userData)
       axios({
         method:'POST',
         url:`${API_URL}/accounts/login/`,
@@ -94,17 +93,21 @@ export default new Vuex.Store({
       
     },
     logOut(context) {
+      const local = localStorage.getItem('vuex')
+      const user = JSON.parse(local)
       axios({
-        method: 'GET',
-        url: `${API_URL}/logout`,
+        method: 'POST',
+        url: `${API_URL}/accounts/logout/`,
+        headers:{
+          'Authorization': `Token ${user.token}`
+        }
       })
-      .then((response) => {
-        console.log(response.data)
+      .then(() => {
         localStorage.removeItem('vuex')
         context.commit('LOG_OUT')
       })
       .catch((error) => {
-        alert('유저정보를 확인해주세요.')
+        alert('로그아웃을 실패하였습니다.')
         console.log(error)
       })
       
@@ -146,8 +149,8 @@ export default new Vuex.Store({
         
       })
       .then((res) => {
-        console.log(res.data)
-        router.push({name : 'journalDetail', params:{journal_id : data.journal_id}})
+        console.log(res)
+        // router.push({name : 'journalDetail', params:{journal_id : data.journal_id}})
       })
       .catch((err) => {
         console.log(err)
