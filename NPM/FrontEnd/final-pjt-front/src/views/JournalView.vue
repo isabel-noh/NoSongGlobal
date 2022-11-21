@@ -1,12 +1,17 @@
 <template>
   <div class="journal">
     <div class="journal-header">
-      <h3>Remember Movie Moment</h3>
+      <div>
+        <h3>Remember Movie Moment</h3>
+
+      </div>
+      <div>
       <button 
         type="button" 
         class="btn btn-dark"
         @click="goAddJournalView"  
       >Add Moment</button>
+      </div>
     </div>
   </div>
 </template>
@@ -27,5 +32,6 @@ export default {
   display: flex;
   justify-content: space-between;
   font-family: 'Do Hyeon';
+  padding: 10px 0px;
 }
 </style>

@@ -32,6 +32,7 @@ export default {
     text-align: initial;
     font-family: "Do Hyeon", sans-serif;
     color: black;
+    padding: 10px 0px;
 }
 img {
   max-width: 100%;

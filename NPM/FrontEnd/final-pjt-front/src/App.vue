@@ -17,13 +17,15 @@
         </a>
         <router-link @click.native="hideSearchBar" :to="{ name : 'journal' }">Journal</router-link> | 
         <!-- user정보에 따라 바뀜 -->
+        <!-- 비로그인 -->
         <button class="btn btn-light" 
         v-if="!isLogin" 
         @click="openModal = !openModal, hideSearchBar()" >Login</button>
+        <!-- 로그인 -->
         <div class="btn-group" v-if="isLogin">
           <!-- 여기 아래 username 들어가야함 -->
           <button 
-          style="fond-family:'Do Hyeon'; font-weight: bold;" type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            style="fond-family:'Do Hyeon'; font-weight: bold;" type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             {{}}
           </button>
           <ul class="dropdown-menu">
@@ -74,6 +76,9 @@ export default {
     logOut(){
       this.$store.dispatch('logOut')
     }
+  },
+  created(){
+    this.isLoggedIn()
   },
   mounted(){
     this.isLoggedIn()

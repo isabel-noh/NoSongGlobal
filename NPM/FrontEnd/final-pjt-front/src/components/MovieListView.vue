@@ -85,7 +85,6 @@ export default {
                 url: `${API_URL}/movies/movieList/`
             })
             .then((response) => {
-                console.log(response.data)
                 this.movieList = response.data
             })
             .catch((error) => {
@@ -104,7 +103,6 @@ export default {
                 }
             })
             .then((response) => {
-                console.log(response.data)
                 this.movieList = response.data
             })
             .catch((error) => {

@@ -24,12 +24,18 @@
             </div>
             <div class="content-div">
                 <label for="journal_content" style="margin-right:10px;">글 내용</label>
-                <div>
+                <div class="form-floating">
+                    <textarea class="form-control" 
+                    v-model="journal_content"
+                    placeholder="공유하고 싶은 내용을 입력해주세요" id="floatingTextarea2" style="height: 100px"></textarea>
+                    <label for="floatingTextarea2">Content</label>
+                </div>
+                <!-- <div>
                     <textarea
                         id="journal_content"
                         v-model="journal_content"
                         placeholder="공유하고 싶은 내용을 입력해주세요"></textarea>
-                </div>
+                </div> -->
             </div>
             <div class="content-div">
                 <label for="setImg" style="margin-right:10px;">이미지: </label>
@@ -104,7 +110,7 @@ export default {
     font-family: 'Do Hyeon';
 }
 .journal-form{
-    max-width: 400px;
+    max-width: 500px;
     margin: 10px auto;
 }
 .content-div{

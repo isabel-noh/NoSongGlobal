@@ -43,6 +43,14 @@ export default new Vuex.Store({
         router.go(router.currentRoute)
       }
     },
+    LOG_OUT(state){
+      state.token = null
+      if(router.currentRoute.name != 'home'){
+        router.push({ name : 'home' })
+      } else {
+        router.go(router.currentRoute)
+      }
+    },
   },
   actions: {
     signUp(context, userData) {
@@ -85,13 +93,21 @@ export default new Vuex.Store({
       })
       
     },
-    logOut() {
-      localStorage.removeItem('vuex')
-      if(router.currentRoute.name != 'home'){
-        router.push({ name : 'home' })
-      } else {
-        router.go(router.currentRoute)
-      }
+    logOut(context) {
+      axios({
+        method: 'GET',
+        url: `${API_URL}/logout`,
+      })
+      .then((response) => {
+        console.log(response.data)
+        localStorage.removeItem('vuex')
+        context.commit('LOG_OUT')
+      })
+      .catch((error) => {
+        alert('유저정보를 확인해주세요.')
+        console.log(error)
+      })
+      
     }
     ,
     search(context, keyword){
@@ -103,7 +119,6 @@ export default new Vuex.Store({
         }
       })
       .then((response) => {
-        console.log(response.data)
         context.commit('SEARCH_RESULT', response.data)
       })
       .catch((error) => {
@@ -124,13 +139,13 @@ export default new Vuex.Store({
         url:`${API_URL}/movies/journal/create/`,
         headers:{
           'Content-Type': 'multipart/form-data',
-          'Authorization': `${user}`,
+          'Authorization': `Token ${user.token}`,
         },
         data: formdata,
       })
       .then((res) => {
         console.log(res.data)
-        router.push({name : 'journal_detail', params:{journal_id : data.journal_id}})
+        router.push({name : 'journalDetail', params:{journal_id : data.journal_id}})
       })
       .catch((err) => {
         console.log(err)
