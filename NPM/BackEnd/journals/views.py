@@ -12,34 +12,37 @@ from .serializers import JournalListSerializer, JournalSerializer, CommentSerial
 # Create your views here.
 
 
-# 전체 저널 목록 제공 & 저널 생성
+# 전체 저널 목록 제공
 @api_view(['GET'])
 # @permission_classes([IsAuthenticated])
-def all(request):
+def journals_all(request):
     # journals = Journal.objects.all()
     journals = get_list_or_404(Journal)
     serializer = JournalListSerializer(journals, many=True)
     return Response(serializer.data)
     
 
-
+# 새로운 저널 생성
 @api_view(['POST'])
+@login_required
 # @permission_classes([IsAuthenticated])
-def create(request):
-    # request.method == 'POST':
-    serializer = JournalSerializer(data=request.data)
-    if serializer.is_valid(raise_exception=True):
-        serializer.save(user=request.user)
-        data = {
-            'Create' : '게시글이 작성되었습니다.'
-        }
-        return Response(data, serializer.data, status=status.HTTP_201_CREATED)
-    
+def journals_create(request):
+    data = request.data
+    photo = request.FILES
+    print(request.FILES)
+    print(photo['journal_image'])
+    # 각 값을 journal model field에 맞게 저장
+    journal = Journal(user=request.user, title= data['title'], content = data['content'], movie_title = data['movie_title'], journal_image = photo['journal_image'], watched_at=data['watched_at'])
+    journal.save()
+    journal = Journal.objects.get(pk=journal.id)
+    serializer = JournalSerializer(journal)
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
+  
     
 
 # 단일 저널 정보 제공 (정보 요청 정보에 따라 수정, 삭제 실행)
 @api_view(['GET', 'PUT', 'DELETE'])
-def detail(request, journal_id):
+def journal_detail(request, journal_id):
     # journal = Journal.objects.get(pk=journal_pk)
     journal = get_object_or_404(Journal, pk=journal_id)
 
@@ -55,15 +58,12 @@ def detail(request, journal_id):
 
     elif request.method == 'DELETE':
         journal.delete()
-        data = {
-            'Delete' : f'{journal_id}번째 게시글이 삭제되었습니다.'
-        }
-        return Response(data, status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 # 댓글 생성
 @api_view(['POST'])
-def create_comment(request, journal_id):
+def journal_comment_create(request, journal_id):
     # journal = Journal.objects.get(pk=journal_id)
     journal = get_object_or_404(Journal, pk=journal_id)
     serializer = CommentSerializer(data=request.data)
@@ -76,7 +76,7 @@ def create_comment(request, journal_id):
 # 좋아요
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def like(request, journal_id):
+def journal_like(request, journal_id):
     if request.user.is_authenticated:
         journal = get_object_or_404(Journal, pk=journal_id)
         user = request.user

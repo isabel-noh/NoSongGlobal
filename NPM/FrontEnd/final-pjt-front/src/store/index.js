@@ -139,7 +139,7 @@ export default new Vuex.Store({
       const user = JSON.parse(local)
       axios({
         method:'POST',
-        url:`${API_URL}/movies/journal/create/`,
+        url:`${API_URL}/journal/create/`,
         headers:{
           'Content-Type': 'multipart/form-data',
           'Authorization': `Token ${user.token}`,
@@ -150,7 +150,7 @@ export default new Vuex.Store({
       })
       .then((res) => {
         console.log(res)
-        // router.push({name : 'journalDetail', params:{journal_id : data.journal_id}})
+        router.push({name : 'journalDetail', params:{journal_id : data.journal_id}})
       })
       .catch((err) => {
         console.log(err)
