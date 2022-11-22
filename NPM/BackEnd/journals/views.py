@@ -33,8 +33,6 @@ def journals_create(request):
     # print(request.FILES)
     # print(photo['journal_image'])
     # 각 값을 journal model field에 맞게 저장
-    # print(f"photo['journal_image'] : {photo['journal_image']}")
-    # print(f"photo['journal_image'] : {type(photo['journal_image'])}")
 
 
     journal = Journal(user=request.user, title= data['title'], content = data['content'], 

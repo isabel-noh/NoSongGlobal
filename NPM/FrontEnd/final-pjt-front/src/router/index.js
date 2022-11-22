@@ -22,7 +22,7 @@ const routes = [
     component: SignUpView
   },
   {
-    path: '/movie/:movie_id/',
+    path: '/movie/:movie_id',
     name: 'movieDetail',
     component: MovieDetailView,
   },
@@ -60,12 +60,12 @@ const routes = [
     }
   },
   {
-    path: '/journals/',
+    path: '/journals',
     name: 'journal',
     component: () => import('../views/JournalView.vue')
   },
   {
-    path: '/journals/:journal_pk/detail/',
+    path: '/journals/:journal_id',
     name: 'journalDetail',
     component: JournalDetailView,
   },
