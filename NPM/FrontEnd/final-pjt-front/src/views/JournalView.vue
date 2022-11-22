@@ -13,10 +13,14 @@
     </div>
     <div>
       <div style="display:flex; margin-bottom: 20px;">
-        <button class="btn btn-bright"
-          style="font-family: 'Do Hyeon';">최신순</button>
-        <button class="btn btn-bright"
-          style="font-family: 'Do Hyeon';">인기순</button>
+        <button 
+          class="btn btn-bright"
+          style="font-family: 'Do Hyeon'"
+          @click="getListNewest">최신순</button>
+        <button 
+          style="font-family: 'Do Hyeon'"
+          class="btn btn-bright"
+          @click="getListPopluar">인기순</button>
       </div>
     </div>
     <div class="journal-lists">
@@ -77,10 +81,19 @@ export default {
           console.log(error)
         })
       },
+      getListNewest(){
+        // const new_journal_list = this.journalList.sort((a, b) => b.pk - a.pk)
+        // console.log(new_journal_list)
+        this.journalList = this.journalList.sort((a, b) => b.pk - a.pk)
+      },
+      getListPopluar(){
+
+      },
       goToDetailPage(id){
         console.log(id)
         this.$router.push({name : 'journalDetail', params:{journal_id :id}})
-      }
+      },
+      
     },
     
     computed:{
@@ -97,6 +110,9 @@ export default {
     },
     created(){
       this.getJournalAll()
+    },
+    updated(){
+
     }
 }
 </script>
