@@ -126,7 +126,7 @@ export default {
                 }
             }).
             then((response) => {
-                localStorage.setItem('key', response.data.key)
+                localStorage.setItem('token', response.data.key)
             }).
             catch((error) => {
                 console.log(error)
@@ -140,16 +140,36 @@ export default {
             const profile_image = this.profile_image;
             const like_ost_genre = this.like_ost_genre;
 
-            const payload = {
-                name : name,
-                nickname : nickname,
-                profile_image : profile_image,
-                like_ost_genre : like_ost_genre,
-            }
-
+            
             if (!this.name.trim) {
                 alert('성함을 입력해주세요.')
             }
+            if (!this.nickname.trim) {
+                alert('닉네임을 입력해주세요.')
+            }
+            const formdata = new FormData()
+            formdata.append('name', name)
+            formdata.append('nickname', nickname)
+            formdata.append('profile_image', profile_image)
+            formdata.append('like_ost_genre', like_ost_genre)
+            
+            const user = localStorage.getItem('token')
+            axios({
+                method: 'POST',
+                url: `${API_URL}/useraddfields/`,
+                headers:{
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization' : `Token ${user}`,
+                },
+                data: formdata,
+            }).
+            then(() => {
+                localStorage.removeItem('token')
+                this.$router.push({ name : 'home' })
+            }).
+            catch((error) => {
+                console.log(error)
+            })
 
         },
         // 3개 이상 클릭하면 alert뜨고 전 선택 취소되게 하기
