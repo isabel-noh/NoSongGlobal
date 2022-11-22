@@ -22,12 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('dj_rest_auth.urls')),
     path('accounts/signup/', include('dj_rest_auth.registration.urls')),
-<<<<<<< HEAD
-    path('', include('movies.urls')),
-=======
     path('useraddfields/', include('accounts.urls')),
     path('movies/', include('movies.urls')),
     path('journals/', include('journals.urls')),
->>>>>>> f262dfed094e1ba1ea1b517ad974b59a0dac55ad
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # TODO: media FIle path
