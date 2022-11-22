@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('journals', '0006_alter_journal_journal_image'),
+        ('journals', '0001_initial'),
     ]
 
     operations = [

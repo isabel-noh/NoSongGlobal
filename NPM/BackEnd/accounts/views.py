@@ -12,8 +12,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 
-from .models import User
-from .serializers import UserAddFieldSerializer
+from .models import User, UserAddField
+from .serializers import UserAddFieldSerializer, UserSerializer
 
 # # Create your views here.
 @api_view(['POST'])
@@ -31,9 +31,19 @@ def addfields(request):
 
 @api_view(['GET'])
 def mypage(request):
-    print(request.data)
-    return Response
-
+    # print(request.user) # username (email)
+    # print(request.auth) # 사용자 토큰
+    user = get_object_or_404(User, username=request.user)
+    add = get_object_or_404(UserAddField, user=user.id)
+    serializer_user = UserSerializer(user)
+    serializer_add = UserAddFieldSerializer(add)
+    # print(serializer_user.data) -> 로그인한 사람의 기본 정보
+    # print(serializer_add.data) -> 로그인한 사람의 추가 정보
+    context = {
+        'serializer_user': serializer_user.data,
+        'serializer_add': serializer_add.data,
+    }
+    return Response(context)
 
 #     # client로부터 온 데이터에서 비밀번호 갖고오기
 #     password_1 = request.data.get('password1')
