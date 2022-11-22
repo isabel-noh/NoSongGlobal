@@ -24,9 +24,21 @@
         <!-- 로그인 -->
         <div class="btn-group" v-if="isLogin">
           <!-- 여기 아래 username 들어가야함 -->
-          <button 
-            style="fond-family:'Do Hyeon'; font-weight: bold;" type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            {{}}
+          <button
+            v-if="nickname" 
+            type="button" 
+            class="btn btn-light dropdown-toggle" 
+            style="font-family:'Do Hyeon'; font-weight: bold;" 
+            data-bs-toggle="dropdown" aria-expanded="false">
+            {{nickname}}
+          </button>
+          <button
+            v-if="!nickname" 
+            type="button" 
+            class="btn btn-light dropdown-toggle" 
+            style="font-family:'Do Hyeon'; font-weight: bold;" 
+            data-bs-toggle="dropdown" aria-expanded="false">
+            사용자님
           </button>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" @click="logOut">sign out</a></li>
@@ -79,6 +91,7 @@ export default {
   },
   created(){
     this.isLoggedIn()
+    this.$store.dispatch('loadMovieData')
   },
   mounted(){
     this.isLoggedIn()

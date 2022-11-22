@@ -60,12 +60,12 @@ const routes = [
     }
   },
   {
-    path: '/journal',
+    path: '/journals',
     name: 'journal',
     component: () => import('../views/JournalView.vue')
   },
   {
-    path: '/journal/:journal_id',
+    path: '/journals/:journal_id',
     name: 'journalDetail',
     component: JournalDetailView,
   },

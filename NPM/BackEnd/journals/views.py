@@ -29,14 +29,18 @@ def journals_all(request):
 # @permission_classes([IsAuthenticated])
 def journals_create(request):
     data = request.data
-    photo = request.FILES
-    print(request.FILES)
-    print(photo['journal_image'])
+    # photo = request.FILES
+    # print(request.FILES)
+    # print(photo['journal_image'])
     # 각 값을 journal model field에 맞게 저장
-    journal = Journal(user=request.user, title= data['title'], content = data['content'], movie_title = data['movie_title'], journal_image = photo['journal_image'], watched_at=data['watched_at'])
+
+
+    journal = Journal(user=request.user, title= data['title'], content = data['content'], 
+    movie_title = data['movie_title'], journal_image = request.FILES.get('journal_image'), watched_at=data['watched_at'])
     journal.save()
-    journal = Journal.objects.get(pk=journal.id)
-    serializer = JournalSerializer(journal)
+    # print(journal)
+    journal = Journal.objects.get(pk=journal.pk)
+    serializer = JournalSerializer(journal, context={"request": request})
     return Response(serializer.data, status=status.HTTP_201_CREATED)
   
     
@@ -64,9 +68,9 @@ def journal_detail(request, journal_pk):
 
 # 댓글 생성
 @api_view(['POST'])
-def journal_comment_create(request, journal_id):
+def journal_comment_create(request, journal_pk):
     # journal = Journal.objects.get(pk=journal_id)
-    journal = get_object_or_404(Journal, pk=journal_id)
+    journal = get_object_or_404(Journal, pk=journal_pk)
     serializer = CommentSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(journal=journal)
@@ -77,9 +81,9 @@ def journal_comment_create(request, journal_id):
 # 좋아요
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def journal_like(request, journal_id):
+def journal_like(request, journal_pk):
     if request.user.is_authenticated:
-        journal = get_object_or_404(Journal, pk=journal_id)
+        journal = get_object_or_404(Journal, pk=journal_pk)
         user = request.user
 
         if journal.like_users.filter(pk=user.pk).exists():

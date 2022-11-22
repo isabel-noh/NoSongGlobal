@@ -3,12 +3,16 @@
     <div id="login-div">
       <form id="login-form" @submit.prevent="login" @click.stop=''>
         <div id="input-div">
-          <h4 style="margin-top:10px;">Login</h4>
+          <h4 style="margin-top:10px; color: whitesmoke;">Login</h4>
           <div class="user-info-box">
-            <label for="username">이메일: </label><input type="email" v-model="username"/>
+            <label for="username" style="margin-right: 8px;">이메일: </label>
+            <input type="email" v-model="username"
+              style="padding-left: 8px;"/>
           </div>
           <div class="user-info-box">
-            <label for="password">비밀번호: </label><input type="password" v-model="password"/>
+            <label for="password" style="margin-right: 8px;">비밀번호: </label>
+            <input type="password" v-model="password"
+              style="padding-left: 8px;"/>
           </div>
         </div>
         <button type="submit" class="btn btn-dark">로그인하기</button>

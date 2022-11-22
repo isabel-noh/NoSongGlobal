@@ -4,5 +4,6 @@ from . import views
 app_name = 'accounts'
 
 urlpatterns = [
-    path('addfields/', views.addfields),
+    path('', views.addfields),
+    path('mypage/', views.mypage),
 ]

@@ -17,12 +17,16 @@ export default new Vuex.Store({
     token: null,
     nickname: null,
     movieList: [],
+    searchList: [],
     soundtrackList: [],
   },
   getters: {
     isLogin(state) {
       return state.token ? true : false
     },
+    movieList(state) {
+      return state.movieList
+    }
 
   },
   mutations: {
@@ -36,7 +40,7 @@ export default new Vuex.Store({
       }
     }, 
     SEARCH_RESULT(state, data){
-      state.movieList = data
+      state.searchList = data
       if(router.currentRoute.name != 'home'){
         router.push({ name : 'home' })
       } else {
@@ -51,29 +55,13 @@ export default new Vuex.Store({
         router.go(router.currentRoute)
       }
     },
+    SET_MOVIE_LIST(state, data){
+      state.movieList = data
+    },
   },
   actions: {
-    signUp(context, userData) {
-      axios({
-        method: 'POST',
-        url: `${API_URL}/accounts/signup/`,
-        data: {
-          username: userData.email,
-          name: userData.name,
-          nickname: userData.nickname,
-          email: userData.email,
-          password1: userData.password1,
-          password2: userData.password2,
-          preferMusicGenre: userData.preferMusicGenre
-        }
-      }).
-      then(() => {
-        router.push({ name: 'home'})
-      }).
-      catch((error) => {
-        console.log(error)
-      })
-    },
+    
+
     logIn(context, userData) {
       axios({
         method:'POST',
@@ -90,8 +78,8 @@ export default new Vuex.Store({
         alert('유저정보를 확인해주세요.')
         console.log(error)
       })
-      
     },
+
     logOut(context) {
       const local = localStorage.getItem('vuex')
       const user = JSON.parse(local)
@@ -116,7 +104,7 @@ export default new Vuex.Store({
     search(context, keyword){
       axios({
         method: 'GET',
-        url: `${API_URL}/movieList`,
+        url: `${API_URL}/movies/movieList`,
         params:{
           keyword:keyword
         }
@@ -128,15 +116,17 @@ export default new Vuex.Store({
         console.log(error)
       })
     },
+
     addJournal(context, data){
       const formdata = new FormData()
       formdata.append('title', data.journal_title)
       formdata.append('content', data.journal_content)
-      formdata.append('journal_image', data.journal_img)
       formdata.append('movie_title', data.movie_title)
       formdata.append('watched_at', data.journal_date)
+      formdata.append('journal_image', data.journal_img)
       const local = localStorage.getItem('vuex')
       const user = JSON.parse(local)
+
       axios({
         method:'POST',
         url:`${API_URL}/journals/create/`,
@@ -146,7 +136,6 @@ export default new Vuex.Store({
         },
         data: 
           formdata,
-        
       })
       .then((res) => {
         console.log(res.data)
@@ -155,8 +144,20 @@ export default new Vuex.Store({
       .catch((err) => {
         console.log(err)
       })
+    },
+    // TODO 영화 데이터 가져오기
+    loadMovieData(context) {
+      axios({
+        method:'GET',
+        url: `${API_URL}/movies/get_movie_data/`
+      })
+      .then((response) => {
+        context.commit('SET_MOVIE_LIST', response.data)
+      })
+      .catch((error) => {
+          console.log(error)
+      })
     }
-
   },
   modules: {
     
