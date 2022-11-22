@@ -11,7 +11,6 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 
 # from .api import movies_json
-
 from .models import Movie, Genre
 from .serializers import MovieListSerializer, MovieSerializer
 
