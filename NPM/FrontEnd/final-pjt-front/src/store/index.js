@@ -114,10 +114,9 @@ export default new Vuex.Store({
       const formdata = new FormData()
       formdata.append('title', data.journal_title)
       formdata.append('content', data.journal_content)
-      formdata.append('journal_image', data.journal_img)
       formdata.append('movie_title', data.movie_title)
       formdata.append('watched_at', data.journal_date)
-
+      formdata.append('journal_image', data.journal_img)
       const local = localStorage.getItem('vuex')
       const user = JSON.parse(local)
 
