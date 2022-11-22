@@ -1,10 +1,11 @@
 <template>
   <div class="JournalDetailView">
     <h1 id="journal-title-h1">Remember Movie Moment</h1>
-    <div style="max-height:300px; box-sizing:content-box; overflow:hidden;">
+    <div style="max-height:300px; box-sizing:content-box; overflow:hidden; margin-bottom: 10px;">
         <img
             v-if="journal?.journal_image" 
-            :src="url_formatting" style="border-radius: 0px; ">
+            :src="url_formatting" 
+            style="border-radius:0px; ">
     </div>
     <div class="youtube_music_player"></div>
     <div class="journal_content">

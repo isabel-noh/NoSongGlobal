@@ -17,12 +17,16 @@ export default new Vuex.Store({
     token: null,
     nickname: null,
     movieList: [],
+    searchList: [],
     soundtrackList: [],
   },
   getters: {
     isLogin(state) {
       return state.token ? true : false
     },
+    movieList(state) {
+      return state.movieList
+    }
 
   },
   mutations: {
@@ -36,7 +40,7 @@ export default new Vuex.Store({
       }
     }, 
     SEARCH_RESULT(state, data){
-      state.movieList = data
+      state.searchList = data
       if(router.currentRoute.name != 'home'){
         router.push({ name : 'home' })
       } else {
@@ -50,6 +54,9 @@ export default new Vuex.Store({
       } else {
         router.go(router.currentRoute)
       }
+    },
+    SET_MOVIE_LIST(state, data){
+      state.movieList = data
     },
   },
   actions: {
@@ -137,8 +144,20 @@ export default new Vuex.Store({
       .catch((err) => {
         console.log(err)
       })
+    },
+    // TODO 영화 데이터 가져오기
+    loadMovieData(context) {
+      axios({
+        method:'GET',
+        url: `${API_URL}/movies/get_movie_data/`
+      })
+      .then((response) => {
+        context.commit('SET_MOVIE_LIST', response.data)
+      })
+      .catch((error) => {
+          console.log(error)
+      })
     }
-
   },
   modules: {
     
