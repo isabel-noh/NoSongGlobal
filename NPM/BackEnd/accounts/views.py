@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model
 # from django.views.decorators.http import require_POST, require_http_methods
 # from django.http import JsonResponse
 # from rest_framework.authtoken.models import Token
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
@@ -15,13 +16,17 @@ from .models import User
 from .serializers import UserAddFieldSerializer
 
 # # Create your views here.
-
+@api_view(['POST'])
+@csrf_exempt
 def addfields(request):
-    user = get_object_or_404(get_user_model(), username=request.user)
-    serializer = UserAddFieldSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save(user=user)
-        return Response('우승')
+    if request.method == 'POST':
+        user = get_object_or_404(get_user_model(), username=request.user)
+        serializer = UserAddFieldSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=user)
+            print(serializer)
+            return Response('우승')
+        return Response('not valid')
 
 
 #     # client로부터 온 데이터에서 비밀번호 갖고오기

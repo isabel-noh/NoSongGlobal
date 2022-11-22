@@ -9,7 +9,7 @@ class JournalListSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Journal
-        fields = ('title', 'journal_pk', 'movie_title', 'watched_at',)
+        fields = ('title', 'pk', 'movie_title', 'watched_at',)
         # read_only_fields = ('username', )
 
 
