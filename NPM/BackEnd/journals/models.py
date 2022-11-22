@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+# from movies.models import Movie
 
 
 # Create your models here.
@@ -8,9 +9,8 @@ class Journal(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    # movie_id = models.IntegerField()
     movie_title = models.CharField(max_length=100)
-    poster_path = models.models.FileField(upload_to=None, max_length=100)(max_length=300, blank=True, null=True)
+    journal_image = models.FileField(upload_to=None, max_length=100, blank=True, null=True)
     watched_at = models.DateField()
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)

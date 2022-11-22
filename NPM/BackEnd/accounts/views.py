@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 # from django.contrib.auth import login as auth_login
 # from django.contrib.auth import logout as auth_logout
-# from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model
 # from django.contrib.auth.forms import AuthenticationForm
 # from django.contrib.auth.decorators import login_required
 # from django.views.decorators.http import require_POST, require_http_methods
@@ -12,15 +12,17 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 
 from .models import User
-# from .serializers import UserSerializer
+from .serializers import UserAddFieldSerializer
 
 # # Create your views here.
-@api_view(['POST'])
-def signup(request):
-    data = request.data
-    print(data)
-    user_data = User()
-    return Response(status=status.HTTP_201_CREATED)
+
+def addfields(request):
+    user = get_object_or_404(get_user_model(), username=request.user)
+    serializer = UserAddFieldSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(user=user)
+        return Response('우승')
+
 
 #     # client로부터 온 데이터에서 비밀번호 갖고오기
 #     password_1 = request.data.get('password1')

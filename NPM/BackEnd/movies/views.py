@@ -127,7 +127,7 @@ def movie_detail(request, movie_pk):
 
 
 
-
+'''
 # 저널 부분
 
 
@@ -174,12 +174,17 @@ def create(request):
 @api_view(['GET', 'PUT', 'DELETE'])
 def detail(request, journal_pk):
     # journal = Journal.objects.get(pk=journal_pk)
+<<<<<<< HEAD
     print(request, journal_pk)
+=======
+>>>>>>> f262dfed094e1ba1ea1b517ad974b59a0dac55ad
     journal = get_object_or_404(Journal, pk=journal_pk)
 
     if request.method == 'GET':
         serializer = JournalSerializer(journal)
         # 업로드한 사진이 있으면 그걸 보여주고 없으면 포스터 보여주기
+        # if serializer.journal_image == null:
+
         return Response(serializer.data)
 
     elif request.method == 'PUT':
@@ -228,3 +233,4 @@ def like(request, journal_id):
             'like_count': like_count,
         }
         return Response(context)
+'''
