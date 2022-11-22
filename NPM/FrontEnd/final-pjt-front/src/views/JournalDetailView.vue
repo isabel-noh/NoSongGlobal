@@ -36,17 +36,7 @@ export default {
         return{
             // journal: null,
             // 가라 데이터
-            journal: {
-                journal_id: 1,
-                title: '바보야',
-                content: '나는 바보인 것이다',
-                watched_at: '2022-01-22',
-                movie_title: '아바타',
-                poster_path: 'https://image.tmdb.org/t/p/w500//zygmx5abXeDpr3fWYX4jlXFZ1wh.jpg',
-                comment_set:[],
-                comment_cnt:0,
-                like_cnt:0,
-            },
+            journal: null,
             added_comment: null,
             commentList:[],
         }

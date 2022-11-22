@@ -41,7 +41,9 @@
                     <input
                         @change="encodeFileToBase64"
                         ref="profile_img"
-                        type="file" style="margin:20px auto; display: none;"/>
+                        type="file" 
+                        style="margin:20px auto; display: none; 
+                        color: transparent; text-shadow: 0 0 0 #2196f3;"/>
                 </div>
                 <p>
                     <label for="name">성함: </label>  

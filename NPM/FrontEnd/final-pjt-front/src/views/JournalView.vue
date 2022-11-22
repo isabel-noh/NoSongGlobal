@@ -63,6 +63,16 @@ export default {
         })
       },
     },
+    computed:{
+      url_formatting: function(){
+        const new_journaList = []
+        for (const j of this.journalList){
+          j.journal_image = 'http//localhost:8000' + j.journal_image
+          new_journaList.push(j)
+        }
+        return new_journaList
+      }
+    },
     created(){
       this.getJournalAll()
     }
