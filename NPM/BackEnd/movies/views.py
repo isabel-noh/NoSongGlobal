@@ -174,6 +174,7 @@ def create(request):
 @api_view(['GET', 'PUT', 'DELETE'])
 def detail(request, journal_pk):
     # journal = Journal.objects.get(pk=journal_pk)
+
     journal = get_object_or_404(Journal, pk=journal_pk)
 
     if request.method == 'GET':

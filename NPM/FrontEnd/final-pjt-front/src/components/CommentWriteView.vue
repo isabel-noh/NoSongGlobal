@@ -37,12 +37,9 @@ export default {
             }
             axios({
                 method: 'POST',
-                url: `${API_URL}/journal/comment/create`,
+                url: `${API_URL}/journals/${this?.journal_id}/comment/create`,
                 headers:{
                     'Authorization': `${user.token}`
-                },
-                params: {
-                    journal_id:this?.journal_id,
                 },
                 data: payload,
             })

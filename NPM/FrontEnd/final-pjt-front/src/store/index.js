@@ -150,7 +150,7 @@ export default new Vuex.Store({
       })
       .then((res) => {
         console.log(res.data)
-        router.push({name : 'journalDetail', params:{journal_id : data.journal_id}})
+        router.push({name : 'journalDetail', params:{journal_id : res.data.id}})
       })
       .catch((err) => {
         console.log(err)
