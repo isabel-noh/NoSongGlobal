@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from django.contrib.auth.decorators import login_required
 
 from .models import Journal, Comment
 from .serializers import JournalListSerializer, JournalSerializer, CommentSerializer
@@ -42,9 +43,9 @@ def journals_create(request):
 
 # 단일 저널 정보 제공 (정보 요청 정보에 따라 수정, 삭제 실행)
 @api_view(['GET', 'PUT', 'DELETE'])
-def journal_detail(request, journal_id):
+def journal_detail(request, journal_pk):
     # journal = Journal.objects.get(pk=journal_pk)
-    journal = get_object_or_404(Journal, pk=journal_id)
+    journal = get_object_or_404(Journal, pk=journal_pk)
 
     if request.method == 'GET':
         serializer = JournalSerializer(journal)

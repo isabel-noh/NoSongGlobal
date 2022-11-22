@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Movie, Genre, Journal, Comment
+from .models import Movie, Genre
 
 
 # 전체 영화 목록 

@@ -11,8 +11,8 @@ from django.contrib.auth.decorators import login_required
 
 # from .api import movies_json
 
-from .models import Movie, Journal, Comment
-from .serializers import MovieListSerializer, MovieSerializer, JournalListSerializer, JournalSerializer, CommentSerializer
+from .models import Movie
+from .serializers import MovieListSerializer, MovieSerializer
 
 
 # Authentication Decorators
@@ -174,10 +174,7 @@ def create(request):
 @api_view(['GET', 'PUT', 'DELETE'])
 def detail(request, journal_pk):
     # journal = Journal.objects.get(pk=journal_pk)
-<<<<<<< HEAD
-    print(request, journal_pk)
-=======
->>>>>>> f262dfed094e1ba1ea1b517ad974b59a0dac55ad
+
     journal = get_object_or_404(Journal, pk=journal_pk)
 
     if request.method == 'GET':
