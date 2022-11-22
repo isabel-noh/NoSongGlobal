@@ -8,6 +8,7 @@ class MovieListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = '__all__'
+        read_only_fields = ('genre',)
 
 
 # 전체 장르 목록
@@ -16,6 +17,7 @@ class GenreListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
         fields = '__all__'
+        
 
 
 # 단일 영화 정보 제공 

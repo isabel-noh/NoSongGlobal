@@ -63,56 +63,45 @@
 </template>
 
 <script>
-import axios from 'axios'
-
-const API_URL = 'http://127.0.0.1:8000'
-
 export default {
     name:'MovieListView',
     data(){
         return {
-            movieList:[],
             selected_genre: "0",
             sorted_option: "0",
+            movieList: [],
         }
     },
     
     methods:{
-        //영화 전체 리스트 가져오기
+        // TODO 영화 전체 리스트 가져오기
         getMovieList(){
-            axios({
-                method:'GET',
-                url: `${API_URL}/movies/`
-            })
-            .then((response) => {
-                this.movieList = response.data
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+          this.$store.dispatch('loadMovieData')
+          // console.log(this.$store.state.movieList)
         },
         //영화 장르별/정렬 리스트 가져오기
         getFilteredMovies(){
-            console.log(this.selected_genre, this.sorted_option)
-            axios({
-                method:'GET',
-                url: `${API_URL}/movieList`,
-                params: {
-                    genre_id:this.selected_genre,
-                    sort_criteria: this.sorted_option
-                }
-            })
-            .then((response) => {
-                this.movieList = response.data
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+          console.log(this.selected_genre, this.sorted_option)
+          // console.log(this.movieList[-])
+          // for (const movie in movieList) {
+          //   this.sear
+          // }
         },
     },
     created(){
+      // TODO 페이지 생성 시 영화 데이터 가져오기
         this.getMovieList()
+        for (const idx in this.movieData) {
+          console.log(this.movieData[idx]) 
+          this.movieList.push(this.movieData[idx])
+        }
     },
+    computed: {
+      // TODO 영화 데이터 state에서 getters로 가져오기
+      movieData() {
+        return this.$store.getters.movieList
+      }
+    }
 
 }
 </script>

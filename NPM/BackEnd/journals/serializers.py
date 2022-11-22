@@ -11,9 +11,6 @@ class JournalListSerializer(serializers.ModelSerializer):
         model = Journal
         fields = ('title', 'pk', 'movie_title', 'watched_at', 'journal_image',)
 
-
-
-
 # 해당 저널의 댓글 목록 제공
 class CommentSerializer(serializers.ModelSerializer):
 
