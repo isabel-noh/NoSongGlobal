@@ -141,7 +141,7 @@ export default {
             const nickname = this.nickname;
             const profile_image = this.profile_image;
             const like_ost_genre = this.like_ost_genre;
-            
+
             
             if (!this.name.trim) {
                 alert('성함을 입력해주세요.')
