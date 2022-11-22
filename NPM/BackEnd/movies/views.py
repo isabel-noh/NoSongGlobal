@@ -83,8 +83,8 @@ def get_movie_data(request):
     movie_data = {}
     idx = 1
     for movie in movies:
-        genre_id = [genre.id for genre in get_object_or_404(Movie, id=movie.id).genre.all()]
-        genre_text = [get_object_or_404(Genre, id=id).genre_name for id in genre_id]
+        genre_id = [genre.genre_id for genre in get_object_or_404(Movie, id=movie.id).genre.all()]
+        genre_text = [get_object_or_404(Genre, genre_id=id).genre_name for id in genre_id]
         movie_data[idx] = {
             'id' : movie.id,
             'title' : movie.title,
