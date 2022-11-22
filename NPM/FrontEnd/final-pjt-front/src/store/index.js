@@ -53,27 +53,8 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    signUp(context, userData) {
-      axios({
-        method: 'POST',
-        url: `${API_URL}/accounts/signup/`,
-        data: {
-          username: userData.email,
-          name: userData.name,
-          nickname: userData.nickname,
-          email: userData.email,
-          password1: userData.password1,
-          password2: userData.password2,
-          preferMusicGenre: userData.preferMusicGenre
-        }
-      }).
-      then(() => {
-        router.push({ name: 'home'})
-      }).
-      catch((error) => {
-        console.log(error)
-      })
-    },
+    
+
     logIn(context, userData) {
       axios({
         method:'POST',
@@ -90,8 +71,8 @@ export default new Vuex.Store({
         alert('유저정보를 확인해주세요.')
         console.log(error)
       })
-      
     },
+
     logOut(context) {
       const local = localStorage.getItem('vuex')
       const user = JSON.parse(local)

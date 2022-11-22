@@ -1,3 +1,4 @@
+color: black;
 <template>
   <div class="create-journal-view">
     <h2>Add My Movie Moment</h2>
