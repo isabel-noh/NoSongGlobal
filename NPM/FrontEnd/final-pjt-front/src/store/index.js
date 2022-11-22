@@ -26,7 +26,6 @@ export default new Vuex.Store({
     },
     movieList(state) {
       return state.movieList
-      
     }
 
   },
@@ -55,6 +54,9 @@ export default new Vuex.Store({
       } else {
         router.go(router.currentRoute)
       }
+    },
+    SET_MOVIE_LIST(state, data){
+      state.movieList = data
     },
   },
   actions: {
@@ -150,8 +152,7 @@ export default new Vuex.Store({
         url: `${API_URL}/movies/get_movie_data/`
       })
       .then((response) => {
-        console.log(response)
-          context.state.movieList = response.data
+        context.commit('SET_MOVIE_LIST', response.data)
       })
       .catch((error) => {
           console.log(error)

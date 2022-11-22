@@ -36,7 +36,7 @@
                 style="width: 100%; height: 100px; padding: 10px;"></div>
               <img
                 v-if="journal?.journal_image"
-                :src="journal?.journal_image" class="card-img-top" style="padding:10px;">
+                :src= "journal?.journal_image" class="card-img-top" style="padding:10px;">
               <div class="card-body">
                 <h5 class="card-title">{{journal.title}}</h5>
                 <p class="card-text">{{journal.movie_title}}</p>
@@ -75,15 +75,20 @@ export default {
         })
         .then((response) => {
           console.log(response.data)
-          this.journalList = response.data
+          const new_journaList = []
+          for (const j of response.data){
+            if(j.journal_image !== null){
+              j.journal_image = 'http://localhost:8000' + j.journal_image
+            }
+            new_journaList.push(j)
+          }
+          return new_journaList
         })
         .catch((error) => {
           console.log(error)
         })
       },
       getListNewest(){
-        // const new_journal_list = this.journalList.sort((a, b) => b.pk - a.pk)
-        // console.log(new_journal_list)
         this.journalList = this.journalList.sort((a, b) => b.pk - a.pk)
       },
       getListPopluar(){

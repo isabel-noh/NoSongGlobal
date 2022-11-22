@@ -99,6 +99,7 @@ export default {
     computed: {
       // TODO 영화 데이터 state에서 getters로 가져오기
       movieData() {
+        console.log(this.$store.getters.movieList)
         return this.$store.getters.movieList
       }
     }
