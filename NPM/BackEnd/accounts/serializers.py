@@ -14,4 +14,4 @@ class UserAddFieldSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserAddField
-        fields = ()
+        fields = '__all__'

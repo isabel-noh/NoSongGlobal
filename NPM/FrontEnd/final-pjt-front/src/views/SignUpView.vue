@@ -141,10 +141,10 @@ export default {
             const like_ost_genre = this.like_ost_genre;
 
             const payload = {
-                const name = this.name;
-                const nickname = this.nickname;
-                const profile_image = this.profile_image;
-                const like_ost_genre = this.like_ost_genre;
+                name : name,
+                nickname : nickname,
+                profile_image : profile_image,
+                like_ost_genre : like_ost_genre,
             }
 
             if (!this.name.trim) {
