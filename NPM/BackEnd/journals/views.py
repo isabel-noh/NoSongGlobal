@@ -29,14 +29,14 @@ def journals_all(request):
 # @permission_classes([IsAuthenticated])
 def journals_create(request):
     data = request.data
-    photo = request.FILES
+    # photo = request.FILES
     # print(request.FILES)
     # print(photo['journal_image'])
     # 각 값을 journal model field에 맞게 저장
 
 
     journal = Journal(user=request.user, title= data['title'], content = data['content'], 
-    movie_title = data['movie_title'], journal_image = photo['journal_image'], watched_at=data['watched_at'])
+    movie_title = data['movie_title'], journal_image = request.FILES.get('journal_image'), watched_at=data['watched_at'])
     journal.save()
     # print(journal)
     journal = Journal.objects.get(pk=journal.pk)
