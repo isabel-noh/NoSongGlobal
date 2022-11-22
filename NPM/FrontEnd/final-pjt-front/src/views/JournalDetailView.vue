@@ -2,7 +2,9 @@
   <div class="JournalDetailView">
     <h1 id="journal-title-h1">Remember Movie Moment</h1>
     <div style="max-height:300px; box-sizing:content-box; overflow:hidden;">
-        <img :src="url_formatting" style="border-radius: 0px; ">
+        <img
+            v-if="journal?.journal_image" 
+            :src="url_formatting" style="border-radius: 0px; ">
     </div>
     <div class="youtube_music_player"></div>
     <div class="journal_content">
@@ -44,25 +46,27 @@ export default {
         CommentsList,
     },
     methods: {
+        // 게시글 detial 불러오기
         getJournal(){
             axios({
                 method:'GET',
                 url: `${API_URL}/journals/${this.$route.params.journal_id}/detail`,
             })
             .then((response) => {
+                console.log(response.data)
                 this.journal = response.data
             })
             .catch((error) => {
                 console.log(error)
             })
         },
+        // comment 작성
         addComment(added_comment){
             this.added_comment = added_comment
         }
     },
     computed:{
       url_formatting: function(){
-        
         const new_journal = 'http://localhost:8000' + this.journal?.journal_image
         return new_journal
       }
