@@ -29,6 +29,12 @@ def addfields(request):
         return Response('not valid')
 
 
+@api_view(['GET'])
+def mypage(request):
+    print(request.data)
+    return Response
+
+
 #     # client로부터 온 데이터에서 비밀번호 갖고오기
 #     password_1 = request.data.get('password1')
 #     password_2 = request.data.get('password2')

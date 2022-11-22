@@ -5,4 +5,5 @@ app_name = 'accounts'
 
 urlpatterns = [
     path('', views.addfields),
+    path('mypage/', views.mypage),
 ]
