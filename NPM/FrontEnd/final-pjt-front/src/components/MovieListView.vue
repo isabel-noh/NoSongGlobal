@@ -92,14 +92,12 @@ export default {
       // TODO 페이지 생성 시 영화 데이터 가져오기
         this.getMovieList()
         for (const idx in this.movieData) {
-          console.log(this.movieData[idx]) 
           this.movieList.push(this.movieData[idx])
         }
     },
     computed: {
       // TODO 영화 데이터 state에서 getters로 가져오기
       movieData() {
-        console.log(this.$store.getters.movieList)
         return this.$store.getters.movieList
       }
     }

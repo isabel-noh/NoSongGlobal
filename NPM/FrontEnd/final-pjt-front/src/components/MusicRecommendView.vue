@@ -13,7 +13,6 @@
 
 <script>
 import axios from 'axios';
-// import _ from 'lodash';
 
 const youtubeURL = 'https://www.googleapis.com/youtube/v3/search'
 export default {

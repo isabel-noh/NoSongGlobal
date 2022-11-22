@@ -28,7 +28,7 @@
           <!-- 아래 반복 -->
           <div class="col" 
             @click="goToDetailPage(journal?.pk)"
-            v-for="journal in url_formatting" 
+            v-for="journal in journalList" 
             :key="journal.pk" style="margin-bottom:10px;">
             <div class="card">
               <div 
@@ -43,7 +43,7 @@
               </div>
               <div class="card-footer">
                 <small class="text-muted">
-                  {{journal.watched_at}}
+                  date: {{journal.watched_at}}
                 </small>
               </div>
             </div>
@@ -74,15 +74,12 @@ export default {
           url: `${API_URL}/journals/`
         })
         .then((response) => {
-          console.log(response.data)
-          const new_journaList = []
           for (const j of response.data){
             if(j.journal_image !== null){
               j.journal_image = 'http://localhost:8000' + j.journal_image
             }
-            new_journaList.push(j)
+            this.journalList.push(j)
           }
-          return new_journaList
         })
         .catch((error) => {
           console.log(error)
@@ -95,30 +92,26 @@ export default {
 
       },
       goToDetailPage(id){
-        console.log(id)
         this.$router.push({name : 'journalDetail', params:{journal_id :id}})
       },
       
     },
     
     computed:{
-      url_formatting: function(){
-        const new_journaList = []
-        for (const j of this.journalList){
-          if(j.journal_image !== null){
-            j.journal_image = 'http://localhost:8000' + j.journal_image
-          }
-          new_journaList.push(j)
-        }
-        return new_journaList
-      }
+      // url_formatting: function(){
+      //   const new_journaList = []
+      //   for (const j of this.journalList){
+      //     if(j.journal_image !== null){
+      //       j.journal_image = 'http://localhost:8000' + j.journal_image
+      //     }
+      //     new_journaList.push(j)
+      //   }
+      //   return new_journaList
+      // }
     },
     created(){
       this.getJournalAll()
     },
-    updated(){
-
-    }
 }
 </script>
 
