@@ -139,7 +139,7 @@ export default new Vuex.Store({
       const user = JSON.parse(local)
       axios({
         method:'POST',
-        url:`${API_URL}/journal/create/`,
+        url:`${API_URL}/journals/create/`,
         headers:{
           'Content-Type': 'multipart/form-data',
           'Authorization': `Token ${user.token}`,
