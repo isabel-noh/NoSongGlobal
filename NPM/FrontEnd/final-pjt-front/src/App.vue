@@ -91,6 +91,7 @@ export default {
   },
   created(){
     this.isLoggedIn()
+    this.$store.dispatch('loadMovieData')
   },
   mounted(){
     this.isLoggedIn()
