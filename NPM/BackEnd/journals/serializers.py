@@ -6,11 +6,17 @@ from .models import Journal, Comment
 class JournalListSerializer(serializers.ModelSerializer):
 
     # username = serializers.CharField(source='user.username', read_only=True)
-    
+    journal_image = serializers.ImageField(use_url=True)
     class Meta:
         model = Journal
+<<<<<<< HEAD
         fields = ('title', 'pk', 'movie_title', 'watched_at',)
+=======
+        fields = ('title', 'pk', 'movie_title', 'watched_at', 'journal_image',)
+        # fields = '__all__'
+>>>>>>> 95c51fe062a0c8aac2909bf6931b3944b378c43e
         # read_only_fields = ('username', )
+
 
 
 # 해당 저널의 댓글 목록 제공
@@ -27,8 +33,9 @@ class JournalSerializer(serializers.ModelSerializer):
     comment_set = CommentSerializer(many=True, read_only=True)
     comment_count = serializers.IntegerField(source='comment_set.count', read_only=True)
     nickname = serializers.CharField(source='user.nickname', read_only=True)
-    
+    journal_image = serializers.ImageField(use_url=True)
+
     class Meta:
         model = Journal
         fields = '__all__'
-        read_only_fields = ('nickname', 'comment_set', 'comment_count',)
+        read_only_fields = ('nickname', 'comment_set', 'comment_count', 'journal_image', )
