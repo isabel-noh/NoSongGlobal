@@ -8,7 +8,7 @@ from django.conf import settings
 class Journal(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
-    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     movie_title = models.CharField(max_length=100)
     journal_image = models.FileField(upload_to=None, max_length=100, blank=True, null=True)
     watched_at = models.DateField()
@@ -19,7 +19,7 @@ class Journal(models.Model):
 
 class Comment(models.Model):
     content = models.TextField()
-    journal_id = models.ForeignKey(Journal, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    journal_pk = models.ForeignKey(Journal, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)

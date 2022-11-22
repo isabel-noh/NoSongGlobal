@@ -11,8 +11,8 @@ from django.contrib.auth.decorators import login_required
 
 # from .api import movies_json
 
-from .models import Movie, Journal, Comment
-from .serializers import MovieListSerializer, MovieSerializer, JournalListSerializer, JournalSerializer, CommentSerializer
+from .models import Movie
+from .serializers import MovieListSerializer, MovieSerializer
 
 
 # Authentication Decorators

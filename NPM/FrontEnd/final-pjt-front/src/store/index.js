@@ -116,7 +116,7 @@ export default new Vuex.Store({
     search(context, keyword){
       axios({
         method: 'GET',
-        url: `${API_URL}/movieList`,
+        url: `${API_URL}/movies/movieList`,
         params:{
           keyword:keyword
         }
@@ -139,7 +139,7 @@ export default new Vuex.Store({
       const user = JSON.parse(local)
       axios({
         method:'POST',
-        url:`${API_URL}/journal/create/`,
+        url:`${API_URL}/journals/create/`,
         headers:{
           'Content-Type': 'multipart/form-data',
           'Authorization': `Token ${user.token}`,
@@ -149,7 +149,7 @@ export default new Vuex.Store({
         
       })
       .then((res) => {
-        console.log(res)
+        console.log(res.data)
         router.push({name : 'journalDetail', params:{journal_id : data.journal_id}})
       })
       .catch((err) => {

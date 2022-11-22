@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from django.contrib.auth.decorators import login_required
 
 from .models import Journal, Comment
 from .serializers import JournalListSerializer, JournalSerializer, CommentSerializer
@@ -34,7 +35,7 @@ def journals_create(request):
     # 각 값을 journal model field에 맞게 저장
     journal = Journal(user=request.user, title= data['title'], content = data['content'], movie_title = data['movie_title'], journal_image = photo['journal_image'], watched_at=data['watched_at'])
     journal.save()
-    journal = Journal.objects.get(pk=journal.id)
+    journal = Journal.objects.get(pk=journal.pk)
     serializer = JournalSerializer(journal)
     return Response(serializer.data, status=status.HTTP_201_CREATED)
   
@@ -42,9 +43,9 @@ def journals_create(request):
 
 # 단일 저널 정보 제공 (정보 요청 정보에 따라 수정, 삭제 실행)
 @api_view(['GET', 'PUT', 'DELETE'])
-def journal_detail(request, journal_id):
+def journal_detail(request, journal_pk):
     # journal = Journal.objects.get(pk=journal_pk)
-    journal = get_object_or_404(Journal, pk=journal_id)
+    journal = get_object_or_404(Journal, pk=journal_pk)
 
     if request.method == 'GET':
         serializer = JournalSerializer(journal)
@@ -63,9 +64,9 @@ def journal_detail(request, journal_id):
 
 # 댓글 생성
 @api_view(['POST'])
-def journal_comment_create(request, journal_id):
+def journal_comment_create(request, journal_pk):
     # journal = Journal.objects.get(pk=journal_id)
-    journal = get_object_or_404(Journal, pk=journal_id)
+    journal = get_object_or_404(Journal, pk=journal_pk)
     serializer = CommentSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(journal=journal)
@@ -76,9 +77,9 @@ def journal_comment_create(request, journal_id):
 # 좋아요
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def journal_like(request, journal_id):
+def journal_like(request, journal_pk):
     if request.user.is_authenticated:
-        journal = get_object_or_404(Journal, pk=journal_id)
+        journal = get_object_or_404(Journal, pk=journal_pk)
         user = request.user
 
         if journal.like_users.filter(pk=user.pk).exists():

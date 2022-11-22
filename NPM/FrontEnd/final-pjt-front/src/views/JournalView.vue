@@ -35,7 +35,7 @@ export default {
         console.log('created')
         axios({
           method: 'GET',
-          url: `${API_URL}/journal/all/`
+          url: `${API_URL}/journals/`
         })
         .then((response) => {
           console.log(response.data)

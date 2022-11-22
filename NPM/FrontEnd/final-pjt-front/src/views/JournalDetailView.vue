@@ -59,10 +59,7 @@ export default {
         getJournal(){
             axios({
                 method:'GET',
-                url: `${API_URL}/journal`,
-                params:{
-                    journal_id:this.$route.params.journal_id
-                }
+                url: `${API_URL}/journals/${this.$route.params.journal_id}/detail/`,    
             })
             .then((response) => {
                 this.journal = response.data
