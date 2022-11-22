@@ -9,12 +9,7 @@ class JournalListSerializer(serializers.ModelSerializer):
     journal_image = serializers.ImageField(use_url=True)
     class Meta:
         model = Journal
-<<<<<<< HEAD
-        fields = ('title', 'pk', 'movie_title', 'watched_at',)
-=======
         fields = ('title', 'pk', 'movie_title', 'watched_at', 'journal_image',)
-        # fields = '__all__'
->>>>>>> 95c51fe062a0c8aac2909bf6931b3944b378c43e
         # read_only_fields = ('username', )
 
 
