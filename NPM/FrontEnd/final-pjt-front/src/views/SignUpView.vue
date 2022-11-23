@@ -158,7 +158,7 @@ export default {
             const user = localStorage.getItem('token')
             axios({
                 method: 'POST',
-                url: `${API_URL}/useraddfields/`,
+                url: `${API_URL}/auth/`,
                 headers:{
                     'Content-Type': 'multipart/form-data',
                     'Authorization' : `Token ${user}`,

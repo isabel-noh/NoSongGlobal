@@ -1,5 +1,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,venv,python,visualstudiocode,pycharm,django
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,venv,python,visualstudiocode,pycharm,django
+# Vue
+node_modules/
 
 ### Django ###
 *.log
