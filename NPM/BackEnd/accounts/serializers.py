@@ -12,7 +12,9 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserAddFieldSerializer(serializers.ModelSerializer):
 
+    profile_image = serializers.ImageField(use_url=True)
+    user = serializers.CharField(source='user.username')
     class Meta:
         model = UserAddField
         fields = '__all__'
-        read_only_fields = ('user',)
+        read_only_fields = ('user', 'profile_image',)
