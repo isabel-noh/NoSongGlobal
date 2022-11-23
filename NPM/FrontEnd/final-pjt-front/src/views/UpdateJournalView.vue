@@ -8,21 +8,37 @@
                 <input 
                     type="text" id="journal_title"
                     v-model="journal_title"
-                    placeholder="글 제목을 입력해주세요"
-                    value="{journal?.journal_title}">
+                    placeholder="글 제목을 입력해주세요">
             </div>
             <div class="content-div">
-                <label for="journal_content" style="margin-right: 10px;">글 내용: </label><textarea type="text" id="journal_content"></textarea>
+                <label for="movie_title" style="margin-right: 10px;">영화 제목: </label>
+                <input type="text" id="movie_title"
+                    v-model="movie_title"
+                    placeholder="영화 제목을 입력해주세요">
             </div>
             <div class="content-div">
-                <label for="movie_title" style="margin-right: 10px;">영화 제목: </label><input type="text" id="movie_title">
+                <label for="watched_at" style="margin-right: 10px;">날짜:</label>
+                <input type="date" id="watched_at"
+                    v-model="journal_date">
             </div>
             <div class="content-div">
-                <label for="journal_image" style="margin-right: 10px;">영화 이미지: </label><input type="file" id="journal_image">
+                <label for="journal_content" style="margin-right: 10px;">글 내용: </label>
+                <textarea type="text" id="journal_content"
+                    v-model="journal_content"
+                    placeholder="글 내용을 입력해주세요"></textarea>
             </div>
             <div class="content-div">
-                <label for="watched_at" style="margin-right: 10px;">본 날짜:</label><input type="text" id="watched_at">
+                <label for="journal_image" style="margin-right: 10px;">이미지: </label>
+                <input type="file" id="journal_image" 
+                @change="encodeFileToBase64">
             </div>
+            <div v-if="previous_image != null">
+                <img :src="url_formatting">
+            </div>
+            <div v-if="{journal_image}">
+                <img :src="uploadPreview" id="imgPreview">
+            </div>
+            <hr>
             <div>
                 <button type="submit" class="btn btn-danger">수정하기</button>
             </div>
@@ -33,8 +49,8 @@
 </template>
 
 <script>
-import axios from 'axios'
-const API_URL = 'http://127.0.0.1:8000'
+// import axios from 'axios'
+// const API_URL = 'http://127.0.0.1:8000'
 
 export default {
     name: 'UpdateJournalView',
@@ -44,24 +60,18 @@ export default {
             journal_title : null,
             journal_content : null,
             movie_title : null,
-            journal_image : null,
+            journal_image : null,  // 새 이미지 
+            uploadPreview : null,  // 새 이미지 preview
+            previous_image : null,  // 전의 이미지
             watched_at : null,
         }
     },
     methods: {
-        // 게시글 detail 불러오기
+        deletePreviousImage(){
+            this.previous_image = null
+        },
         getJournal(){
-            axios({
-                method:'GET',
-                url: `${API_URL}/journals/${this.$route.params.journal_id}/detail`,
-            })
-            .then((response) => {
-                console.log(response.data)
-                this.journal = response.data
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+            this.journal = this.$store.getters.aJournal
         },
         updateJournal(){
             const journal_title = this.journal_title
@@ -82,6 +92,7 @@ export default {
         },
 
         encodeFileToBase64 (e){
+            this.deletePreviousImage()
             const reader = new FileReader()
             const file = (e.target.files[0])
             this.journal_img = e.target.files[0]
@@ -92,6 +103,29 @@ export default {
                 }
             })
         },
+    },
+    computed:{
+      url_formatting: function(){
+        // 이미지 경로가 서버에 저장된 경로로 불러와져 데이터 로드되지 않아
+        // 경로에 'http://localhost:8000'를 붙여줘 computed로 계산된 값을 보여게 함
+        let new_journal = ''
+        new_journal = 'http://localhost:8000' + this.journal?.journal_image
+        return new_journal
+      },
+    },
+    created(){
+        this.getJournal()
+    },
+    mounted(){
+        console.log(this.journal)
+        this.journal_title = this.journal?.title
+        this.journal_content = this.journal?.content
+        this.movie_title = this.journal?.movie_title
+        this.previous_image = this.journal?.journal_image
+        // console.log(this.watched_at)
+        const date = new Date(this.journal?.watched_at)
+        this.watched_at = date
+        console.log(this.watched_at)
     }
 
 

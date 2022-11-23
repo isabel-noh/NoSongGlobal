@@ -34,7 +34,7 @@
           </button>
           <button
             v-else 
-            type="button" 
+            type="button"
             class="btn btn-light dropdown-toggle" 
             style="font-family:'Do Hyeon'; font-weight: bold;" 
             data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,8 +69,8 @@ export default {
   },
   data(){
     return {
-      nickname: null,
-      isLogin : false,
+      // nickname: null,
+      // isLogin : false,
       openModal: false,
       showSearchBar: false,
     }
@@ -91,19 +91,19 @@ export default {
       this.$store.dispatch('logOut')
     }
   },
+  computed:{
+    isLogin(){
+      const isLogin = this.$store.getters.isLogin
+      return isLogin
+    },
+    nickname(){
+      const nickname = this.$store.getters.userData.nickname
+      return nickname
+    }
+  },
   created(){
     this.isLoggedIn()
     this.$store.dispatch('loadMovieData')
-  },
-  mounted(){
-    this.isLoggedIn()
-    this.$store.dispatch('isLogin')
-
-  },
-  updated(){
-    this.isLoggedIn() 
-    this.$store.dispatch('isLogin')
-
   }
 }
 </script>

@@ -18,7 +18,7 @@ export default new Vuex.Store({
     user:{},
     movieList: [],
     searchList: [],
-    soundtrackList: [],
+    journal: null,
   },
   getters: {
     userData(state){
@@ -30,6 +30,9 @@ export default new Vuex.Store({
     movieData(state) {
       return state.movieList
     },
+    aJournal(state){
+      return state.journal
+    }
 
   },
   mutations: {
@@ -40,7 +43,6 @@ export default new Vuex.Store({
     LOG_IN(state, data){
       state.token = data.key
       state.user = data.user
-      console.log('user',state.user)
       if(router.currentRoute.name != 'home'){
         router.push({ name : 'home' })
       } else {
@@ -67,11 +69,13 @@ export default new Vuex.Store({
     SET_MOVIE_LIST(state, data){
       const objectToList = []
       for (const idx in data) {
-        // console.log(data[idx])
         objectToList.push(data[idx])
       }
       state.movieList = objectToList
     },
+    GET_JOURNAL(state, data){
+      state.journal = data
+    }
   },
   actions: {
     isLogin(context){
@@ -103,8 +107,8 @@ export default new Vuex.Store({
         }
       })
       .then((response) => {
-        context.commit('LOG_IN', response.data)
         context.dispatch('isLogin')
+        context.commit('LOG_IN', response.data)
       })
       .catch((error) => {
         alert('유저정보를 확인해주세요.')

@@ -40,7 +40,7 @@
             style="cursor : pointer;" 
             v-for="(movie) in movieList" 
             :key="movie?.movie_id">
-            <router-link :to="{ name : 'movieDetail', params: { movie_id: movie.movie_id}}">
+            <router-link :to="{ name : 'movieDetail', params: { movie_id: movie.id}}">
             <!-- @click="getDetailMovie(movie?.movie_id)"> -->
             <div class="card h-100" style="border:none;">
                 <figure>

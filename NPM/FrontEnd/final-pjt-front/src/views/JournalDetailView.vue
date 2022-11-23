@@ -62,14 +62,13 @@ export default {
     methods: {
         // 게시글 detail 불러오기
         getJournal(){
-            console.log('getJournal')
             axios({
                 method:'GET',
                 url: `${API_URL}/journals/${this.$route.params.journal_id}/detail`,
             })
             .then((response) => {
-                console.log(response.data)
                 this.journal = response.data
+                this.$store.commit('GET_JOURNAL', response.data)
             })
             .catch((error) => {
                 console.log(error)
@@ -100,7 +99,7 @@ export default {
         },
         // journal 수정페이지로 가기
         gotoEditPostPage(){
-            this.$router.push({ name : 'updateJournal' , params: {'journal_id' : this.journal?.journal_id}})
+            this.$router.push({ name : 'updateJournal' , params: {'journal_id' : this.journal.journal_id}})
         },
         // TODO comment 작성
         addComment(added_comment){
