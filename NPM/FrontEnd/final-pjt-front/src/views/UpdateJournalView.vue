@@ -11,16 +11,44 @@
                     placeholder="글 제목을 입력해주세요">
             </div>
             <div class="content-div">
-                <label for="movie_title" style="margin-right: 10px;">영화 제목: </label>
-                <input type="text" id="movie_title"
-                    v-model="movie_title"
-                    placeholder="영화 제목을 입력해주세요">
+              <label for="movie-select" style="margin-right:10px;">영화: </label>
+              <i>
+                <input id="movie-select" 
+                  :value="movie_title" 
+                  @input="submitAutoComplete" 
+                  placeholder="시청한 영화 제목을 입력해주세요"
+                  type="text"/>
+              </i>
+              <div v-show="isShow">
+                <option
+                  class="border border-dark"
+                  @click="searchInputChange"
+                  v-for="(res,i) in result"
+                  :key="i"
+                  :value="res.id"
+                  style="width:400px; margin-left:90px;"
+                  >{{ res.title }}
+                </option>
+              </div>
             </div>
             <div class="content-div">
                 <label for="watched_at" style="margin-right: 10px;">날짜:</label>
                 <input type="date" id="watched_at"
                     v-model="watched_at" />
                     <!-- :value="{{journal?.watched_date}}"> -->
+            </div>
+            <div class="content-div d-flex">
+              <span>별점: </span>
+              <div class="d-flex star-div">
+                <div
+                v-for="index in 5"
+                :key="index"
+                @click="check(index)"
+                >
+                <span v-if="index <= journal_rank">⭐</span>
+                <span v-if="index > journal_rank"><img class="star" :src="require('@/assets/dark_star.png')" alt=""></span>
+                </div>
+              </div>
             </div>
             <div class="content-div">
                 <label for="journal_content" style="margin-right: 10px;">글 내용: </label>
@@ -60,11 +88,17 @@ export default {
             journal : null,
             journal_title : null,
             journal_content : null,
+            journal_rank:0,
             movie_title : null,
+            movie_id : null,
             journal_image : null,  // 새 이미지 
             uploadPreview : null,  // 새 이미지 preview
             previous_image : null,  // 전의 이미지
             watched_at : null,
+            result:null,
+            searchInput:null,
+            selectedMovieId:null,
+            isShow:false,
         }
     },
     methods: {
@@ -73,26 +107,33 @@ export default {
         },
         getJournal(){
             this.journal = this.$store.getters.aJournal
+            console.log(this.journal)
             this.journal_title = this.journal?.title
             this.journal_content = this.journal?.content
-            this.movie_title = this.journal?.movie_title
+            this.movie_id = this.journal?.movie
+            this.movie_title = this.movieList[this.movie_id-1].title
             this.journal_image = this.journal?.journal_image
+            this.journal_rank = this.journal?.rank
             this.previous_image = this.journal?.journal_image
             this.watched_at = this.journal?.watched_at
         },
         updateJournal(){
+            const movie_id = this.movie_id
             const journal_title = this.journal_title
             const journal_content = this.journal_content
-            const movie_title = this.movie_title
             const journal_image = this.journal_image
+            const journal_rank = this.journal_rank
             const watched_at = this.watched_at
 
+            console.log(this.journal)
             const payload = {
-                movie_title : movie_title,
+                movie_id : movie_id,
                 journal_title : journal_title,
                 journal_content : journal_content,
                 watched_at : watched_at,
                 journal_image : journal_image,
+                journal_rank : journal_rank,
+                journal_id : this.journal.id
             }
             this.$store.dispatch('updateJournal', payload)
 
@@ -110,6 +151,27 @@ export default {
                 }
             })
         },
+        check(index) {
+            this.journal_rank = index
+        },
+        submitAutoComplete(event) {
+          this.movie_title = event.target.value
+          if (this.movie_title) {
+            this.isShow = true
+            this.result = this.movieList.filter((movie) => {
+              return movie.title.includes(this.movie_title)
+            })
+          } else {
+            this.isShow = false
+          }
+        },
+        searchInputChange(event) {
+          console.log(event.target.innerHTML)
+          console.log(event.target.value)
+          this.movie_title = event.target.innerHTML
+          this.selectedMovieId = event.target.value
+          this.isShow = false
+        }
     },
     computed:{
       url_formatting: function(){
@@ -118,6 +180,9 @@ export default {
         let new_journal = ''
         new_journal = 'http://localhost:8000' + this.journal?.journal_image
         return new_journal
+      },
+      movieList() {
+        return this.$store.getters.movieData
       },
     },
     created(){
