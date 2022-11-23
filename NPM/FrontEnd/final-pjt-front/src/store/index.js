@@ -81,7 +81,6 @@ export default new Vuex.Store({
     isLogin(context){
       const local = localStorage.getItem('vuex')
       const user = JSON.parse(local)
-      console.log(user.token)
       axios({
         method:'GET',
         url: `${API_URL}/auth/isLogin/`,

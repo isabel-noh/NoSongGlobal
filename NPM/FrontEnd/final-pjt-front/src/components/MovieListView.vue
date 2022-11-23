@@ -40,7 +40,8 @@
             style="cursor : pointer;" 
             v-for="(movie) in movieList" 
             :key="movie?.movie_id">
-            <router-link :to="{ name : 'movieDetail', params: { movie_id: movie.id}}">
+            <router-link 
+              :to="{ name : 'movieDetail', params: { movie_id: movie.id}}">
             <!-- @click="getDetailMovie(movie?.movie_id)"> -->
             <div class="card h-100" style="border:none;">
                 <figure>
@@ -77,7 +78,6 @@ export default {
         // TODO 영화 전체 리스트 가져오기
         getMovieList(){
           this.$store.dispatch('loadMovieData')
-          console.log(this.$store.state.movieList)
         },
         //영화 장르별/정렬 리스트 가져오기
         getFilteredMovies(){
