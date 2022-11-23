@@ -15,7 +15,7 @@ export default new Vuex.Store({
   ],
   state: {
     token: null,
-    nickname: null,
+    user:{},
     movieList: [],
     searchList: [],
     soundtrackList: [],
@@ -26,13 +26,16 @@ export default new Vuex.Store({
     },
     movieData(state) {
       return state.movieList
+    },
+    userData(state){
+      return state.user
     }
 
   },
   mutations: {
     LOG_IN(state, data){
       state.token = data.key
-      state.nickname = data.nickname
+      state.user = data.user
       if(router.currentRoute.name != 'home'){
         router.push({ name : 'home' })
       } else {
@@ -150,6 +153,36 @@ export default new Vuex.Store({
         console.log(err)
       })
     },
+    updateJournal(context, data){
+      const formdata = new FormData()
+      formdata.append('title', data.journal_title)
+      formdata.append('content', data.journal_content)
+      formdata.append('movie_title', data.movie_title)
+      formdata.append('watched_at', data.journal_date)
+      formdata.append('journal_image', data.journal_img)
+      const local = localStorage.getItem('vuex')
+      const user = JSON.parse(local)
+
+      axios({
+        method: 'PUT',
+        url: `${API_URL}/journals/${this.$route.params.journal_id}/detail`,
+        headers:{
+            'Content-Type': 'multipart/form-data',
+            'Authorization' : `Token ${user.token}`
+        },
+        data: 
+          formdata,
+      })
+      .then((res) => {
+        console.log(res.data)
+        router.push({name : 'journalDetail', params:{journal_id : res.data.id}})
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    
+    }
+    ,
     // TODO 영화 데이터 가져오기
     loadMovieData(context) {
       axios({
