@@ -90,7 +90,26 @@ export default {
               return movie.genre_id.includes(Number(this.selected_genre))
             })
           }
-          // console.log(this.movieList)
+          if (["1", "2"].includes(this.sorted_option)) {
+            this.movieList = this.movieList.sort((a,b) => {
+              const date1 = new Date(a.release_date).getTime()
+              const date2 = new Date(b.release_date).getTime()
+              if (this.sorted_option === "1") return date2 - date1
+              else return date1 - date2
+            })
+          }
+          else if (["3", "4"].includes(this.sorted_option)) {
+            this.movieList = this.movieList.sort((a,b) => {
+              if (this.sorted_option === "3") return Number(b.vote_average) - Number(a.vote_average)
+              else return Number(a.vote_average) - Number(b.vote_average)
+            })
+          }
+          else if (["5", "6"].includes(this.sorted_option)) {
+            this.movieList = this.movieList.sort((a,b) => {
+              if (this.sorted_option === "5") return Number(b.revenue) - Number(a.revenue)
+              else return Number(a.revenue) - Number(b.revenue)
+            })
+          }
         },
     },
     created(){

@@ -29,16 +29,11 @@ def journals_all(request):
 # @permission_classes([IsAuthenticated])
 def journals_create(request):
     data = request.data
-    # photo = request.FILES
-    # print(request.FILES)
-    # print(photo['journal_image'])
+    # request.FILES.get -> 이미지 안 넣어도 넘어갈 수 있음.
     # 각 값을 journal model field에 맞게 저장
-
-
     journal = Journal(user=request.user, title= data['title'], content = data['content'], 
     movie_title = data['movie_title'], journal_image = request.FILES.get('journal_image'), watched_at=data['watched_at'])
     journal.save()
-    # print(journal)
     journal = Journal.objects.get(pk=journal.pk)
     serializer = JournalSerializer(journal, context={"request": request})
     return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -80,7 +75,7 @@ def journal_comment_create(request, journal_pk):
 
 # 좋아요
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def journal_like(request, journal_pk):
     if request.user.is_authenticated:
         journal = get_object_or_404(Journal, pk=journal_pk)
