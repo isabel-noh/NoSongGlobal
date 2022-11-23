@@ -30,26 +30,39 @@
             @click="goToDetailPage(journal?.pk)"
             v-for="journal in journalList" 
             :key="journal.pk" style="margin-bottom:10px;">
-            <div class="card">
-              <div 
+            <div class="container">
+              <div class="card item front">
+                <!-- <div 
+                  class="item front"
+                  v-if="!journal?.journal_image"
+                  style="width: 100%; height: 100px; padding: 10px;"></div>
+                <img
+                  v-if="journal?.journal_image"
+                  :src= "journal?.journal_image"
+                  class="card-img-top" style="padding:10px;"> -->
+                <div class="card-body">
+                  <h5 class="card-title">{{journal.title}}</h5>
+                  <p class="card-text">{{journal.movieTitle}}</p>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">
+                    date: {{journal.watched_at}}
+                  </small>
+                </div>
+              </div>
+              <div class="item back"
                 v-if="!journal?.journal_image"
-                style="width: 100%; height: 100px; padding: 10px;"></div>
+                    style="width: 100%; height: 100px; padding: 10px;">
+              뒷면
+              </div>
               <img
                 v-if="journal?.journal_image"
-                :src= "journal?.journal_image" class="card-img-top" style="padding:10px;">
-              <div class="card-body">
-                <h5 class="card-title">{{journal.title}}</h5>
-                <p class="card-text">{{journal.movieTitle}}</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">
-                  date: {{journal.watched_at}}
-                </small>
-              </div>
+                :src= "journal?.journal_image"
+                class="card-img-top item back" style="padding:10px;">
             </div>
           </div>
         </div>
-      </div>
+    </div>
   </div>
 </template>
 
@@ -119,6 +132,49 @@ export default {
   margin-bottom: 10px;
 }
 
+.container {
+  /* width: 150px;
+  height: 180px; */
+  /*        부모의 자식 요소가 3차원의 애니메이션 효과를 가질때, 300px의 거리에서 보는 원근감을 줌*/
+  perspective: 300px;
+}
+
+/* .container.item {
+  width: 150px;
+  height: 180px;
+  border: 1px solid #828282;
+  font-size: 35px;
+  /*카드의 뒷면을 안보이게 처리-카드가 뒤집히면 뒷면이 안보임*/
+  /* backface-visibility: hidden;
+  transition: 1s; */
+/* } */
+
+.container .item.front {
+  /* 앞면 카드가 부유하게 되어, 뒷면 카드가 아래에서 위로 올라감 -> 요소 두개가 겹치게 됨*/
+  position: absolute;
+  /* 명시적으로 기본값 설정, 없어도 됨*/
+  transform: rotateY(0deg);
+}
+
+.container:hover .item.front {
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  transition: 1s;
+}
+
+.container .item.back {
+  /*y축을 중심으로 -180도 회전*/
+  transform: rotateY(-180deg);
+  border: 1px solid #828282;
+  font-size: 35px;
+  /*카드의 뒷면을 안보이게 처리-카드가 뒤집히면 뒷면이 안보임*/
+  backface-visibility: hidden;
+  transition: 1s;
+}
+
+.container:hover .item.back {
+  transform: rotateY(0deg);
+}
 
 
 </style>
