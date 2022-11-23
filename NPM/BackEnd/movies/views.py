@@ -170,6 +170,10 @@ def movie_detail(request, movie_pk):
         name = Genre.objects.get(pk=i)
         serializer_genre = GenreListSerializer(name)
         genre_names.append(serializer_genre.data['genre_name'])
-    return Response(genre_names) 
+    context = {
+        'genre_names': genre_names,
+        'movie_detail': serializer.data,
+    }
+    return Response(context) 
 
 
