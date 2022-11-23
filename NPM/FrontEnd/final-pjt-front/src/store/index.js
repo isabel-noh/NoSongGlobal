@@ -19,6 +19,7 @@ export default new Vuex.Store({
     movieList: [],
     searchList: [],
     journal: null,
+    allUserData: null,
   },
   getters: {
     userData(state){
@@ -225,6 +226,24 @@ export default new Vuex.Store({
       })
       .catch((error) => {
           console.log(error)
+      })
+    },
+    userData(context) {
+      const local = localStorage.getItem('vuex')
+      const user = JSON.parse(local)
+      axios({
+        method:'POST',
+        url: `${API_URL}/auth/get_user_data/`,
+        headers: {
+          Authorization: `Token ${user.token}`
+        },
+        data: {
+          user_id: user.user_id
+        }
+      })
+      .then((res) => {
+        context.state.allUserData = [res]
+      //   for (const user)
       })
     }
   },

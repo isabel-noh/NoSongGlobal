@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 # from django.contrib.auth import login as auth_login
 # from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import get_user_model
@@ -13,6 +13,8 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 
 from .models import User, UserAddField
+from journals.models import Journal
+from movies.models import Movie
 from .serializers import UserAddFieldSerializer, UserSerializer
 
 # # Create your views here.
@@ -67,3 +69,14 @@ def isLogin(request):
         'nickname': serializer_add.data['nickname'],
     }
     return Response(context)
+
+@api_view(['POST'])
+def get_user_data(request):
+    users = get_list_or_404(User)
+    movies_len = get_list_or_404(Movie).count()
+    all_users_data = {}
+    for user in users:
+        for idx in range(1, movies_len+1):
+            journals = get_list_or_404(Journal).filter(user_id=user.id, movie_id=idx)
+            rating = sum([journal.rank for journal in journals]) / len(journals)
+        all_users_data[user.id] = rating

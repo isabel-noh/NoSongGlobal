@@ -134,6 +134,7 @@ export default {
                 journal_rank : journal_rank,
                 journal_id : this.journal.id
             }
+            console.log(payload)
             this.$store.dispatch('updateJournal', payload)
 
         },

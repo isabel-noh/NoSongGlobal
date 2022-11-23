@@ -24,6 +24,9 @@ export default {
       username() {
         return this.$store.state.user.nickname
       }
+    },
+    created() {
+      // this.$store.dispatch()
     }
 }
 </script>
