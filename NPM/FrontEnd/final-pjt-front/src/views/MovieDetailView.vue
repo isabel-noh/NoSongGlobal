@@ -5,12 +5,12 @@
         <img :src="`https://image.tmdb.org/t/p/w300/${movie?.poster_path}`">
       </div>
       <div class="content-box">
-        <h2>{{movie?.title}}</h2>
-        <button class="btn btn-light" style="margin-bottom:10px;">좋아요</button>
+        <h2>{{movie?.title}} <span>({{movie?.original_title}})</span> </h2>
+        <!-- <button class="btn btn-light" style="margin-bottom:10px;">좋아요</button> -->
         <p>개봉일: {{movie?.release_date}}</p>
-        <p>장르: </p>
+        <p>장르: {{movie?.genre_text}}</p>
         <p>평점: {{movie?.vote_average}}</p>
-        <p>러닝타임: </p>
+        <p>러닝타임: {{runtime}}</p>
       </div>
     </div>
     <div class="movie-overview">
@@ -46,12 +46,25 @@ export default {
           url: `${API_URL}/movies/`+`${this.$route.params.movie_id}`,
         })
         .then((response) => {
+          console.log(response.data)
           this.movie = response.data
           this.imgUrl = 'https://image.tmdb.org/t/p/w500' + response.data.poster_path
         })
         .catch((error) => {
           console.log(error)
         })
+      }
+    },
+    computed:{
+      runtime(){
+        const r = this.movie?.runtime
+        let hour = 0
+        let minute = 0
+        if (r >= 60){
+          hour = parseInt(r / 60)
+          minute = r - (hour * 60)
+        }
+        return `${hour}시간 ${minute}분`
       }
     },
     created(){

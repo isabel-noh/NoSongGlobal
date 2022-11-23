@@ -20,7 +20,6 @@
                 <label for="watched_at" style="margin-right: 10px;">날짜:</label>
                 <input type="date" id="watched_at"
                     v-model="watched_at" />
-                    <!-- :value="{{journal?.watched_date}}"> -->
             </div>
             <div class="content-div">
                 <label for="journal_content" style="margin-right: 10px;">글 내용: </label>
