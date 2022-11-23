@@ -186,15 +186,17 @@ export default new Vuex.Store({
       const formdata = new FormData()
       formdata.append('title', data.journal_title)
       formdata.append('content', data.journal_content)
-      formdata.append('movie_title', data.movie_title)
-      formdata.append('watched_at', data.journal_date)
-      formdata.append('journal_image', data.journal_img)
+      formdata.append('movie', data.movie_id)
+      formdata.append('user', context.state.user.user_id)
+      formdata.append('watched_at', data.watched_at)
+      formdata.append('journal_image', data.journal_image)
+      formdata.append('rank', data.journal_rank)
       const local = localStorage.getItem('vuex')
       const user = JSON.parse(local)
 
       axios({
         method: 'PUT',
-        url: `${API_URL}/journals/${this.$route.params.journal_id}/detail`,
+        url: `${API_URL}/journals/${data.journal_id}/detail/`,
         headers:{
             'Content-Type': 'multipart/form-data',
             'Authorization' : `Token ${user.token}`

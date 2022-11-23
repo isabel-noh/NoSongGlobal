@@ -44,7 +44,6 @@ def journals_create(request):
 # 단일 저널 정보 제공 (정보 요청 정보에 따라 수정, 삭제 실행)
 @api_view(['GET', 'PUT', 'DELETE'])
 def journal_detail(request, journal_pk):
-    # journal = Journal.objects.get(pk=journal_pk)
     journal = get_object_or_404(Journal, pk=journal_pk)
 
     if request.method == 'GET':
@@ -52,6 +51,7 @@ def journal_detail(request, journal_pk):
         return Response(serializer.data)
 
     elif request.method == 'PUT':
+        print(request.data)
         serializer = JournalSerializer(journal, data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()

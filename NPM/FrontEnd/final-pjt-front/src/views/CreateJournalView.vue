@@ -31,10 +31,6 @@ color: black;
                   >{{ res.title }}
                 </option>
               </div>
-                <!-- <label for="movie_title" style="margin-right:10px;">영화 제목: </label>
-                <input 
-                    id="movie_title"
-                    type="text" v-model="movie_title" placeholder="영화제목을 선택해주세요"> -->
             </div>
             <div class="content-div">
                 <label for="journal_date" style="margin-right:10px;">날짜: </label>
