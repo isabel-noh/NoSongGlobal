@@ -41,13 +41,11 @@ export default {
     },
     methods: {
       getMovieDetail(){
-        console.log('a')
         axios({
           method:'GET',
           url: `${API_URL}/movies/`+`${this.$route.params.movie_id}`,
         })
         .then((response) => {
-          console.log(response.data)
           this.movie = response.data
           this.imgUrl = 'https://image.tmdb.org/t/p/w500' + response.data.poster_path
         })

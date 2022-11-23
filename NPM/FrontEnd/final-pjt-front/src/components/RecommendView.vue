@@ -25,49 +25,26 @@
                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5" aria-label="Slide 6"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="6" aria-label="Slide 7"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="7" aria-label="Slide 8"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="8" aria-label="Slide 9"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="9" aria-label="Slide 10"></button>
                 </div>
                 <div class="carousel-inner">
                     <!-- <div class="carousel-item active" v-for=" item in recommend_movieList" :key="item?.id"> -->
-                    <!-- <div class="carousel-item active" v-for=" item in recommend_movieList" :key="item?.id">
-                        <img :src="`https://image.tmdb.org/t/p/w500/${item?.poster_path}`" 
-                            class="d-block w-100" 
-                            style="height: 500px;"
+                    <div class="carousel-item active" v-for=" item in recommend_movieList" :key="item?.id">
+                        <img :src="`https://image.tmdb.org/t/p/w300/${item?.poster_path}`" 
+                            class="d-block w-100"
+                            style="heigh : 10px;" 
                             :alt="`${item?.title}`">
                         <div class="carousel-caption d-none d-md-block">
-                            <h5>{{item.title}}</h5>
-                            <p>{{item.overview}}</p>
-                        </div>
-                    </div> -->
-                    <div class="carousel-item active">
-                        <img :src="recommend_movieList[0]?.poster_path" 
-                            class="d-block w-100" 
-                            style="height: 500px;"
-                            :alt="`${recommend_movieList[0]?.title}`">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>{{recommend_movieList[0]?.title}}</h5>
-                            <p>{{recommend_movieList[0]?.overview}}</p>
+                            <h5>{{item?.title}}</h5>
+                            <p>{{item?.overview}}</p>
                         </div>
                     </div>
-                    <!-- <div class="carousel-item">
-                        <img :src="recommend_movieList[1]?.poster_path" 
-                            class="d-block w-100" 
-                            style="height: 500px;"
-                            :alt="`${item?.title}`">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>{{item.title}}</h5>
-                            <p>{{item.overview}}</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img :src="recommend_movieList[2]?.poster_path" 
-                            class="d-block w-100" 
-                            style="height: 500px;"
-                            :alt="`${item?.title}`">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>{{item.title}}</h5>
-                            <p>{{item.overview}}</p>
-                        </div>
-                    </div> -->
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -110,15 +87,10 @@ export default {
         recommend_arr_general(){
             let movieList = this.$store.getters.movieData
             movieList = _.sampleSize(movieList, 10)
-            
-            for (const j of movieList){
-            if(j.poster_url !== null){
-              j.poster_url = 'https://image.tmdb.org/t/p/w500/' + j.poster_url
+            for(const j of movieList) {
+                j.poster_path = 'https://image.tmdb.org/t/p/w500' + j.poster_path
             }
-            this.movieList.push(j)
-          }
             this.recommend_movieList = movieList
-            console.log(this.recommend_movieList)
         },
         goToDetailMovie(id){
             this.$router.push({ name : 'movieDetail', params: { movie_id: id }})
