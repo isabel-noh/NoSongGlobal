@@ -118,4 +118,7 @@ export default {
   padding: 10px 0px;
   margin-bottom: 10px;
 }
+
+
+
 </style>

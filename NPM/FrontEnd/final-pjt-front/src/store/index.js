@@ -90,9 +90,12 @@ export default new Vuex.Store({
         }
       })
       .then((response) => {
+        console.log('islogin 됨')
+        console.log('->', user.token)
         context.commit('IS_LOGIN', response.data)
       })
       .catch((error) => {
+        console.log('islogin 안됨')
         console.log(error)
       })
     },

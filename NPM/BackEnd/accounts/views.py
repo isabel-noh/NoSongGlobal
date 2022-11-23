@@ -7,9 +7,10 @@ from django.contrib.auth import get_user_model
 # from django.views.decorators.http import require_POST, require_http_methods
 # from django.http import JsonResponse
 # from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 
 from .models import User, UserAddField
@@ -32,8 +33,9 @@ def addfields(request):
 
 
 @api_view(['GET'])
+# @permission_classes([IsAuthenticated])
 def mypage(request):
-    print('1',request.data) 
+    print('1', request.data) 
     # # username (email)
     print('2',request.auth) 
     # # 사용자 토큰
