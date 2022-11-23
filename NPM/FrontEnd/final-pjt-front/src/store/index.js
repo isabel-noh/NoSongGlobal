@@ -24,7 +24,7 @@ export default new Vuex.Store({
     isLogin(state) {
       return state.token ? true : false
     },
-    movieList(state) {
+    movieData(state) {
       return state.movieList
     },
     userData(state){
@@ -59,7 +59,12 @@ export default new Vuex.Store({
       }
     },
     SET_MOVIE_LIST(state, data){
-      state.movieList = data
+      const objectToList = []
+      for (const idx in data) {
+        // console.log(data[idx])
+        objectToList.push(data[idx])
+      }
+      state.movieList = objectToList
     },
   },
   actions: {
