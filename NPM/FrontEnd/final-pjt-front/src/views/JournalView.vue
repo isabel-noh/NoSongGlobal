@@ -15,10 +15,10 @@
       <div style="display:flex; margin-bottom: 20px;">
         <button 
           class="btn btn-bright"
-          style="font-family: 'Do Hyeon'"
+          style="font-family: Do Hyeon"
           @click="getListNewest">최신순</button>
         <button 
-          style="font-family: 'Do Hyeon'"
+          style="font-family: Do Hyeon"
           class="btn btn-bright"
           @click="getListPopluar">인기순</button>
       </div>
@@ -39,7 +39,7 @@
                 :src= "journal?.journal_image" class="card-img-top" style="padding:10px;">
               <div class="card-body">
                 <h5 class="card-title">{{journal.title}}</h5>
-                <p class="card-text">{{journal.movie_title}}</p>
+                <p class="card-text">{{journal.movieTitle}}</p>
               </div>
               <div class="card-footer">
                 <small class="text-muted">
@@ -75,9 +75,11 @@ export default {
         })
         .then((response) => {
           for (const j of response.data){
+            console.log(j)
             if(j.journal_image !== null){
               j.journal_image = 'http://localhost:8000' + j.journal_image
             }
+            j['movieTitle'] = this.movieList[j.movie_id-1].title
             this.journalList.push(j)
           }
         })
@@ -98,16 +100,9 @@ export default {
     },
     
     computed:{
-      // url_formatting: function(){
-      //   const new_journaList = []
-      //   for (const j of this.journalList){
-      //     if(j.journal_image !== null){
-      //       j.journal_image = 'http://localhost:8000' + j.journal_image
-      //     }
-      //     new_journaList.push(j)
-      //   }
-      //   return new_journaList
-      // }
+      movieList() {
+        return this.$store.getters.movieData
+      }
     },
     created(){
       this.getJournalAll()
