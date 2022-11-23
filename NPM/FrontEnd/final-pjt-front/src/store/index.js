@@ -19,7 +19,7 @@ export default new Vuex.Store({
     movieList: [],
     searchList: [],
     journal: null,
-    allUserData: null,
+    recommendMovieList: null,
   },
   getters: {
     userData(state){
@@ -33,6 +33,9 @@ export default new Vuex.Store({
     },
     aJournal(state){
       return state.journal
+    },
+    getRecommendMovieList(state){
+      return state.recommendMovieList
     }
 
   },
@@ -76,7 +79,10 @@ export default new Vuex.Store({
     },
     GET_JOURNAL(state, data){
       state.journal = data
-    }
+    },
+    RECOMMEND_MOVIE_LIST(state, data){
+      state.recommendMovieList = data.recommendMovieList
+    },
   },
   actions: {
     isLogin(context){
@@ -231,7 +237,7 @@ export default new Vuex.Store({
           console.log(error)
       })
     },
-    userData(context) {
+    recommendMovie(context) {
       const local = localStorage.getItem('vuex')
       const user = JSON.parse(local)
       axios({
@@ -245,8 +251,7 @@ export default new Vuex.Store({
         }
       })
       .then((res) => {
-        context.state.allUserData = [res]
-      //   for (const user)
+        context.commit('RECOMMEND_MOVIE_LIST', res.data)
       })
     }
   },
