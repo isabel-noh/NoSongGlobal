@@ -29,6 +29,7 @@ def addfields(request):
         return Response('not valid')
 
 
+
 @api_view(['GET'])
 def mypage(request):
     # print(request.user) # username (email)
