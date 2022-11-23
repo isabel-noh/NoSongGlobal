@@ -22,7 +22,7 @@ export default new Vuex.Store({
   },
   getters: {
     isLogin(state) {
-      return state.token ? true : false
+      return state.user
     },
     movieData(state) {
       return state.movieList
@@ -33,6 +33,10 @@ export default new Vuex.Store({
 
   },
   mutations: {
+    IS_LOGIN(state, data){
+      state.user = data
+    }
+    ,
     LOG_IN(state, data){
       state.token = data.key
       state.user = data.user
@@ -68,7 +72,24 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    
+    isLogin(context){
+      const local = localStorage.getItem('vuex')
+      const user = JSON.parse(local)
+      axios({
+        method:'GET',
+        url: `${API_URL}/auth/isLogin/`,
+        data: {
+          'Authorization': `Token ${user.token}`
+        }
+      })
+      .then((response) => {
+        console.log(response.data)
+        context.commit('IS_LOGIN', response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
 
     logIn(context, userData) {
       axios({

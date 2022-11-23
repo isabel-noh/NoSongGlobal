@@ -52,7 +52,7 @@ export default {
             journal: null,
             added_comment: null,
             commentList:[],
-            user: this.computed.user_id,
+            user: this.computed?.user_id,
         }
     }, 
     components:{
@@ -110,15 +110,18 @@ export default {
       url_formatting: function(){
         // 이미지 경로가 서버에 저장된 경로로 불러와져 데이터 로드되지 않아
         // 경로에 'http://localhost:8000'를 붙여줘 computed로 계산된 값을 보여게 함
-        const new_journal = 'http://localhost:8000' + this.journal?.journal_image
+        
+        let new_journal = ''
+        new_journal = 'http://localhost:8000' + this.journal?.journal_image
         return new_journal
       },
       user_id: function(){
-        const id = this.$store.getters.userData.id
+        const id = this.$store.getters.user.id
         return id
       }
     },
     created(){
+        this.$store.dispatch('isLogin')
         this.getJournal()
     },
     

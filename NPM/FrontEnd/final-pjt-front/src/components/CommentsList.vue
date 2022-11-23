@@ -2,7 +2,7 @@
   <div class="comment-list">
     <div>
         <CommentItem v-for="comment in commentsList" 
-            :key="comment.comment_id"
+            :key="comment?.comment_id"
             :comment="comment"/>
     </div>
   </div>
@@ -28,7 +28,7 @@ export default {
 
     watch:{
         comments(){
-            this.commentsList = this.commentList
+            this.commentsList = this?.commentList
         }
     }
 }

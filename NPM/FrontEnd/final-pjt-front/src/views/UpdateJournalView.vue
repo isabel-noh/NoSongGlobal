@@ -1,29 +1,34 @@
 <template>
-        <div>
-            <form @submit.prevent="updateJournal">
-                <div style="text-align:start; margin: 10px;">
-                    <h3>Edit Your Moment</h3>
-                    <div>
-                        <label for="journal_title">글 제목: </label><input type="text" id="journal_title">
-                    </div>
-                    <div>
-                        <label for="journal_content">글 내용: </label><textarea type="text" id="journal_content"></textarea>
-                    </div>
-                    <div>
-                        <label for="movie_title">영화 제목: </label><input type="text" id="movie_title">
-                    </div>
-                    <div>
-                        <label for="journal_image">영화 이미지: </label><input type="file" id="journal_image">
-                    </div>
-                    <div>
-                        <label for="watched_at">본 날짜:</label><input type="text" id="watched_at">
-                    </div>
-                </div>
-                <div>
-                    <button type="submit" class="btn btn-danger">수정하기</button>
-                </div>
-            </form>
-        </div>
+  <div class="update-journal-view">
+    <h2>Edit My Movie Moment</h2>
+    <div class="journal-form">
+        <form @submit.prevent="updateJournal">
+            <div class="content-div">
+                <label for="journal_title" style="margin-right: 10px;">제목: </label>
+                <input 
+                    type="text" id="journal_title"
+                    v-model="journal_title"
+                    placeholder="글 제목을 입력해주세요"
+                    value="{journal?.journal_title}">
+            </div>
+            <div class="content-div">
+                <label for="journal_content" style="margin-right: 10px;">글 내용: </label><textarea type="text" id="journal_content"></textarea>
+            </div>
+            <div class="content-div">
+                <label for="movie_title" style="margin-right: 10px;">영화 제목: </label><input type="text" id="movie_title">
+            </div>
+            <div class="content-div">
+                <label for="journal_image" style="margin-right: 10px;">영화 이미지: </label><input type="file" id="journal_image">
+            </div>
+            <div class="content-div">
+                <label for="watched_at" style="margin-right: 10px;">본 날짜:</label><input type="text" id="watched_at">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-danger">수정하기</button>
+            </div>
+        </form>
+    </div>
+  </div>
     
 </template>
 
