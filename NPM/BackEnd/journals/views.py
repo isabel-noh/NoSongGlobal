@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 from .models import Journal, Comment
 from .serializers import JournalListSerializer, JournalSerializer, CommentSerializer
-
+from movies.models import Movie
 
 
 # Create your views here.
@@ -20,7 +20,21 @@ def journals_all(request):
     # journals = Journal.objects.all()
     journals = get_list_or_404(Journal)
     serializer = JournalListSerializer(journals, many=True)
-    return Response(serializer.data)
+    journal_data_all = []
+    for i in serializer.data:
+        # movie_poster = get_list_or_404(Movie, movie_id=i['movie_id']).poster_path
+        # movie_poster = Movie.objects.get(movie_id=i['movie_id'])
+        movie_poster = Movie.objects.get(id=i['movie_id']).poster_path
+        journal_data = {
+            'id': i['pk'],
+            'title': i['title'],
+            'movie_id': i['movie_id'],
+            'watched_at': i['watched_at'],
+            'journal_image': i['journal_image'],
+            'poster_path': movie_poster,
+        }
+        journal_data_all.append(journal_data)
+    return Response(journal_data_all, status=status.HTTP_200_OK)
     
 
 # 새로운 저널 생성
