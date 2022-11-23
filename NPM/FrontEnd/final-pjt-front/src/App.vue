@@ -41,7 +41,7 @@
             사용자님
           </button>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" @click="logOut">sign out</a></li>
+            <li><a class="dropdown-item" @click="logOut">LogOut</a></li>
             <li><router-link class="dropdown-item" :to="{ name : 'myPage' }" >MyPage</router-link></li>
           </ul>
         </div>
@@ -93,12 +93,10 @@ export default {
   },
   computed:{
     isLogin(){
-      const isLogin = this.$store.getters.isLogin
-      return isLogin
+      return this.$store.getters.isLogin
     },
     nickname(){
-      const nickname = this.$store.getters.userData.nickname
-      return nickname
+      return this.$store.getters.userData.nickname
     }
   },
   created(){
