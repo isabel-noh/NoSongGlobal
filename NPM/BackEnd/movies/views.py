@@ -167,29 +167,3 @@ def movie_detail(request, movie_pk):
     return Response(serializer.data) 
 
 
-
-# 좋아요
-@api_view(['POST'])
-# @permission_classes([IsAuthenticated])
-def movie_like(request, movie_pk):
-    if request.user.is_authenticated:
-        movie = get_object_or_404(Movie, pk=movie_pk)
-        user = request.user
-
-        if movie.like_users.filter(pk=user.pk).exists():
-            movie.like_users.remove(user)
-            is_liked = False
-        else:
-            movie.like_users.add(user)
-            is_liked = True
-
-        like_count = movie.like_users.count()
-
-        context = {
-            'is_Liked': is_liked,
-            'like_count': like_count,
-        }
-        return Response(context)
-
-
-
