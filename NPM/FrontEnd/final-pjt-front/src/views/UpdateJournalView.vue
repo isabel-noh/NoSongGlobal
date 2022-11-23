@@ -97,7 +97,6 @@ export default {
             watched_at : null,
             result:null,
             searchInput:null,
-            selectedMovieId:null,
             isShow:false,
         }
     },
@@ -169,7 +168,7 @@ export default {
           console.log(event.target.innerHTML)
           console.log(event.target.value)
           this.movie_title = event.target.innerHTML
-          this.selectedMovieId = event.target.value
+          this.movie_id = event.target.value
           this.isShow = false
         }
     },
