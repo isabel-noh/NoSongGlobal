@@ -45,42 +45,19 @@ def mypage(request):
     }
     return Response(context)
 
-#     # client로부터 온 데이터에서 비밀번호 갖고오기
-#     password_1 = request.data.get('password1')
-#     password_2 = request.data.get('password2')
 
-#     # 회원가입 시 입력하는 비밀번호 다른 경우,
-#     if password_1 != password_2:
-#         return Response({'error': '비밀번호가 일치하지 않습니다.'}, status=status.HTTP_400_BAD_REQUEST)
-
-#     # 데이터 직렬화
-#     serializer = UserSerializer(data=request.data)
-
-#     # validation 진행
-#     if serializer.is_valid(raise_exception=True):
-#         user = serializer.save()
-#         user.save()
-#         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-
-# @api_view(['POST'])
-# def login(request):
-
-#     serializer = UserSerializer(data=request.data)
-
-#     if serializer.is_valid(raise_exception=True):
-#         user = serializer
-#         id = User.objects.get('username')
-#         password = User.objects.get('password')
-#         token = Token.objects.create(user=)
-
-#         if id == request.data.get('username') and password == request.data.get('password'):
-
-
-
-
-#             data = {
-#             'nickname': nickname,
-#             'token': token,  
-#             }
-#             return Response(data, status=)
+@api_view(['GET'])
+def isLogin(request):
+    user = get_object_or_404(User, username=request.user)
+    add = get_object_or_404(UserAddField, user=user.id)
+    # 닉네임, 로그인 상태, 유저 번호 보내기
+    # user -> is_active, id
+    # add -> nickname
+    serializer_user = UserSerializer(user)
+    serializer_add = UserAddFieldSerializer(add)
+    context = {
+        'user_id': serializer_user.data['id'],
+        'is_active': serializer_user.data['is_active'],
+        'nickname': serializer_add.data['nickname'],
+    }
+    return Response(context)
