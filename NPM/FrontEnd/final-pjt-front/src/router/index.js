@@ -4,9 +4,10 @@ import store from '@/store'
 import HomeView from '@/views/HomeView.vue'
 import MovieDetailView from '@/views/MovieDetailView.vue'
 import CreateJournalView from '@/views/CreateJournalView'
+import JournalDetailView from '@/views/JournalDetailView'
+import UpdateJournalView from '@/views/UpdateJournalView'
 import SignUpView from '@/views/SignUpView.vue'
 import NotFound404View from '@/views/NotFound404View.vue'
-import JournalDetailView from '@/views/JournalDetailView'
 
 Vue.use(VueRouter)
 
@@ -68,6 +69,20 @@ const routes = [
     path: '/journals/:journal_id',
     name: 'journalDetail',
     component: JournalDetailView,
+  },
+  {
+    path: '/journals/update/:journal_id',
+    name: 'updateJournal',
+    component: UpdateJournalView,
+    // beforeEnter(to, from, next){
+    //   const user = store.getters.userData
+    //   if(user === true){
+    //     next()
+    //   } else {
+    //     alert('글 작성자가 아닙니다.')
+    //     next({ name : 'journal' })
+    //   }
+    // }
   },
   {
     path: '/404NotFound',

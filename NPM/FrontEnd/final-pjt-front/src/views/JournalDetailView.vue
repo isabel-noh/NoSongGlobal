@@ -9,12 +9,24 @@
     </div>
     <div class="youtube_music_player"></div>
     <div class="journal_content">
-        <h5>{{journal?.movie_title}}</h5>
+        <p>{{journal?.movie_title}}</p>
         <p>{{journal?.watched_at}}</p>
-        <p>{{journal?.title}}<span> {{journal?.like_cnt}} </span><button>좋아요</button></p>
+        <h5>{{journal?.title}}<span> {{journal?.like_cnt}} </span><button class="btn btn-primary">좋아요</button></h5>
         <p>{{journal?.content}}</p>
-        <hr>
     </div>
+    <div class="delete-update-btn">
+        <div 
+            class="delete-post-btn"
+            v-if="journal?.user === user">
+            <button class="btn btn-danger" @click="deletePost">삭제하기</button>
+        </div>
+        <div 
+            class="update-post-btn"
+            v-if="journal?.user === user">
+            <button class="btn btn-warning" @click="gotoEditPostPage">수정하기</button>
+        </div>
+    </div>
+    <hr>
     <div class="comment-div">
         <CommentWriteView 
             :journal_id="journal?.journal_id"
@@ -40,6 +52,7 @@ export default {
             journal: null,
             added_comment: null,
             commentList:[],
+            user: this.computed.user_id,
         }
     }, 
     components:{
@@ -47,7 +60,7 @@ export default {
         CommentsList,
     },
     methods: {
-        // 게시글 detial 불러오기
+        // 게시글 detail 불러오기
         getJournal(){
             axios({
                 method:'GET',
@@ -61,15 +74,48 @@ export default {
                 console.log(error)
             })
         },
-        // comment 작성
+        // 게시글 삭제
+        deletePost(){   
+            const local = localStorage.getItem('vuex')
+            const user = JSON.parse(local)
+            axios({
+                method: 'DELETE',
+                url: `${API_URL}/journals/${this.$route.params.journal_id}/detail`,
+                headers:{
+                    'Authorization' : `Token ${user.token}`
+                },
+                data:{
+                    id: this.journal?.id
+                }
+            })
+            .then((response) => {
+                console.log(response)
+                console.log('삭제되었습니다.')
+                this.$router.push({ name : 'journal'})
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        },
+        // journal 수정페이지로 가기
+        gotoEditPostPage(){
+            this.$router.push({ name : 'updateJournal' , params: {'journal_id' : this.journal?.journal_id}})
+        },
+        // TODO comment 작성
         addComment(added_comment){
             this.added_comment = added_comment
         }
     },
     computed:{
       url_formatting: function(){
+        // 이미지 경로가 서버에 저장된 경로로 불러와져 데이터 로드되지 않아
+        // 경로에 'http://localhost:8000'를 붙여줘 computed로 계산된 값을 보여게 함
         const new_journal = 'http://localhost:8000' + this.journal?.journal_image
         return new_journal
+      },
+      user_id: function(){
+        const id = this.$store.getters.userData.id
+        return id
       }
     },
     created(){
@@ -80,7 +126,14 @@ export default {
 </script>
 
 <style>
+.JournalDetailView{
+    text-align: start;
+}
 #journal-title-h1{
     font-family: 'Do Hyeon';
+}
+.delete-update-btn{
+    display: flex;
+    margin-bottom: 10px;
 }
 </style>

@@ -77,30 +77,31 @@ export default {
         // TODO 영화 전체 리스트 가져오기
         getMovieList(){
           this.$store.dispatch('loadMovieData')
-          // console.log(this.$store.state.movieList)
+          console.log(this.$store.state.movieList)
         },
         //영화 장르별/정렬 리스트 가져오기
         getFilteredMovies(){
-          console.log(this.selected_genre, this.sorted_option)
-          // console.log(this.movieList[-])
-          // for (const movie in movieList) {
-          //   this.sear
-          // }
+          // console.log(this.selected_genre, this.sorted_option)
+          if (this.selected_genre === "0") {
+            this.movieList = this.movieData
+          }
+          else {
+            this.movieList = this.movieData.filter((movie) => {
+              return movie.genre_id.includes(Number(this.selected_genre))
+            })
+          }
+          // console.log(this.movieList)
         },
     },
     created(){
       // TODO 페이지 생성 시 영화 데이터 가져오기
         this.getMovieList()
-        for (const idx in this.movieData) {
-          console.log(this.movieData[idx]) 
-          this.movieList.push(this.movieData[idx])
-        }
+        this.movieList = this.movieData
     },
     computed: {
       // TODO 영화 데이터 state에서 getters로 가져오기
       movieData() {
-        console.log(this.$store.getters.movieList)
-        return this.$store.getters.movieList
+        return this.$store.getters.movieData
       }
     }
 
