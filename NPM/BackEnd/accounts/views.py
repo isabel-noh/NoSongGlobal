@@ -33,9 +33,13 @@ def addfields(request):
 
 @api_view(['GET'])
 def mypage(request):
-    # print(request.user) # username (email)
-    # print(request.auth) # 사용자 토큰
+    print('1',request.data) 
+    # # username (email)
+    print('2',request.auth) 
+    # # 사용자 토큰
     user = get_object_or_404(User, username=request.user)
+    # user = get_object_or_404(User)
+    print(user)
     add = get_object_or_404(UserAddField, user=user.id)
     serializer_user = UserSerializer(user)
     serializer_add = UserAddFieldSerializer(add)

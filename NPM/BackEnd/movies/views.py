@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 
 # from .api import movies_json
 from .models import Movie, Genre
-from .serializers import MovieListSerializer, MovieSerializer
+from .serializers import MovieListSerializer, MovieSerializer, GenreListSerializer
 
 
 # Authentication Decorators
@@ -163,7 +163,13 @@ def movie_list(request):
 def movie_detail(request, movie_pk):
     # 단일 영화 정보 제공 
     movie = Movie.objects.get(pk=movie_pk)
-    serializer = MovieSerializer(movie)
-    return Response(serializer.data) 
+    serializer = MovieListSerializer(movie)
+    movie_genre = serializer.data['genre']
+    genre_names = []
+    for i in movie_genre:
+        name = Genre.objects.get(pk=i)
+        serializer_genre = GenreListSerializer(name)
+        genre_names.append(serializer_genre.data['genre_name'])
+    return Response(genre_names) 
 
 
