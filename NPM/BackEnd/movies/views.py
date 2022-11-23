@@ -95,7 +95,8 @@ def get_movie_data(request):
             'vote_average' : movie.vote_average,
             'release_date' : movie.release_date,
             'genre_id' : genre_id,
-            'genre_text' : genre_text
+            'genre_text' : genre_text,
+            'revenue' : movie.revenue,
         }
         idx += 1
     return JsonResponse(movie_data, status=status.HTTP_200_OK)
