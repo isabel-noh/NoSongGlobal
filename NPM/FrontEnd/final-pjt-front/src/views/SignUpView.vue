@@ -114,7 +114,6 @@ export default {
             if (!this.email.trim) {
                 alert('이메일을 입력해주세요.')
             }
-            this.second_page = true
             // this.$store.dispatch('signUp', payload)
             
             axios({
@@ -129,6 +128,7 @@ export default {
             }).
             then((response) => {
                 localStorage.setItem('token', response.data.key)
+                this.second_page = true
             }).
             catch((error) => {
                 console.log(error)
@@ -136,7 +136,7 @@ export default {
             
         },
         addUserData(){
-            //`/addfields/`
+            //
             const name = this.name;
             const nickname = this.nickname;
             const profile_image = this.profile_image;
@@ -158,7 +158,7 @@ export default {
             const user = localStorage.getItem('token')
             axios({
                 method: 'POST',
-                url: `${API_URL}/useraddfields/`,
+                url: `${API_URL}/auth/`,
                 headers:{
                     'Content-Type': 'multipart/form-data',
                     'Authorization' : `Token ${user}`,

@@ -33,7 +33,7 @@
             {{nickname}}
           </button>
           <button
-            v-if="!nickname" 
+            v-else 
             type="button" 
             class="btn btn-light dropdown-toggle" 
             style="font-family:'Do Hyeon'; font-weight: bold;" 
@@ -77,7 +77,9 @@ export default {
   },
   methods: {
     isLoggedIn(){
+      this.$store.dispatch('isLogin')
       this.isLogin = this.$store.getters.isLogin
+      this.nickname = this.$store.getters.userData.nickname
     },
     closeModal(){
       this.openModal = false
@@ -95,9 +97,13 @@ export default {
   },
   mounted(){
     this.isLoggedIn()
+    this.$store.dispatch('isLogin')
+
   },
   updated(){
-    this.isLoggedIn()          
+    this.isLoggedIn() 
+    this.$store.dispatch('isLogin')
+
   }
 }
 </script>

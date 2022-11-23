@@ -21,15 +21,15 @@ export default new Vuex.Store({
     soundtrackList: [],
   },
   getters: {
+    userData(state){
+      return state.user ? state.user : null
+    },
     isLogin(state) {
-      return state.user
+      return state.token ? true : false
     },
     movieData(state) {
       return state.movieList
     },
-    userData(state){
-      return state.user
-    }
 
   },
   mutations: {
@@ -40,6 +40,7 @@ export default new Vuex.Store({
     LOG_IN(state, data){
       state.token = data.key
       state.user = data.user
+      console.log('user',state.user)
       if(router.currentRoute.name != 'home'){
         router.push({ name : 'home' })
       } else {
@@ -56,6 +57,7 @@ export default new Vuex.Store({
     },
     LOG_OUT(state){
       state.token = null
+      state.user = null
       if(router.currentRoute.name != 'home'){
         router.push({ name : 'home' })
       } else {
@@ -75,15 +77,15 @@ export default new Vuex.Store({
     isLogin(context){
       const local = localStorage.getItem('vuex')
       const user = JSON.parse(local)
+      console.log(user.token)
       axios({
         method:'GET',
         url: `${API_URL}/auth/isLogin/`,
-        data: {
+        headers: {
           'Authorization': `Token ${user.token}`
         }
       })
       .then((response) => {
-        console.log(response.data)
         context.commit('IS_LOGIN', response.data)
       })
       .catch((error) => {
@@ -102,6 +104,7 @@ export default new Vuex.Store({
       })
       .then((response) => {
         context.commit('LOG_IN', response.data)
+        context.dispatch('isLogin')
       })
       .catch((error) => {
         alert('유저정보를 확인해주세요.')

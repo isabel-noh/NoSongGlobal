@@ -17,12 +17,12 @@
     <div class="delete-update-btn">
         <div 
             class="delete-post-btn"
-            v-if="journal?.user === user">
+            v-if="journal?.user === user_id">
             <button class="btn btn-danger" @click="deletePost">삭제하기</button>
         </div>
         <div 
             class="update-post-btn"
-            v-if="journal?.user === user">
+            v-if="journal?.user === user_id">
             <button class="btn btn-warning" @click="gotoEditPostPage">수정하기</button>
         </div>
     </div>
@@ -52,7 +52,7 @@ export default {
             journal: null,
             added_comment: null,
             commentList:[],
-            user: this.computed?.user_id,
+            user_id: null,
         }
     }, 
     components:{
@@ -62,6 +62,7 @@ export default {
     methods: {
         // 게시글 detail 불러오기
         getJournal(){
+            console.log('getJournal')
             axios({
                 method:'GET',
                 url: `${API_URL}/journals/${this.$route.params.journal_id}/detail`,
@@ -110,19 +111,18 @@ export default {
       url_formatting: function(){
         // 이미지 경로가 서버에 저장된 경로로 불러와져 데이터 로드되지 않아
         // 경로에 'http://localhost:8000'를 붙여줘 computed로 계산된 값을 보여게 함
-        
         let new_journal = ''
         new_journal = 'http://localhost:8000' + this.journal?.journal_image
         return new_journal
       },
-      user_id: function(){
-        const id = this.$store.getters.user.id
-        return id
-      }
     },
     created(){
         this.$store.dispatch('isLogin')
         this.getJournal()
+        const id = this.$store.getters.userData.user_id
+        this.user_id = id
+    },
+    mounted(){
     },
     
 }
