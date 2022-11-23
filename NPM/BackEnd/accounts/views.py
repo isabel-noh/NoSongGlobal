@@ -33,7 +33,7 @@ def addfields(request):
 
 @api_view(['GET'])
 def mypage(request):
-    print('1',request) 
+    print('1',request.data) 
     # # username (email)
     print('2',request.auth) 
     # # 사용자 토큰
