@@ -25,7 +25,7 @@ export default {
     },
     data() {
       return{
-        user: localStorage.getItem('token')
+        // user: localStorage.getItem('token')
       }
     },
     methods: {
@@ -33,9 +33,9 @@ export default {
         axios({
           mothod: 'GET',
           url: `${API_URL}/auth/mypage`,
-          headers: {
-            'Authorization' : `Token ${this.user}`,
-          }
+          // headers: {
+          //   'Authorization' : `Token ${this.user}`,
+          // }
         })
         .then((response) => {
           console.log(response.data)
@@ -46,6 +46,7 @@ export default {
       }
     },
     created(){
+      this.$store.dispatch('isLogin')
       this.getProfileImg()
     }
 }
