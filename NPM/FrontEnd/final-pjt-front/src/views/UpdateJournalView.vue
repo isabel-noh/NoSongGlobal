@@ -97,7 +97,6 @@ export default {
             watched_at : null,
             result:null,
             searchInput:null,
-            selectedMovieId:null,
             isShow:false,
         }
     },
@@ -111,7 +110,7 @@ export default {
             this.journal_title = this.journal?.title
             this.journal_content = this.journal?.content
             this.movie_id = this.journal?.movie
-            this.movie_title = this.movieList[this.movie_id-1].title
+            this.movie_title = this.movieList[this.movie_id - 1].title
             this.journal_image = this.journal?.journal_image
             this.journal_rank = this.journal?.rank
             this.previous_image = this.journal?.journal_image
@@ -169,7 +168,7 @@ export default {
           console.log(event.target.innerHTML)
           console.log(event.target.value)
           this.movie_title = event.target.innerHTML
-          this.selectedMovieId = event.target.value
+          this.movie_id = event.target.value
           this.isShow = false
         }
     },

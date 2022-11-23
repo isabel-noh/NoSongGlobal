@@ -102,6 +102,7 @@ export default {
     },
     methods:{
         addJournal(){
+            console.log(this.selectedMovieId)
             const movie_id = this.selectedMovieId
             const journal_title = this.journal_title
             const journal_content = this.journal_content

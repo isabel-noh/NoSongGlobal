@@ -1,6 +1,6 @@
 <template>
   <div class="recommend">
-    <h4 id="recommend-title">user.name님을 위한 추천 영화</h4>
+    <h4 id="recommend-title"><span class="btn">{{username}}</span>님을 위한 추천 영화</h4>
     <div class="card text-bg-dartk" style="position: relative; width: 100%; max-height: 300px;overflow: hidden;border: none;">
         <img src="@/assets/example1.jpeg" class="card-img" alt="...">
         <div style="position:absolute; bottom: 3%; left: 2%; text-align:left;">
@@ -20,7 +20,11 @@
 <script>
 export default {
     name: 'RecommendView',
-
+    computed: {
+      username() {
+        return this.$store.state.user.nickname
+      }
+    }
 }
 </script>
 

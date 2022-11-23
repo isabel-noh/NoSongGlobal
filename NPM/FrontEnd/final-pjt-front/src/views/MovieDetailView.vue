@@ -8,9 +8,9 @@
         <h2>{{movie?.title}}</h2>
         <button class="btn btn-light" style="margin-bottom:10px;">좋아요</button>
         <p>개봉일: {{movie?.release_date}}</p>
-        <p>장르: </p>
+        <p>장르: {{genres}}</p>
         <p>평점: {{movie?.vote_average}}</p>
-        <p>러닝타임: </p>
+        <p>러닝타임: {{runtime}}</p>
       </div>
     </div>
     <div class="movie-overview">
@@ -56,6 +56,30 @@ export default {
     },
     created(){
       this.getMovieDetail()
+    },
+    computed: {
+      genres() {
+        let genres = ""
+        for (const idx in this.movie?.genre_text){
+          if (idx === "0") {
+            genres = genres + `${this.movie?.genre_text[idx]}`
+          }
+          else {
+            genres = genres + `, ${this.movie?.genre_text[idx]}`
+          }
+        }
+        return genres
+      },
+      runtime(){
+        const r = this.movie?.runtime
+        let hour = 0
+        let minute = 0
+        if (r >= 60){
+          hour = parseInt(r / 60)
+          minute = r - (hour * 60)
+        }
+        return `${hour}시간 ${minute}분`
+      }
     }
 }
 </script>

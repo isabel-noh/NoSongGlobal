@@ -9,7 +9,7 @@
     </div>
     <div class="youtube_music_player"></div>
     <div class="journal_content">
-        <p>{{journal?.movie_title}}</p>
+        <p>{{this.movieData[this.journal?.movie-1].title}}</p>
         <p>{{journal?.watched_at}}</p>
         <h5>{{journal?.title}}<span> {{journal?.like_cnt}} </span><button class="btn btn-primary">좋아요</button></h5>
         <p>{{journal?.content}}</p>
@@ -114,6 +114,10 @@ export default {
         new_journal = 'http://localhost:8000' + this.journal?.journal_image
         return new_journal
       },
+      movieData() {
+        console.log(this.$store.getters.movieData)
+        return this.$store.getters.movieData
+      }
     },
     created(){
         this.$store.dispatch('isLogin')

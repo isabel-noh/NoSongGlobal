@@ -93,12 +93,10 @@ export default {
   },
   computed:{
     isLogin(){
-      const isLogin = this.$store.getters.isLogin
-      return isLogin
+      return this.$store.getters.isLogin
     },
     nickname(){
-      const nickname = this.$store.getters.userData.nickname
-      return nickname
+      return this.$store.getters.userData.nickname
     }
   },
   created(){
