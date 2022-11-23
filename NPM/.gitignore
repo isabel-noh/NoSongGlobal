@@ -3,6 +3,9 @@
 # Vue
 node_modules/
 
+# Vue
+node_modules/
+
 ### Django ###
 *.log
 *.pot

@@ -7,9 +7,6 @@ from uuid import uuid4
 # Create your models here.
 
 class Journal(models.Model):
-
-
-        
     title = models.CharField(max_length=100)
     content = models.TextField()
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
