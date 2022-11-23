@@ -19,7 +19,8 @@
             <div class="content-div">
                 <label for="watched_at" style="margin-right: 10px;">날짜:</label>
                 <input type="date" id="watched_at"
-                    v-model="journal_date">
+                    v-model="watched_at" />
+                    <!-- :value="{{journal?.watched_date}}"> -->
             </div>
             <div class="content-div">
                 <label for="journal_content" style="margin-right: 10px;">글 내용: </label>
@@ -72,6 +73,12 @@ export default {
         },
         getJournal(){
             this.journal = this.$store.getters.aJournal
+            this.journal_title = this.journal?.title
+            this.journal_content = this.journal?.content
+            this.movie_title = this.journal?.movie_title
+            this.journal_image = this.journal?.journal_image
+            this.previous_image = this.journal?.journal_image
+            this.watched_at = this.journal?.watched_at
         },
         updateJournal(){
             const journal_title = this.journal_title
@@ -116,17 +123,6 @@ export default {
     created(){
         this.getJournal()
     },
-    mounted(){
-        console.log(this.journal)
-        this.journal_title = this.journal?.title
-        this.journal_content = this.journal?.content
-        this.movie_title = this.journal?.movie_title
-        this.previous_image = this.journal?.journal_image
-        // console.log(this.watched_at)
-        const date = new Date(this.journal?.watched_at)
-        this.watched_at = date
-        console.log(this.watched_at)
-    }
 
 
 }

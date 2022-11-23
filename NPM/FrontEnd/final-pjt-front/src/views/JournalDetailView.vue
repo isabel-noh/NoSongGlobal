@@ -99,7 +99,7 @@ export default {
         },
         // journal 수정페이지로 가기
         gotoEditPostPage(){
-            this.$router.push({ name : 'updateJournal' , params: {'journal_id' : this.journal.journal_id}})
+            this.$router.push({ name : 'updateJournal' , params: {'journal_id' : this.journal.id}})
         },
         // TODO comment 작성
         addComment(added_comment){

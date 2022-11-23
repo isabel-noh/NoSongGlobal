@@ -61,9 +61,19 @@ const routes = [
     }
   },
   {
-    path: '/journals',
-    name: 'journal',
-    component: () => import('../views/JournalView.vue')
+    path: '/journals/update/:journal_id',
+    name: 'updateJournal',
+    component: UpdateJournalView,
+    beforeEnter(to, from, next){
+      const journal_writer = store.getters.aJournal.user
+      const user = store.getters.userData.user_id
+      if(user === journal_writer){
+        next()
+      } else {
+        alert('글 작성자가 아닙니다.')
+        next({ name : 'journal' })
+      }
+    }
   },
   {
     path: '/journals/:journal_id',
@@ -71,18 +81,9 @@ const routes = [
     component: JournalDetailView,
   },
   {
-    path: '/journals/update/:journal_id',
-    name: 'updateJournal',
-    component: UpdateJournalView,
-    // beforeEnter(to, from, next){
-    //   const user = store.getters.userData
-    //   if(user === true){
-    //     next()
-    //   } else {
-    //     alert('글 작성자가 아닙니다.')
-    //     next({ name : 'journal' })
-    //   }
-    // }
+    path: '/journals',
+    name: 'journal',
+    component: () => import('../views/JournalView.vue')
   },
   {
     path: '/404NotFound',
