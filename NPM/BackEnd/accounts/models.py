@@ -13,5 +13,5 @@ class UserAddField(models.Model):
     
     name = models.CharField(max_length=10, null=False)
     nickname = models.CharField(max_length=10, unique=True, null=False)
-    profile_image = models.ImageField(null=False)
+    profile_image = models.ImageField(max_length=100, upload_to="profile_%Y/%m/%d/", blank=True, null=True)
     like_ost_genre = models.CharField(max_length=500, default='', blank=False)
