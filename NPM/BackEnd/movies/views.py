@@ -162,14 +162,23 @@ def movie_list(request):
 @api_view(['GET'])
 def movie_detail(request, movie_pk):
     # 단일 영화 정보 제공 
-    movie = Movie.objects.get(pk=movie_pk)
-    serializer = MovieListSerializer(movie)
-    movie_genre = serializer.data['genre']
-    genre_names = []
-    for i in movie_genre:
-        name = Genre.objects.get(pk=i)
-        serializer_genre = GenreListSerializer(name)
-        genre_names.append(serializer_genre.data['genre_name'])
-    return Response(genre_names) 
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    genre_id = [genre.genre_id for genre in get_object_or_404(Movie, id=movie.id).genre.all()]
+    genre_text = [get_object_or_404(Genre, genre_id=id).genre_name for id in genre_id]
+    movie_data = {
+        'id' : movie.id,
+        'title' : movie.title,
+        'overview' : movie.overview,
+        'poster_path' : movie.poster_path,
+        'backdrop_path' : movie.backdrop_path,
+        'runtime' : movie.runtime,
+        'adult' : movie.adult,
+        'vote_average' : movie.vote_average,
+        'release_date' : movie.release_date,
+        'genre_id' : genre_id,
+        'genre_text' : genre_text,
+        'revenue' : movie.revenue,
+    }
+    return Response(movie_data, status=status.HTTP_200_OK) 
 
 
