@@ -25,20 +25,25 @@ export default {
     },
     data() {
       return{
-        // user: localStorage.getItem('token')
+        
       }
     },
     methods: {
       getProfileImg(){
+        // const user_data = this.$store.state.token
+        const user = localStorage.getItem('token')
         axios({
           mothod: 'GET',
           url: `${API_URL}/auth/mypage`,
-          // headers: {
-          //   'Authorization' : `Token ${this.user}`,
-          // }
+          // headers:{
+          //   'Authorization' : `Token ${user}`,
+          // },
+          data: {
+            user_token: user,
+          }
         })
         .then((response) => {
-          console.log(response.data)
+          console.log('axios요청 됨', response.data)
           // for (const j of response.data) {
           //   if (j.)
           // }
@@ -47,6 +52,7 @@ export default {
     },
     created(){
       this.$store.dispatch('isLogin')
+      console.log('!', this.$store.state.token)
       this.getProfileImg()
     }
 }
