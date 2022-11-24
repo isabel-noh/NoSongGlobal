@@ -25,6 +25,8 @@ def journals_all(request):
         # movie_poster = get_list_or_404(Movie, movie_id=i['movie_id']).poster_path
         # movie_poster = Movie.objects.get(movie_id=i['movie_id'])
         movie_poster = Movie.objects.get(id=i['movie_id']).poster_path
+        # journals.like_users.all()
+        like_users = [user.id for user in get_object_or_404(Journal, id=i['pk']).like_users.all()]
         journal_data = {
             'id': i['pk'],
             'title': i['title'],
@@ -33,6 +35,7 @@ def journals_all(request):
             'journal_image': i['journal_image'],
             'poster_path': movie_poster,
             'user_id': i['user_id'],
+            'like_users':like_users
         }
         journal_data_all.append(journal_data)
     return Response(journal_data_all, status=status.HTTP_200_OK)

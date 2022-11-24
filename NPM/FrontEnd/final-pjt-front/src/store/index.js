@@ -22,6 +22,8 @@ export default new Vuex.Store({
     recommendMovieList: null,
     journalList: [],
     userJournalList: [],
+    likeJournalList: [],
+    tabNum: 1
   },
   getters: {
     userData(state){
@@ -44,6 +46,12 @@ export default new Vuex.Store({
     },
     userJournalList(state) {
       return state.userJournalList
+    },
+    likeJournalList(state) {
+      return state.likeJournalList
+    },
+    tabNum(state) {
+      return state.tabNum
     }
 
   },
@@ -108,6 +116,12 @@ export default new Vuex.Store({
     USER_JOURNAL_LIST(state, data) {
       state.userJournalList = data
     },
+    LIKE_JOURNAL_LIST(state, data) {
+      state.likeJournalList = data
+    },
+    TAB_NUM(state, num){
+      state.tabNum = num
+    }
   },
   actions: {
     isLogin(context){
@@ -303,7 +317,7 @@ export default new Vuex.Store({
             j.journal_image = 'http://localhost:8000' + j.journal_image
             isActive_url = false
           } else {
-            // this.poster_url = 'https://image.tmdb.org/t/p/w500' + j.poster_path
+            j['poster_path'] = 'https://image.tmdb.org/t/p/w500' + j.poster_path
             isActive_url = true
           }
           j['isActive_url'] = isActive_url
