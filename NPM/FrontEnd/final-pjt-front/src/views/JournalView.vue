@@ -24,7 +24,7 @@
       <!-- </div> -->
     </div>
     <div class="journal-lists">
-        <div class="row row-cols-1 row-cols-md-3">
+        <div class="row row-cols-1 row-cols-md-5">
           <!-- 아래 반복 -->
           <div class="col" 
             @click="goToDetailPage(journal?.id)"
@@ -36,9 +36,9 @@
                 <div
                   class="card-img-top item front rounded-2"
                   :style="{ backgroundImage:`url(${journal?.journal_image})`,
-                            backgroundSize: 'contain', 
-                            backgroundRepeat: 'no-repeat', 
+                            backgroundSize: 'cover', 
                             backgroundPosition: 'center'}">
+                            <!-- backgroundRepeat: 'no-repeat',  -->
                 </div>  
               </div>
               <div class="item front" 
@@ -47,8 +47,7 @@
                 <div
                   class="card-img-top item front rounded-2"
                   :style="{ backgroundImage:`url(https://image.tmdb.org/t/p/w500/${journal?.poster_path})`,
-                          backgroundSize: 'contain', 
-                          backgroundRepeat: 'no-repeat'}">
+                          backgroundSize: 'cover'}">
                 </div>
               </div>
               <div class="card item back">

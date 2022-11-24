@@ -21,6 +21,7 @@ export default new Vuex.Store({
     journal: null,
     recommendMovieList: null,
     journalList: [],
+    userJournalList: [],
   },
   getters: {
     userData(state){
@@ -40,6 +41,9 @@ export default new Vuex.Store({
     },
     journalList(state) {
       return state.journalList
+    },
+    userJournalList(state) {
+      return state.userJournalList
     }
 
   },
@@ -85,8 +89,10 @@ export default new Vuex.Store({
       state.journal = data
     },
     RECOMMEND_MOVIE_LIST(state, data){
-      const recommend_data = data.recommendMovieList
+      const recommend_data = data
+      console.log(recommend_data)
       for(const j of recommend_data) {
+        console.log(j)
         let temp = j.overview.split(' ')
         temp = temp.slice(0, 5)
         j.overview = temp.join(' ')
@@ -98,7 +104,10 @@ export default new Vuex.Store({
     },
     USER_PROFILE(state, data) {
       state.user['profileImg'] = data.profile_image
-    }
+    },
+    USER_JOURNAL_LIST(state, data) {
+      state.userJournalList = data
+    },
   },
   actions: {
     isLogin(context){
@@ -271,7 +280,11 @@ export default new Vuex.Store({
         })
         .then((res) => {
           console.log(res.data)
-          context.commit('RECOMMEND_MOVIE_LIST', res.data)
+          const recommendMovieList = [] 
+          for (const id in res.data.recommendMovieList) {
+            recommendMovieList.push(context.state.movieList[res.data.recommendMovieList[id]])
+          }
+          context.commit('RECOMMEND_MOVIE_LIST', recommendMovieList)
         })
         .catch((err) => {
           console.log(err)
