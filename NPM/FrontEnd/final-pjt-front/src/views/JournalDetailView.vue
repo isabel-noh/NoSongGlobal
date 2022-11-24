@@ -16,6 +16,16 @@
             background-repeat: no-repeat;
             }`">
         </div>
+        <div v-else
+            :style="`borderRadius:0px; 
+            backgroundImage:url(${url_formatting});
+            width: 100%;
+            height: 300px;
+            background-size: contain;
+            margin: auto;
+            background-repeat: no-repeat;
+            }`">
+        </div>
     </div>
     <div class="journal_content">
         <h6>{{journal?.movie_title}}</h6>
@@ -174,6 +184,7 @@ export default {
                 }
             })
             .then((response) => {
+                this.$store.dispatch('loadJournalList')
                 const is_Liked = response.data.is_Liked
                 if (is_Liked === true) {
                     this.like_count = response.data.like_count
@@ -190,6 +201,9 @@ export default {
             .then((response) => {
                 console.log(response)
             })
+            .catch((err) => {
+                console.log(err)
+            })
         }
     },
     computed:{
@@ -197,7 +211,7 @@ export default {
         // 이미지 경로가 서버에 저장된 경로로 불러와져 데이터 로드되지 않아
         // 경로에 'http://localhost:8000'를 붙여줘 computed로 계산된 값을 보여게 함
         let new_journal = ''
-        new_journal = 'http://localhost:8000' + this.journal?.journal_image
+        new_journal = this.journal?.journal_image ? 'http://localhost:8000'+this.journal?.journal_image : 'https://image.tmdb.org/t/p/w500'+this.movieData[this.journal?.movie-1].poster_path
         return new_journal
       },
       movieData() {
@@ -210,6 +224,7 @@ export default {
         this.getJournal()
         const id = this.$store.getters.userData.user_id
         this.user_id = id
+        this.getCommentsAll()
     },
     mounted(){
     },
@@ -224,7 +239,7 @@ export default {
     font-family: 'Do Hyeon';
 }
 .delete-update-btn{
-    justify-content: end;
+    justify-content: flex-end;
     display: flex;
     margin-bottom: 10px;
 }
