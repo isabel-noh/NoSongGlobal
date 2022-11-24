@@ -123,7 +123,6 @@ export default {
             const journal_rank = this.journal_rank
             const watched_at = this.watched_at
 
-            console.log(this.journal)
             const payload = {
                 movie_id : movie_id,
                 journal_title : journal_title,
@@ -142,7 +141,7 @@ export default {
             this.deletePreviousImage()
             const reader = new FileReader()
             const file = (e.target.files[0])
-            this.journal_img = e.target.files[0]
+            this.journal_image = e.target.files[0]
             reader.readAsDataURL(file);
             return new Promise (() => {
                 reader.onload = () => {

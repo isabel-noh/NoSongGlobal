@@ -200,6 +200,8 @@ export default new Vuex.Store({
       formdata.append('watched_at', data.watched_at)
       formdata.append('journal_image', data.journal_image)
       formdata.append('rank', data.journal_rank)
+      formdata.append('movie_id', data.movie_id)
+      formdata.append('journal_pk', data.journal_id)
       const local = localStorage.getItem('vuex')
       const user = JSON.parse(local)
 
@@ -214,7 +216,6 @@ export default new Vuex.Store({
           formdata,
       })
       .then((res) => {
-        console.log(res.data)
         router.push({name : 'journalDetail', params:{journal_id : res.data.id}})
       })
       .catch((err) => {

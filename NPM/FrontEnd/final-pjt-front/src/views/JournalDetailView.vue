@@ -64,7 +64,7 @@ export default {
         getJournal(){
             axios({
                 method:'GET',
-                url: `${API_URL}/journals/${this.$route.params.journal_id}/detail`,
+                url: `${API_URL}/journals/${this.$route.params.journal_id}/detail/`,
             })
             .then((response) => {
                 this.journal = response.data
@@ -81,7 +81,7 @@ export default {
             const user = JSON.parse(local)
             axios({
                 method: 'DELETE',
-                url: `${API_URL}/journals/${this.$route.params.journal_id}/detail`,
+                url: `${API_URL}/journals/${this.$route.params.journal_id}/detail/`,
                 headers:{
                     'Authorization' : `Token ${user.token}`
                 },
@@ -100,17 +100,7 @@ export default {
         },
         // journal 수정페이지로 가기
         gotoEditPostPage(){
-            // this.$router.push({ name : 'updateJournal' , params: {'journal_id' : this.journal.id}})
-            axios({
-                method: 'PUT',
-                url: `${API_URL}/journals/${this.$route.params.journal_id}/detail`,
-                data: {
-                    id: this.journal?.id
-                }
-            })
-            .then((response) => {
-                console.log(response)
-            })
+            this.$router.push({ name : 'updateJournal' , params: {'journal_id' : this.journal.id}})
         },
         // TODO comment 작성
         addComment(added_comment){
