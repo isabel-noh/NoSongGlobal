@@ -25,6 +25,8 @@ def journals_all(request):
         # movie_poster = get_list_or_404(Movie, movie_id=i['movie_id']).poster_path
         # movie_poster = Movie.objects.get(movie_id=i['movie_id'])
         movie_poster = Movie.objects.get(id=i['movie_id']).poster_path
+        # journals.like_users.all()
+        like_users = [user.id for user in get_object_or_404(Journal, id=i['pk']).like_users.all()]
         journal_data = {
             'id': i['pk'],
             'title': i['title'],
@@ -33,6 +35,7 @@ def journals_all(request):
             'journal_image': i['journal_image'],
             'poster_path': movie_poster,
             'user_id': i['user_id'],
+            'like_users':like_users
         }
         journal_data_all.append(journal_data)
     return Response(journal_data_all, status=status.HTTP_200_OK)
@@ -46,6 +49,7 @@ def journals_create(request):
     data = request.data
     # request.FILES.get -> 이미지 안 넣어도 넘어갈 수 있음.
     # 각 값을 journal model field에 맞게 저장
+    print(request.data)
     journal = Journal(user=request.user, title= data['title'], content = data['content'], 
     movie_id=int(data['movie_id']), journal_image=request.FILES.get('journal_image'),
     watched_at=data['watched_at'], rank=int(data['journal_rank']))
@@ -55,7 +59,6 @@ def journals_create(request):
     return Response(serializer.data, status=status.HTTP_201_CREATED)
   
     
-
 # 단일 저널 정보 제공 (정보 요청 정보에 따라 수정, 삭제 실행)
 @api_view(['GET', 'PUT', 'DELETE'])
 def journal_detail(request, journal_pk):
@@ -64,28 +67,34 @@ def journal_detail(request, journal_pk):
     if request.method == 'GET':
         serializer = JournalSerializer(journal)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
     elif request.method == 'PUT':
         serializer = JournalSerializer(journal, data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK) 
-
     elif request.method == 'DELETE':
         journal.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
 # 댓글 생성
 @api_view(['POST'])
 def journal_comment_create(request, journal_pk):
-    # journal = Journal.objects.get(pk=journal_id)
-    journal = get_object_or_404(Journal, pk=journal_pk)
-    serializer = CommentSerializer(data=request.data)
-    if serializer.is_valid(raise_exception=True):
-        serializer.save(journal=journal)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    # journal = get_object_or_404(Journal, pk=journal_pk)
 
+    comment = Comment(
+        content = request.data['comment'],
+        journal_pk_id = journal_pk,
+        user_id = request.user.id
+    )
+    comment.save()
+    serializer = CommentSerializer(comment)
+
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+# 해당 게시글의 댓글들 가져오기
+@api_view(['GET'])
+def journal_comment_all(request, journal_pk):
+    return Response()
 
 
 # 좋아요
@@ -96,15 +105,13 @@ def journal_like(request, journal_pk):
         journal = get_object_or_404(Journal, pk=journal_pk)
         user = request.user
 
-        if journal.like_users.filter(pk=user.pk).exists():
+        if journal.like_users.filter(id=user.id).exists():
             journal.like_users.remove(user)
             is_liked = False
         else:
             journal.like_users.add(user)
             is_liked = True
-
         like_count = journal.like_users.count()
-
         context = {
             'is_Liked': is_liked,
             'like_count': like_count,

@@ -4,7 +4,7 @@
 
     />
     <MyPageTabbar/>
-    <MyPageBodyView :userJournalList="userJournalList"/>
+    <MyPageBodyView/>
   </div>
 </template>
 
@@ -25,7 +25,6 @@ export default {
     },
     data() {
       return{
-        userJournalList: [],
       }
     },
     methods: {
@@ -49,12 +48,16 @@ export default {
     created(){
       this.$store.dispatch('isLogin')
       this.getProfileImg()
-      const userJournalList = this.$store.getters.journalList.filter((journal)=>{
+      const journalList = this.$store.getters.journalList
+      const userJournalList = journalList.filter((journal)=>{
         return journal.user_id == this.$store.getters.userData.user_id
       })
-      this.userJournalList =  userJournalList 
-      console.log(this.userJournalList)
-    }
+      this.$store.commit('USER_JOURNAL_LIST', userJournalList)
+      const likeJournalList = journalList.filter((journal => {
+        return journal.like_users.includes(this.$store.getters.userData.user_id)
+      }))
+      this.$store.commit('LIKE_JOURNAL_LIST', likeJournalList)
+  }
 }
 </script>
 

@@ -15,12 +15,29 @@
             margin: auto;
             background-repeat: no-repeat;
             }`">
-
+        </div>
+        <div v-else
+            :style="`borderRadius:0px; 
+            backgroundImage:url(${url_formatting});
+            width: 100%;
+            height: 300px;
+            background-size: contain;
+            margin: auto;
+            background-repeat: no-repeat;
+            }`">
         </div>
     </div>
     <div class="journal_content">
         <h6>{{journal?.movie_title}}</h6>
         <p>{{journal?.watched_at}}</p>
+        <h5>{{journal?.title}}<span> {{journal?.like_cnt}} </span>
+            <button class="btn btn-primary"
+                @click="likeJournal"
+            >좋아요</button>
+            <span
+                v-if="like_count"
+            > {{ like_count }} </span>
+        </h5>
         <p v-if="journal?.rank === 1">
             <i class="bi bi-star-fill"></i>
             <i class="bi bi-star"></i>
@@ -56,7 +73,6 @@
             <i class="bi bi-star-fill"></i>
             <i class="bi bi-star-fill"></i>
         </p>
-        <h5>{{journal?.title}}<span> {{journal?.like_cnt}} </span><button class="btn btn-primary">좋아요</button></h5>
         <p>{{journal?.content}}</p>
     </div>
     <div class="delete-update-btn">
@@ -77,27 +93,24 @@
             :journal_id="journal?.journal_id"
             @addComment="addComment"/>
         <CommentsList
-            :commentList="commentList"
-            :added_comment="added_comment"/>
+            :commentList="commentList"/>
     </div>
   </div>
 </template>
-
 <script>
 import axios from 'axios'
 import CommentWriteView from '@/components/CommentWriteView'
 import CommentsList from '@/components/CommentsList'
-
 const API_URL = 'http://127.0.0.1:8000'
-
 export default {
     name: 'JournalDetailView',
     data(){
         return{
             journal: null,
             added_comment: null,
-            commentList:[],
+            commentList: [],
             user_id: null,
+            like_count: 0,
         }
     }, 
     components:{
@@ -149,7 +162,48 @@ export default {
         },
         // TODO comment 작성
         addComment(added_comment){
-            this.added_comment = added_comment
+            const local = localStorage.getItem('vuex')
+            const user = JSON.parse(local)
+            this.added_comment = added_comment.content
+            const nickname = user.user.nickname
+            // this.nickname_comment[nickname] = this.added_comment
+            // console.log('###', this.nickname_comment)
+            this.commentList.push([nickname, this.added_comment])
+        },
+        likeJournal(){
+            const local = localStorage.getItem('vuex')
+            const user = JSON.parse(local)
+            axios({
+                method: 'POST',
+                url: `${API_URL}/journals/${this.$route.params.journal_id}/like/`,
+                headers:{
+                    'Authorization' : `Token ${user.token}`
+                },
+                data:{
+                    id: this.journal?.id
+                }
+            })
+            .then((response) => {
+                this.$store.dispatch('loadJournalList')
+                const is_Liked = response.data.is_Liked
+                if (is_Liked === true) {
+                    this.like_count = response.data.like_count
+                } else {
+                    this.like_count = response.data.like_count
+                } 
+            })
+        },
+        getCommentsAll() {
+            axios({
+                method: 'GET',
+                url: `${API_URL}/journals/${this.$route.params.journal_id}/comment/all/`,
+            })
+            .then((response) => {
+                console.log(response)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
         }
     },
     computed:{
@@ -157,7 +211,7 @@ export default {
         // 이미지 경로가 서버에 저장된 경로로 불러와져 데이터 로드되지 않아
         // 경로에 'http://localhost:8000'를 붙여줘 computed로 계산된 값을 보여게 함
         let new_journal = ''
-        new_journal = 'http://localhost:8000' + this.journal?.journal_image
+        new_journal = this.journal?.journal_image ? 'http://localhost:8000'+this.journal?.journal_image : 'https://image.tmdb.org/t/p/w500'+this.movieData[this.journal?.movie-1].poster_path
         return new_journal
       },
       movieData() {
@@ -170,13 +224,13 @@ export default {
         this.getJournal()
         const id = this.$store.getters.userData.user_id
         this.user_id = id
+        this.getCommentsAll()
     },
     mounted(){
     },
     
 }
 </script>
-
 <style>
 .JournalDetailView{
     text-align: start;
@@ -185,7 +239,7 @@ export default {
     font-family: 'Do Hyeon';
 }
 .delete-update-btn{
-    justify-content: end;
+    justify-content: flex-end;
     display: flex;
     margin-bottom: 10px;
 }

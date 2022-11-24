@@ -21,6 +21,9 @@ export default new Vuex.Store({
     journal: null,
     recommendMovieList: null,
     journalList: [],
+    userJournalList: [],
+    likeJournalList: [],
+    tabNum: 1
   },
   getters: {
     userData(state){
@@ -40,6 +43,15 @@ export default new Vuex.Store({
     },
     journalList(state) {
       return state.journalList
+    },
+    userJournalList(state) {
+      return state.userJournalList
+    },
+    likeJournalList(state) {
+      return state.likeJournalList
+    },
+    tabNum(state) {
+      return state.tabNum
     }
 
   },
@@ -85,8 +97,10 @@ export default new Vuex.Store({
       state.journal = data
     },
     RECOMMEND_MOVIE_LIST(state, data){
-      const recommend_data = data.recommendMovieList
+      const recommend_data = data
+      console.log(recommend_data)
       for(const j of recommend_data) {
+        console.log(j)
         let temp = j.overview.split(' ')
         temp = temp.slice(0, 5)
         j.overview = temp.join(' ')
@@ -98,6 +112,15 @@ export default new Vuex.Store({
     },
     USER_PROFILE(state, data) {
       state.user['profileImg'] = data.profile_image
+    },
+    USER_JOURNAL_LIST(state, data) {
+      state.userJournalList = data
+    },
+    LIKE_JOURNAL_LIST(state, data) {
+      state.likeJournalList = data
+    },
+    TAB_NUM(state, num){
+      state.tabNum = num
     }
   },
   actions: {
@@ -271,7 +294,11 @@ export default new Vuex.Store({
         })
         .then((res) => {
           console.log(res.data)
-          context.commit('RECOMMEND_MOVIE_LIST', res.data)
+          const recommendMovieList = [] 
+          for (const id in res.data.recommendMovieList) {
+            recommendMovieList.push(context.state.movieList[res.data.recommendMovieList[id]])
+          }
+          context.commit('RECOMMEND_MOVIE_LIST', recommendMovieList)
         })
         .catch((err) => {
           console.log(err)
@@ -291,7 +318,7 @@ export default new Vuex.Store({
             j.journal_image = 'http://localhost:8000' + j.journal_image
             isActive_url = false
           } else {
-            // this.poster_url = 'https://image.tmdb.org/t/p/w500' + j.poster_path
+            j['poster_path'] = 'https://image.tmdb.org/t/p/w500' + j.poster_path
             isActive_url = true
           }
           j['isActive_url'] = isActive_url
