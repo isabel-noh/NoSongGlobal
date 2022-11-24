@@ -29,7 +29,8 @@
         class="mt-3 mb-3 row" style="margin: auto; width: 100%"
         >
         <label for="nickname" class="col-sm-2 col-form-label">Nickname</label>
-        <input type="text" id="nickname" v-model="nickname" class="form-control" placeholder="닉네임을 입력해주세요">
+        <input type="text" id="nickname" v-model="nickname" class="form-control" 
+            placeholder="닉네임을 입력해주세요">
         <input style="margin-top:10px;" type="button" value="닉네임 변경" @click="changeNickname">
     </div>
     <div
@@ -74,9 +75,11 @@ export default {
                     password: this.inputPassword
                 }
             })
-            .then ((response) => {
+            .then (() => {
                 this.$store.commit('MY_PAGE_COMPONENT', 1)
-                this.user = response.data
+                this.user = this.$store.state.userData.serializer_add
+                this.nickname = this.user?.nickname
+                console.log(this.nickname, this.user)
             })
             .catch((err) => {
                 console.log(err)
@@ -135,7 +138,8 @@ export default {
     computed:{
         comp_n() {
             return this.$store.getters.myPageComponent
-        }
+        },
+
     }
 }
 </script>
