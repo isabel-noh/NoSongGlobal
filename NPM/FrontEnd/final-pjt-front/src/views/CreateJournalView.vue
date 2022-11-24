@@ -46,8 +46,8 @@ color: black;
                 :key="index"
                 @click="check(index)"
                 >
-                <span v-if="index <= journal_rank">⭐</span>
-                <span v-if="index > journal_rank"><img class="star" :src="require('@/assets/dark_star.png')" alt=""></span>
+                <span v-if="index <= journal_rank"><i class="bi bi-star-fill"></i></span>
+                <span v-if="index > journal_rank"><i class="bi bi-star" style="color:black;"></i></span>
                 </div>
               </div>
             </div>
