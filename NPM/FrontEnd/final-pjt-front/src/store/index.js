@@ -23,7 +23,8 @@ export default new Vuex.Store({
     journalList: [],
     userJournalList: [],
     likeJournalList: [],
-    tabNum: 1
+    tabNum: 1,
+    myPageComponent : 0
   },
   getters: {
     userData(state){
@@ -52,6 +53,9 @@ export default new Vuex.Store({
     },
     tabNum(state) {
       return state.tabNum
+    },
+    myPageComponent(state){
+      return state.myPageComponent
     }
 
   },
@@ -121,6 +125,9 @@ export default new Vuex.Store({
     },
     TAB_NUM(state, num){
       state.tabNum = num
+    },
+    MY_PAGE_COMPONENT(state, num){
+      state.myPageComponent = num
     }
   },
   actions: {
@@ -244,7 +251,7 @@ export default new Vuex.Store({
       formdata.append('journal_pk', data.journal_id)
       const local = localStorage.getItem('vuex')
       const user = JSON.parse(local)
-
+      console.log(formdata)
       axios({
         method: 'PUT',
         url: `${API_URL}/journals/${data.journal_id}/detail/`,
@@ -280,7 +287,6 @@ export default new Vuex.Store({
     recommendMovie(context) {
       const local = localStorage.getItem('vuex')
       const user = JSON.parse(local)
-      console.log(user.token)
       if(user?.token){
         axios({
           method:'POST',

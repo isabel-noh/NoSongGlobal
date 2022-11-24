@@ -12,18 +12,31 @@
 </template>
 
 <script>
+import SettingsView from '@/components/SettingsView'
 import MyJournalList from '@/components/MyJournalList'
 import LikeJournalList from '@/components/LikeJournalList'
 
 export default {
     name:'MyPageBodyView',
+    data(){
+      return{
+      }
+    },
     components: {
+      SettingsView,
       LikeJournalList,
       MyJournalList
+    },
+    
+    props: {
+      userJournalList:Array,
     },
     methods:{
       goToDetailPage(id){
         this.$router.push({name : 'journalDetail', params:{journal_id :id}})
+      },
+      created() {
+      this.$store.commit('USER_JOURNAL_LIST', this.userJournalList)
       },
     },
     computed: {

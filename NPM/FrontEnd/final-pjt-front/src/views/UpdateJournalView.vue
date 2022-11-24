@@ -33,7 +33,7 @@
             </div>
             <div class="content-div">
                 <label for="watched_at" style="margin-right: 10px;">날짜:</label>
-                <input type="date" id="watched_at"
+                <input type="date" id="journal_date"
                     v-model="watched_at" />
             </div>
             <div class="content-div d-flex">
@@ -186,6 +186,12 @@ export default {
     created(){
         this.getJournal()
     },
+    mounted(){
+      var now_utc = Date.now()
+      var timeOff = new Date().getTimezoneOffset()*60000;
+      var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
+      document.getElementById("journal_date").setAttribute("max", today);
+    }
 
 
 }
