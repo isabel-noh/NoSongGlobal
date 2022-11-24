@@ -3,8 +3,8 @@
     <MyPageHeader
 
     />
-    <MyPageTabbar/>
-    <MyPageBodyView :userJournalList="userJournalList"/>
+    <MyPageTabbar @changeComponent="changeComponent"/>
+    <MyPageBodyView :userJournalList="userJournalList" :comp_num="comp_num"/>
   </div>
 </template>
 
@@ -26,9 +26,13 @@ export default {
     data() {
       return{
         userJournalList: [],
+        comp_num : 1,
       }
     },
     methods: {
+      changeComponent(num){
+        this.comp_num = num
+      },
       getProfileImg(){
         axios({
           mothod: 'GET',

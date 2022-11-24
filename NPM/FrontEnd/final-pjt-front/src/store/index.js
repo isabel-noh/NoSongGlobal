@@ -230,7 +230,7 @@ export default new Vuex.Store({
       formdata.append('journal_pk', data.journal_id)
       const local = localStorage.getItem('vuex')
       const user = JSON.parse(local)
-
+      console.log(formdata)
       axios({
         method: 'PUT',
         url: `${API_URL}/journals/${data.journal_id}/detail/`,
@@ -266,7 +266,6 @@ export default new Vuex.Store({
     recommendMovie(context) {
       const local = localStorage.getItem('vuex')
       const user = JSON.parse(local)
-      console.log(user.token)
       if(user?.token){
         axios({
           method:'POST',

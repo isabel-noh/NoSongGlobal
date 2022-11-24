@@ -293,6 +293,7 @@ export default {
                 j.overview = temp.join(' ')
             }
             this.recommend_movieList = movieList
+            console.log(this.recommend_movieList)
       },
       goToDetailMovie(id){
           this.$router.push({ name : 'movieDetail', params: { movie_id: id }})
@@ -313,7 +314,7 @@ export default {
       },
       recommendMovieListLength(){
         let a = false
-        if(this.$store.getters.getRecommendMovieList.length > 5){
+        if(this.$store.getters.getRecommendMovieList?.length > 5){
             a = true
         }
         return a

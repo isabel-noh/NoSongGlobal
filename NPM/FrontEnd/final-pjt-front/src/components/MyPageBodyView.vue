@@ -5,7 +5,8 @@
 
 <template>
   <div class="MyPageBodyView">
-    <div class="journal-lists" style="margin-bottom: 10rem;">
+    <div v-if="comp_num === 1"
+      class="journal-lists" style="margin-bottom: 10rem;">
         <div class="row row-cols-1 row-cols-md-5">
           <!-- 아래 반복 -->
           <div class="col" 
@@ -46,15 +47,22 @@
           </div>
         </div>
     </div>
+    <SettingsView v-if="comp_num === 3"/>
   </div>
 </template>
 
 <script>
 // const API_URL = 'http://127.0.0.1:8000'
+import SettingsView from '@/components/SettingsView'
 
 export default {
     name:'MyPageBodyView',
+    data(){
+      return{
+      }
+    },
     components: {
+      SettingsView,
     },
     methods:{
     },
@@ -62,7 +70,8 @@ export default {
       this.$store.commit('USER_JOURNAL_LIST', this.userJournalList)
     },
     props: {
-      userJournalList:Array
+      userJournalList:Array,
+      comp_num:Number,
     },
     computed: {
       journalList() {
