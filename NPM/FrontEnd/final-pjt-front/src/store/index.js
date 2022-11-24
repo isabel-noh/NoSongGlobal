@@ -21,6 +21,7 @@ export default new Vuex.Store({
     journal: null,
     recommendMovieList: null,
     journalList: [],
+    userJournalList: [],
   },
   getters: {
     userData(state){
@@ -40,6 +41,9 @@ export default new Vuex.Store({
     },
     journalList(state) {
       return state.journalList
+    },
+    userJournalList(state) {
+      return state.userJournalList
     }
 
   },
@@ -98,7 +102,10 @@ export default new Vuex.Store({
     },
     USER_PROFILE(state, data) {
       state.user['profileImg'] = data.profile_image
-    }
+    },
+    USER_JOURNAL_LIST(state, data) {
+      state.userJournalList = data
+    },
   },
   actions: {
     isLogin(context){
