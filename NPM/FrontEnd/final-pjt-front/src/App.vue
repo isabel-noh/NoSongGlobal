@@ -32,14 +32,14 @@
             data-bs-toggle="dropdown" aria-expanded="false">
             {{nickname}}
           </button>
-          <button
+          <!-- <button
             v-else 
             type="button"
             class="btn btn-light dropdown-toggle" 
             style="font-family:'Do Hyeon'; font-weight: bold;" 
             data-bs-toggle="dropdown" aria-expanded="false">
             사용자님
-          </button>
+          </button> -->
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" @click="logOut">LogOut</a></li>
             <li><router-link class="dropdown-item" :to="{ name : 'myPage' }" >MyPage</router-link></li>
@@ -96,6 +96,8 @@ export default {
   },
   created(){
     this.$store.dispatch('loadMovieData')
+    this.$store.dispatch('isLogin')
+    this.$store.dispatch('loadJournalList')
   }
 }
 </script>
@@ -104,7 +106,8 @@ export default {
 <style lang="scss">
 #app {
   min-width: 672px;
-  font-family:Helvetica, Arial, sans-serif;
+  /* font-family:Helvetica, Arial, sans-serif; */
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -159,20 +162,27 @@ a #logo_desc {
 .nav2{
   margin: auto 0px;
 }
+
+@media screen and (min-width: 968px) {
+  :root{
+    --normal-font-size: 1rem;
+  }
+}
+
 /* input 기본 스타일 초기화 */
-/* input {
+input {
     -webkit-appearance: none;
        -moz-appearance: none;
             appearance: none;
-} */
+}
 
 /* input type number 에서 화살표 제거 */
-/* input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
     -webkit-appearance: none;
        -moz-appearance: none;
             appearance: none;
-} */
+}
 /* Select box 스타일 초기화 */ 
 /* select {
     -webkit-appearance: none;

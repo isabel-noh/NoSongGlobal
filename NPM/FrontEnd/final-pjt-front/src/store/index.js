@@ -20,6 +20,8 @@ export default new Vuex.Store({
     searchList: [],
     journal: null,
     recommendMovieList: null,
+    journalList: [],
+    userJournalList: [],
   },
   getters: {
     userData(state){
@@ -36,6 +38,12 @@ export default new Vuex.Store({
     },
     getRecommendMovieList(state){
       return state.recommendMovieList
+    },
+    journalList(state) {
+      return state.journalList
+    },
+    userJournalList(state) {
+      return state.userJournalList
     }
 
   },
@@ -46,7 +54,7 @@ export default new Vuex.Store({
     ,
     LOG_IN(state, data){
       state.token = data.key
-      state.user = data.user
+      // state.user = data.user
       if(router.currentRoute.name != 'home'){
         router.push({ name : 'home' })
       } else {
@@ -73,7 +81,7 @@ export default new Vuex.Store({
     SET_MOVIE_LIST(state, data){
       const objectToList = []
       for (const idx in data) {
-        objectToList.push(data[idx])
+        objectToList.push(data[idx]) 
       }
       state.movieList = objectToList
     },
@@ -81,7 +89,22 @@ export default new Vuex.Store({
       state.journal = data
     },
     RECOMMEND_MOVIE_LIST(state, data){
-      state.recommendMovieList = data.recommendMovieList
+      const recommend_data = data.recommendMovieList
+      for(const j of recommend_data) {
+        let temp = j.overview.split(' ')
+        temp = temp.slice(0, 5)
+        j.overview = temp.join(' ')
+      }
+      state.recommendMovieList = recommend_data 
+    },
+    JOURNAL_LIST(state, data) {
+      state.journalList = data
+    },
+    USER_PROFILE(state, data) {
+      state.user['profileImg'] = data.profile_image
+    },
+    USER_JOURNAL_LIST(state, data) {
+      state.userJournalList = data
     },
   },
   actions: {
@@ -118,8 +141,8 @@ export default new Vuex.Store({
         }
       })
       .then((response) => {
-        context.dispatch('isLogin')
         context.commit('LOG_IN', response.data)
+        context.dispatch('isLogin')
       })
       .catch((error) => {
         alert('유저정보를 확인해주세요.')
@@ -187,7 +210,6 @@ export default new Vuex.Store({
           formdata,
       })
       .then((res) => {
-        console.log(res.data)
         router.push({name : 'journalDetail', params:{journal_id : res.data.id}})
       })
       .catch((err) => {
@@ -243,7 +265,8 @@ export default new Vuex.Store({
     recommendMovie(context) {
       const local = localStorage.getItem('vuex')
       const user = JSON.parse(local)
-      if(user.token){
+      console.log(user.token)
+      if(user?.token){
         axios({
           method:'POST',
           url: `${API_URL}/auth/get_user_data/`,
@@ -255,10 +278,41 @@ export default new Vuex.Store({
           }
         })
         .then((res) => {
+          console.log(res.data)
           context.commit('RECOMMEND_MOVIE_LIST', res.data)
-        })   
+        })
+        .catch((err) => {
+          console.log(err)
+        })
       }
     },
+    loadJournalList(context) {
+      axios({
+          method: 'GET',
+          url: `${API_URL}/journals/`
+      })
+      .then((response) => {
+        let journalList = []
+        let isActive_url = false
+        for (const j of response.data){
+          if(j.journal_image !== null){
+            j.journal_image = 'http://localhost:8000' + j.journal_image
+            isActive_url = false
+          } else {
+            // this.poster_url = 'https://image.tmdb.org/t/p/w500' + j.poster_path
+            isActive_url = true
+          }
+          j['isActive_url'] = isActive_url
+          j['movieTitle'] = context.state.movieList[j.movie_id-1].title
+          journalList.push(j)
+        }
+        context.commit('JOURNAL_LIST', journalList)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
+
   },
   modules: {
     

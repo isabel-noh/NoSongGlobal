@@ -1,15 +1,25 @@
 <template>
   <div class="JournalDetailView">
     <h1 id="journal-title-h1">Remember Movie Moment</h1>
-    <div style="max-height:300px; box-sizing:content-box; overflow:hidden; margin-bottom: 10px;">
-        <img
-            v-if="journal?.journal_image" 
-            :src="url_formatting" 
-            style="border-radius:0px; ">
+    <div 
+        style="max-height:300px; 
+        box-sizing:content-box; 
+        overflow:hidden; 
+        margin-bottom: 10px;">
+        <div v-if="journal?.journal_image" 
+            :style="`borderRadius:0px; 
+            backgroundImage:url(${url_formatting});
+            width: 100%;
+            height: 300px;
+            background-size: contain;
+            margin: auto;
+            background-repeat: no-repeat;
+            }`">
+
+        </div>
     </div>
-    <div class="youtube_music_player"></div>
     <div class="journal_content">
-        <p>{{journal?.movieTitle}}</p>
+        <h6>{{journal?.movie_title}}</h6>
         <p>{{journal?.watched_at}}</p>
         <h5>{{journal?.title}}<span> {{journal?.like_cnt}} </span>
             <button class="btn btn-primary"
@@ -19,18 +29,54 @@
                 v-if="like_count"
             > {{ like_count }} </span>
         </h5>
+        <p v-if="journal?.rank === 1">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star"></i>
+            <i class="bi bi-star"></i>
+            <i class="bi bi-star"></i>
+            <i class="bi bi-star"></i>
+        </p>
+        <p v-if="journal?.rank === 2">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star"></i>
+            <i class="bi bi-star"></i>
+            <i class="bi bi-star"></i>
+        </p>
+        <p v-if="journal?.rank === 3">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star"></i>
+            <i class="bi bi-star"></i>
+        </p>
+        <p v-if="journal?.rank === 4">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star"></i>
+        </p>
+        <p v-if="journal?.rank === 5">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+        </p>
+        <h5>{{journal?.title}}<span> {{journal?.like_cnt}} </span><button class="btn btn-primary">좋아요</button></h5>
         <p>{{journal?.content}}</p>
     </div>
     <div class="delete-update-btn">
         <div 
-            class="delete-post-btn"
-            v-if="journal?.user === user_id">
-            <button class="btn btn-danger" @click="deletePost">삭제하기</button>
-        </div>
-        <div 
             class="update-post-btn"
             v-if="journal?.user === user_id">
-            <button class="btn btn-warning" @click="gotoEditPostPage">수정하기</button>
+            <button class="btn btn-bright" @click="gotoEditPostPage">수정하기</button>
+        </div>
+        <div 
+            class="delete-post-btn"
+            v-if="journal?.user === user_id">
+            <button class="btn btn-bright" @click="deletePost">삭제하기</button>
         </div>
     </div>
     <hr>
@@ -186,7 +232,14 @@ export default {
     font-family: 'Do Hyeon';
 }
 .delete-update-btn{
+    justify-content: end;
     display: flex;
     margin-bottom: 10px;
+}
+.bi-star{
+    color: rgb(242, 160, 3);
+}
+.bi-star-fill{
+    color: rgb(242, 160, 3);
 }
 </style>

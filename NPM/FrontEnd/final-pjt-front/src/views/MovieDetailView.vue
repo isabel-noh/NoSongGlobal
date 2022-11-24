@@ -5,14 +5,14 @@
         <img :src="`https://image.tmdb.org/t/p/w300/${movie?.poster_path}`">
       </div>
       <div class="content-box">
-        <h2>{{movie?.title}} </h2>
+        <h2 id="movie-title">{{movie?.title}} </h2>
         <!-- <button class="btn btn-light" style="margin-bottom:10px;">좋아요</button> -->
-        <p>개봉일: {{movie?.release_date}}</p>
+        <p style="margin-top: 5rem;">개봉일: {{movie?.release_date}}</p>
         <p>장르: {{genres}}</p>
         <p>평점: {{movie?.vote_average}}</p>
         <p class="mb-5">러닝타임: {{runtime}}</p>
-        <h3 class="text-center mt-5 my-3">영화 소개 / 줄거리</h3>
-        <p>{{movie?.overview}}</p>
+        <h3 class="text-center mt-5 my-3" v-if="movie?.overview">영화 소개 / 줄거리</h3>
+        <p v-if="movie?.overview">{{movie?.overview}}</p>
       </div>
     </div>
     <hr>
@@ -78,8 +78,11 @@ export default {
 </script>
 
 <style>
+#movie-title{
+  font-family: 'Do Hyeon'
+}
 .movie-detail-view{
-  font-family: 'Do Hyeon';
+  font-family: 'Roboto', sans-serif;
 }
 .movie-data{
   display: flex;

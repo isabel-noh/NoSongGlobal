@@ -1,5 +1,5 @@
 <template>
-  <div class="searchBar">
+  <div class="searchBar align-items-center">
     <div class="m-auto"
     style="width:65%"
     >
@@ -16,7 +16,7 @@
       <!-- @click="getDetailMovie(movie?.movie_id)"> -->
       <div class="card h-100" style="border:none;">
         <figure>
-          <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" class="card-img" style="height:25rem;"/>
+          <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" class="card-img" style="height:40vh;"/>
         </figure>
         <div class="card-img-overlay" style="top: 50%; right: 0px; left: 0px;margin:0px; padding:0px;">
           <div class="movie-title-and-movie-genre">
@@ -73,9 +73,10 @@ export default {
 
 <style>
 .searchBar {
-    padding: 10px;
+    padding: 20px;
     border-top: 1px solid lightgrey;
     border-bottom: 1px solid lightgrey;
+    margin-bottom: 15px;
 }
 .search-input {
     border: 1px solid lightgrey;
