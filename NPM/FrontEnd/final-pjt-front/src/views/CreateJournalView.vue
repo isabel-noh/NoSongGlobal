@@ -98,6 +98,7 @@ export default {
             searchInput:null,
             selectedMovieId:null,
             isShow:false,
+            movie_title:null,
         }
     },
     methods:{
@@ -109,6 +110,7 @@ export default {
             const journal_date = this.journal_date
             const journal_img = this.journal_img
             const journal_rank = this.journal_rank
+            const movie_title = this.movie_title
             const data = {
                 movie_id,
                 journal_title,
@@ -116,7 +118,9 @@ export default {
                 journal_date,
                 journal_img,
                 journal_rank,
+                movie_title,
             }
+            console.log('%', data)
             this.$store.dispatch('addJournal', data)
         },
         encodeFileToBase64 (e){
@@ -143,13 +147,13 @@ export default {
           } else {
             this.isShow = false
           }
+          this.movie_title = this.searchInput
         },
         searchInputChange(event) {
-          console.log(event.target.innerHTML)
-          console.log(event.target.value)
           this.searchInput = event.target.innerHTML
           this.selectedMovieId = event.target.value
           this.isShow = false
+          this.movie_title = event.target.innerHTML
         }
         
     },
