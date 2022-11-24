@@ -1,30 +1,26 @@
 <template>
-  <div class="signUp" style="padding:0px; margin:0px;">
-    <div v-if="!second_page" class="form">
-        <div id="signup-logo">
-            <h2>회원가입</h2>
-        </div>
-        <form
-            @submit.prevent="signup"
-            class="form__content">
-            <div class="form__box">
-                <input class="form__input" id="email" type="email" v-model="email" autocomplete="off" required>
-                <label class="form__label" for="email">이메일: </label>  
-                <div class="form__shadow"></div>
+  <div class="signUp">
+    <div id="signup-logo">
+        <h2>회원가입</h2>
+    </div>
+    <div v-if="!second_page">
+        <form @submit.prevent="signup">
+            <div class="signup-form">
+                <p>
+                    <label for="email">이메일: </label>  
+                    <input id="email" type="email" v-model="email" autocomplete="off" required>
+                </p>
+                <p>
+                    <label for="password1">비밀번호: </label> 
+                    <input id="password1" type="password" v-model="password1" autocomplete="off" required>
+                </p>
+                <p>
+                    <label for="password2">비밀번호 확인: </label> 
+                    <input id="password2" type="password" v-model="password2" autocomplete="off" required>
+                </p>
             </div>
-            <div class="form__box">
-                <input class="form__input" id="password1" type="password" v-model="password1" autocomplete="off" required>
-                <label class="form__label" for="password1">비밀번호: </label> 
-                <div class="form__shadow"></div>
-            </div>
-            <div class="form__box">
-                <input class="form__input" id="password2" type="password" v-model="password2" autocomplete="off" required>
-                <label class="form__label" for="password2">비밀번호 확인: </label> 
-                <div class="form__shadow"></div>
-            </div>
-            <div class="form__button">
-                <input type="submit" class="form__submit" value="다음으로">
-            </div>
+            
+            <input type="submit" value="다음으로">
         </form>
     </div>
     <!-- second page - 프로필 이미지 설정, 닉네임, 성함, 좋아하는 장르 -->
@@ -49,21 +45,17 @@
                         style="margin:20px auto; display: none; 
                         color: transparent; text-shadow: 0 0 0 #2196f3;"/>
                 </div>
-                <div>
-                    <label class="form__label" for="name">성함: </label>  
-                    <input class="form__input" id="name" type="name" v-model="name" autocomplete="off" required>
-                    <div class="form__shadow"></div>
-                </div>
-                <div>
-                    <label class="form__label" for="nickname">닉네임: </label> 
-                    <input class="form__input" id="nickname" type="nickname" v-model="nickname" autocomplete="off" required>
-                    <div class="form__shadow"></div>
-                </div>
+                <p>
+                    <label for="name">성함: </label>  
+                    <input id="name" type="name" v-model="name" autocomplete="off" required>
+                </p>
+                <p>
+                    <label for="nickname">닉네임: </label> 
+                    <input id="nickname" type="nickname" v-model="nickname" autocomplete="off" required>
+                </p>
             </div>
-            <div class="form__button">
-                <input class="form__submit" type="submit" value="가입하기">
-                <div class="form__shadow"></div>
-            </div>
+            
+            <input type="submit" value="가입하기">
         </form>
     </div>
   </div>
@@ -101,9 +93,7 @@ export default {
             if (!this.email.trim) {
                 alert('이메일을 입력해주세요.')
             }
-            if(this.password1.length < 8){
-                alert('비밀번호가 너무 짧습니다.')
-            }
+            // this.$store.dispatch('signUp', payload)
             
             axios({
                 method: 'POST',
@@ -120,13 +110,12 @@ export default {
                 this.second_page = true
             }).
             catch((error) => {
-                if(error.response.data.username[0] === '해당 사용자 이름은 이미 존재합니다.'){
-                    alert('중복된 이메일입니다.')
-                }
+                console.log(error)
             })
             
         },
         addUserData(){
+            //
             const name = this.name;
             const nickname = this.nickname;
             const profile_image = this.profile_image;
@@ -160,7 +149,6 @@ export default {
                 this.$router.push({ name : 'home' })
             }).
             catch((error) => {
-                alert('회원가입을 다시 진행해주세요.')
                 console.log(error)
             })
 
@@ -212,104 +200,15 @@ export default {
     margin: auto  ;
     /* text-align: left ; */
 }
-.form{
-    height: 60vh;
-    display: grid;
-    place-items: center;
-    margin: 0 1.5rem;
+.signup-form {
+    width: 50% ;
+    margin: 20px auto 30px auto;
+    text-align: left ;
 }
-
-.form__content{
-    display: grid;
-    row-gap: 1rem;
+.signup-form p {
+    border-bottom: 1px solid black;
 }
-.form__box {
-    width: 312px;
-    height: 59px;
-    position: relative;
-}
-.form__input, 
-.form__label, 
-.form__submit{
-    border: 0;
-    outline: none;
-}
-.form__shadow{
-    position: absolute;
-    widows: 100%;
-    height: 100%;
-    background-color: black;
-}
-.form__input{
-    /* position: absolute; */
-    border: 2.5px solid black;
-    background-color: white;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
-    padding: 18px;
-    transition: transform .3s;
-}
-
-.form__input::placeholder{
-    transition: opacity .5s;;
-}
-
-.form__label{
-    z-index: 100;
-    position: absolute;
-    top: 10px;
-    left: 20px;
-    font-size: .8rem;
-    transition: .2s;
-    pointer-events: none;
-    opacity: 0;
-}
-
-.form__button{
-    justify-self: flex-end;
-    background-color: black;
-}
-.form__submit{
-    padding: .875rem 1.5rem;
-    color: black;
-    background-color: rgb(242, 160, 3);
-    cursor: pointer;
-    transition: transform .3s;
-}
-.form__submit:hover{
-    transform: translate(-6px, -6px);
-}
-.form__input:focus::placeholder{
-    opacity: 0;
-    transition: .3s;
-}
-.form__input:focus,
-.form__input:not(:placeholder-shown).form__input:not(:focus){
-    transform: translate(-8px, -8px);
-    padding: 28px 18px 18px;
-    animation: input-animation .5s;
-}
-.form__input:focus + .form__label,
-.form__input:not(:placeholder-shown).form__input:not(:focus) + .form__label{
-    opacity: 1;
-    top: 0px;
-    left: 12px;
-    transition: .3s;
-}
-@keyframes input-animation {
-    0%{
-        transform: translate(0);
-    }
-    40%{
-        transform: translate(-9px, -9px);
-    }
-    60%{
-        transform: translate(-7px, -7px);
-    }
-}
-
-/* .signup-form input {
+.signup-form input {
     margin: 0px 1rem; 
     background-color: transparent;
     border: none;
@@ -321,13 +220,13 @@ export default {
 .signup-form input[type=email]{
     width: 70%;
     color: black;
-} */
-/* #password1, #password2 {
+}
+#password1, #password2 {
     width: 60%;
     color: black;
 }
 .signup-form input[type=submit] {
     border: 1px solid black;
     margin: auto;
-} */
+}
 </style>

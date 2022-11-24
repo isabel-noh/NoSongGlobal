@@ -89,13 +89,7 @@ export default new Vuex.Store({
       state.journal = data
     },
     RECOMMEND_MOVIE_LIST(state, data){
-      const recommend_data = data.recommendMovieList
-      for(const j of recommend_data) {
-        let temp = j.overview.split(' ')
-        temp = temp.slice(0, 5)
-        j.overview = temp.join(' ')
-      }
-      state.recommendMovieList = recommend_data 
+      state.recommendMovieList = data.recommendMovieList
     },
     JOURNAL_LIST(state, data) {
       state.journalList = data
@@ -146,6 +140,9 @@ export default new Vuex.Store({
       .then((response) => {
         context.commit('LOG_IN', response.data)
         context.dispatch('isLogin')
+      // })
+      // .then((response) => {
+      //   console.log(response)
       })
       .catch((error) => {
         alert('유저정보를 확인해주세요.')
@@ -213,6 +210,7 @@ export default new Vuex.Store({
           formdata,
       })
       .then((res) => {
+        console.log(res.data)
         router.push({name : 'journalDetail', params:{journal_id : res.data.id}})
       })
       .catch((err) => {
@@ -268,8 +266,7 @@ export default new Vuex.Store({
     recommendMovie(context) {
       const local = localStorage.getItem('vuex')
       const user = JSON.parse(local)
-      console.log(user.token)
-      if(user?.token){
+      if(user.token){
         axios({
           method:'POST',
           url: `${API_URL}/auth/get_user_data/`,
@@ -281,12 +278,8 @@ export default new Vuex.Store({
           }
         })
         .then((res) => {
-          console.log(res.data)
           context.commit('RECOMMEND_MOVIE_LIST', res.data)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+        })   
       }
     },
     loadJournalList(context) {

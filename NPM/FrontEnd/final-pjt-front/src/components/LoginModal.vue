@@ -6,12 +6,12 @@
           <h4 style="margin-top:10px; color: whitesmoke;">Login</h4>
           <div class="user-info-box">
             <label for="username" style="margin-right: 8px;">이메일: </label>
-            <input type="email" class="email_input" v-model="username"
+            <input type="email" v-model="username"
               style="padding-left: 8px;"/>
           </div>
           <div class="user-info-box">
             <label for="password" style="margin-right: 8px;">비밀번호: </label>
-            <input class="password_input" type="password" v-model="password"
+            <input type="password" v-model="password"
               style="padding-left: 8px;"/>
           </div>
         </div>
@@ -96,13 +96,7 @@ export default {
   background-color: black;
   color: white;
 }
-.email_input{
-  background-color: transparent;
-  border: none;
-  border-bottom: 1px solid white;
-  color: white;
-}
-.password_input{
+#login-div input[type=email], input[type=password]{
   background-color: transparent;
   border: none;
   border-bottom: 1px solid white;

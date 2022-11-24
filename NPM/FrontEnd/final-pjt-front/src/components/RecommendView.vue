@@ -1,7 +1,7 @@
 <template>
   <div class="recommend">
     <!-- 로그인유저 -->
-    <div v-if="{nickname} & {recommendMovieListLength}">
+    <div v-if="nickname">
         <div class="d-flex">
           <h4 id="recommend-title" class="me-4">Recommendation for</h4><span class="fs-2">{{nickname}}</span>
         </div>
@@ -293,6 +293,7 @@ export default {
                 j.overview = temp.join(' ')
             }
             this.recommend_movieList = movieList
+            console.log(this.recommend_movieList)
       },
       goToDetailMovie(id){
           this.$router.push({ name : 'movieDetail', params: { movie_id: id }})
@@ -311,13 +312,10 @@ export default {
       recommendMovieList(){
         return this.$store.getters.getRecommendMovieList
       },
-      recommendMovieListLength(){
-        let a = false
-        if(this.$store.getters.getRecommendMovieList.length > 5){
-            a = true
-        }
-        return a
-      }
+      // imgUrl(imgPath){
+      //   console.log(`${this.imgUrl}${imgPath}`)
+      //   return `${this.imgUrl}${imgPath}`
+      // }
     },
     created() {
         this.recommend_arr_general()
