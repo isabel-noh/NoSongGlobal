@@ -31,22 +31,21 @@ export default {
     methods: {
       getProfileImg(){
         // const user_data = this.$store.state.token
-        const user = localStorage.getItem('token')
+        // const user = localStorage.getItem('token')
+        // console.log('!', user)
         axios({
           mothod: 'GET',
-          url: `${API_URL}/auth/mypage`,
-          // headers:{
-          //   'Authorization' : `Token ${user}`,
-          // },
-          data: {
-            user_token: user,
-          }
+          url: `${API_URL}/auth/mypage/`,
+          headers:{
+            'Authorization' : `Token ${this.$store.state.token}`,
+          },
         })
         .then((response) => {
           console.log('axios요청 됨', response.data)
-          // for (const j of response.data) {
-          //   if (j.)
-          // }
+          
+        })
+        .catch((err) => {
+          console.log(err)
         })
       }
     },
