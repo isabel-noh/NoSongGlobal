@@ -59,7 +59,7 @@ def journals_create(request):
 @api_view(['GET', 'PUT', 'DELETE'])
 def journal_detail(request, journal_pk):
     journal = get_object_or_404(Journal, pk=journal_pk)
-
+    
     if request.method == 'GET':
         serializer = JournalSerializer(journal)
         return Response(serializer.data)
