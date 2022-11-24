@@ -26,7 +26,7 @@ def addfields(request):
         user = get_object_or_404(get_user_model(), username=request.user)
         data = request.data
         user_add = UserAddField(user=user, name=data['name'], nickname=data['nickname'], 
-        like_ost_genre=data['like_ost_genre'], profile_image=request.FILES.get('profile_image'))
+        profile_image=request.FILES.get('profile_image'))
         user_add.save()
         user_add = UserAddField.objects.get(name=data['name'])
         serializer = UserAddFieldSerializer(data=user_add)
