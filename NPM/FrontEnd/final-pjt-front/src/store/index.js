@@ -307,7 +307,6 @@ export default new Vuex.Store({
         console.log(error)
       })
     },
-
   },
   modules: {
     
