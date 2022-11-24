@@ -89,7 +89,15 @@ export default new Vuex.Store({
       state.journal = data
     },
     RECOMMEND_MOVIE_LIST(state, data){
-      state.recommendMovieList = data.recommendMovieList
+      const recommend_data = data
+      console.log(recommend_data)
+      for(const j of recommend_data) {
+        console.log(j)
+        let temp = j.overview.split(' ')
+        temp = temp.slice(0, 5)
+        j.overview = temp.join(' ')
+      }
+      state.recommendMovieList = recommend_data 
     },
     JOURNAL_LIST(state, data) {
       state.journalList = data
@@ -277,8 +285,16 @@ export default new Vuex.Store({
           }
         })
         .then((res) => {
-          context.commit('RECOMMEND_MOVIE_LIST', res.data)
-        })   
+          console.log(res.data)
+          const recommendMovieList = [] 
+          for (const id in res.data.recommendMovieList) {
+            recommendMovieList.push(context.state.movieList[res.data.recommendMovieList[id]])
+          }
+          context.commit('RECOMMEND_MOVIE_LIST', recommendMovieList)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
       }
     },
     loadJournalList(context) {

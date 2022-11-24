@@ -1,11 +1,21 @@
 <template>
   <div class="JournalDetailView">
     <h1 id="journal-title-h1">Remember Movie Moment</h1>
-    <div style="max-height:300px; box-sizing:content-box; overflow:hidden; margin-bottom: 10px;">
-        <img
-            v-if="journal?.journal_image" 
-            :src="url_formatting" 
-            style="border-radius:0px; ">
+    <div 
+        style="max-height:300px; 
+        box-sizing:content-box; 
+        overflow:hidden; 
+        margin-bottom: 10px;">
+        <div v-if="journal?.journal_image" 
+            :style="`borderRadius:0px; 
+            backgroundImage:url(${url_formatting});
+            width: 100%;
+            height: 300px;
+            background-size: contain;
+            margin: auto;
+            background-repeat: no-repeat;
+            }`">
+        </div>
     </div>
     <div class="youtube_music_player"></div>
     <div class="journal_content">
@@ -19,6 +29,41 @@
                 v-if="like_count"
             > {{ like_count }} </span>
         </h5>
+        <p v-if="journal?.rank === 1">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star"></i>
+            <i class="bi bi-star"></i>
+            <i class="bi bi-star"></i>
+            <i class="bi bi-star"></i>
+        </p>
+        <p v-if="journal?.rank === 2">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star"></i>
+            <i class="bi bi-star"></i>
+            <i class="bi bi-star"></i>
+        </p>
+        <p v-if="journal?.rank === 3">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star"></i>
+            <i class="bi bi-star"></i>
+        </p>
+        <p v-if="journal?.rank === 4">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star"></i>
+        </p>
+        <p v-if="journal?.rank === 5">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+        </p>
         <p>{{journal?.content}}</p>
     </div>
     <div class="delete-update-btn">
@@ -47,10 +92,7 @@
 import axios from 'axios'
 import CommentWriteView from '@/components/CommentWriteView'
 import CommentsList from '@/components/CommentsList'
-
-
 const API_URL = 'http://127.0.0.1:8000'
-
 export default {
     name: 'JournalDetailView',
     data(){
@@ -118,7 +160,6 @@ export default {
             // this.nickname_comment[nickname] = this.added_comment
             // console.log('###', this.nickname_comment)
             this.commentList.push([nickname, this.added_comment])
-
         },
         likeJournal(){
             const local = localStorage.getItem('vuex')
@@ -177,7 +218,6 @@ export default {
     
 }
 </script>
-
 <style>
 .JournalDetailView{
     text-align: start;
