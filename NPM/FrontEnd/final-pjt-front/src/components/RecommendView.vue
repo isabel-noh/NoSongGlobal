@@ -1,18 +1,19 @@
 <template>
   <div class="recommend">
     <!-- 로그인유저 -->
-    <div v-if="nickname">
+    <div v-if="nickname || !recommendMovieList">
         <div class="d-flex">
           <h4 id="recommend-title" class="me-4">Recommendation for</h4><span class="fs-2">{{nickname}}</span>
         </div>
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button v-if="recommendMovieList[1]" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button v-if="recommendMovieList[1]" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
         <div class="carousel-inner">
             <div class="carousel-item rounded-4 active"
+                v-if="recommendMovieList"
                 style="height:40vw;"
                 :style="{ 
                     backgroundImage:`linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url(${imgUrl}${movieList[recommendMovieList[0]].backdrop_path})` ,
@@ -46,15 +47,16 @@
             </div>
             <div class="carousel-item rounded-4"
                 style="height:40vw;"
+                v-if="recommendMovieList[1]"
                 :style="{ backgroundImage:`linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), 
                 url(${imgUrl}${movieList[recommendMovieList[1]].backdrop_path})` ,
                 backgroundSize: 'cover'}">
             <div class="d-flex align-items-center border border-0 bg-white rounded-4"
                 style="height:fit-content; width:fit-content; margin:4vw auto;"
                 @click="goToDetailMovie(movieList[recommendMovieList[1]].id)">
-                <img :src="imgUrl + movieList[recommendMovieList[1]].poster_path"
+                <!-- <img :src="imgUrl + movieList[recommendMovieList[1]].poster_path"
                 style="height:25vw; width:100%; cursor:pointer;"
-                :alt="`${movieList[recommendMovieList[1]].title}`">
+                :alt="`${movieList[recommendMovieList[1]].title}`"> -->
                 <div
                     v-if="movieList[recommendMovieList[1]].overview"
                     style="background-color: transparent;
@@ -77,6 +79,7 @@
             </div>
             </div>
             <div class="carousel-item rounded-4"
+                v-if="recommendMovieList[2]"
                 style="height:40vw;"
                 :style="{ backgroundImage:`linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), 
                 url(${imgUrl}${movieList[recommendMovieList[2]].backdrop_path})` ,

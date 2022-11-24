@@ -19,42 +19,6 @@
                 v-if="like_count"
             > {{ like_count }} </span>
         </h5>
-        <p v-if="journal?.rank === 1">
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star"></i>
-            <i class="bi bi-star"></i>
-            <i class="bi bi-star"></i>
-            <i class="bi bi-star"></i>
-        </p>
-        <p v-if="journal?.rank === 2">
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star"></i>
-            <i class="bi bi-star"></i>
-            <i class="bi bi-star"></i>
-        </p>
-        <p v-if="journal?.rank === 3">
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star"></i>
-            <i class="bi bi-star"></i>
-        </p>
-        <p v-if="journal?.rank === 4">
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star"></i>
-        </p>
-        <p v-if="journal?.rank === 5">
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-        </p>
-        <h5>{{journal?.title}}<span> {{journal?.like_cnt}} </span><button class="btn btn-primary">좋아요</button></h5>
         <p>{{journal?.content}}</p>
     </div>
     <div class="delete-update-btn">
@@ -75,16 +39,15 @@
             :journal_id="journal?.journal_id"
             @addComment="addComment"/>
         <CommentsList
-            :commentList="commentList"
-            :added_comment="added_comment"/>
+            :commentList="commentList"/>
     </div>
   </div>
 </template>
-
 <script>
 import axios from 'axios'
 import CommentWriteView from '@/components/CommentWriteView'
 import CommentsList from '@/components/CommentsList'
+
 
 const API_URL = 'http://127.0.0.1:8000'
 
@@ -94,8 +57,9 @@ export default {
         return{
             journal: null,
             added_comment: null,
-            commentList:[],
+            commentList: [],
             user_id: null,
+            like_count: 0,
         }
     }, 
     components:{
@@ -135,7 +99,6 @@ export default {
             .then((response) => {
                 console.log(response)
                 console.log('삭제되었습니다.')
-                this.$store.commit('DELETE_JOURNAL', this.journal_id)
                 this.$router.push({ name : 'journal'})
             })
             .catch((error) => {
@@ -148,10 +111,49 @@ export default {
         },
         // TODO comment 작성
         addComment(added_comment){
-            this.added_comment = added_comment
+            const local = localStorage.getItem('vuex')
+            const user = JSON.parse(local)
+            this.added_comment = added_comment.content
+            const nickname = user.user.nickname
+            // this.nickname_comment[nickname] = this.added_comment
+            // console.log('###', this.nickname_comment)
+            this.commentList.push([nickname, this.added_comment])
+
+        },
+        likeJournal(){
+            const local = localStorage.getItem('vuex')
+            const user = JSON.parse(local)
+            axios({
+                method: 'POST',
+                url: `${API_URL}/journals/${this.$route.params.journal_id}/like/`,
+                headers:{
+                    'Authorization' : `Token ${user.token}`
+                },
+                data:{
+                    id: this.journal?.id
+                }
+            })
+            .then((response) => {
+                const is_Liked = response.data.is_Liked
+                if (is_Liked === true) {
+                    this.like_count = response.data.like_count
+                } else {
+                    this.like_count = response.data.like_count
+                } 
+            })
+        },
+        getCommentsAll() {
+            axios({
+                method: 'GET',
+                url: `${API_URL}/journals/${this.$route.params.journal_id}/comment/all/`,
+            })
+            .then((response) => {
+                console.log(response)
+            })
         }
     },
     computed:{
+	
       url_formatting: function(){
         // 이미지 경로가 서버에 저장된 경로로 불러와져 데이터 로드되지 않아
         // 경로에 'http://localhost:8000'를 붙여줘 computed로 계산된 값을 보여게 함
