@@ -75,7 +75,8 @@
             :journal_id="journal?.journal_id"
             @addComment="addComment"/>
         <CommentsList
-            :commentList="commentList"/>
+            :commentList="commentList"
+            :added_comment="added_comment"/>
     </div>
   </div>
 </template>
@@ -85,7 +86,6 @@ import axios from 'axios'
 import CommentWriteView from '@/components/CommentWriteView'
 import CommentsList from '@/components/CommentsList'
 
-
 const API_URL = 'http://127.0.0.1:8000'
 
 export default {
@@ -94,9 +94,8 @@ export default {
         return{
             journal: null,
             added_comment: null,
-            commentList: [],
+            commentList:[],
             user_id: null,
-            like_count: 0,
         }
     }, 
     components:{
@@ -149,45 +148,7 @@ export default {
         },
         // TODO comment 작성
         addComment(added_comment){
-            const local = localStorage.getItem('vuex')
-            const user = JSON.parse(local)
-            this.added_comment = added_comment.content
-            const nickname = user.user.nickname
-            // this.nickname_comment[nickname] = this.added_comment
-            // console.log('###', this.nickname_comment)
-            this.commentList.push([nickname, this.added_comment])
-
-        },
-        likeJournal(){
-            const local = localStorage.getItem('vuex')
-            const user = JSON.parse(local)
-            axios({
-                method: 'POST',
-                url: `${API_URL}/journals/${this.$route.params.journal_id}/like/`,
-                headers:{
-                    'Authorization' : `Token ${user.token}`
-                },
-                data:{
-                    id: this.journal?.id
-                }
-            })
-            .then((response) => {
-                const is_Liked = response.data.is_Liked
-                if (is_Liked === true) {
-                    this.like_count = response.data.like_count
-                } else {
-                    this.like_count = response.data.like_count
-                } 
-            })
-        },
-        getCommentsAll() {
-            axios({
-                method: 'GET',
-                url: `${API_URL}/journals/${this.$route.params.journal_id}/comment/all/`,
-            })
-            .then((response) => {
-                console.log(response)
-            })
+            this.added_comment = added_comment
         }
     },
     computed:{

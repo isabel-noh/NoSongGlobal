@@ -46,7 +46,6 @@ def journals_create(request):
     data = request.data
     # request.FILES.get -> 이미지 안 넣어도 넘어갈 수 있음.
     # 각 값을 journal model field에 맞게 저장
-    print(request.data)
     journal = Journal(user=request.user, title= data['title'], content = data['content'], 
     movie_id=int(data['movie_id']), journal_image=request.FILES.get('journal_image'),
     watched_at=data['watched_at'], rank=int(data['journal_rank']))
@@ -80,23 +79,13 @@ def journal_detail(request, journal_pk):
 # 댓글 생성
 @api_view(['POST'])
 def journal_comment_create(request, journal_pk):
-    # journal = get_object_or_404(Journal, pk=journal_pk)
+    # journal = Journal.objects.get(pk=journal_id)
+    journal = get_object_or_404(Journal, pk=journal_pk)
+    serializer = CommentSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(journal=journal)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    comment = Comment(
-        content = request.data['comment'],
-        journal_pk_id = journal_pk,
-        user_id = request.user.id
-    )
-    comment.save()
-    serializer = CommentSerializer(comment)
-
-    return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-
-# 해당 게시글의 댓글들 가져오기
-@api_view(['GET'])
-def journal_comment_all(request, journal_pk):
-    return Response()
 
 
 # 좋아요
@@ -107,7 +96,7 @@ def journal_like(request, journal_pk):
         journal = get_object_or_404(Journal, pk=journal_pk)
         user = request.user
 
-        if journal.like_users.filter(id=user.id).exists():
+        if journal.like_users.filter(pk=user.pk).exists():
             journal.like_users.remove(user)
             is_liked = False
         else:

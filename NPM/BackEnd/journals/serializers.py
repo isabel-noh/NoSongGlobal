@@ -16,7 +16,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = '__all__'
+        fields = ('content',)
 
 
 # 단일 저널 정보 제공
