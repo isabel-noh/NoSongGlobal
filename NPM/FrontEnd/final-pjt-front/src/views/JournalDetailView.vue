@@ -9,7 +9,7 @@
     </div>
     <div class="youtube_music_player"></div>
     <div class="journal_content">
-        <p>{{this.movieData[this.journal?.movie-1].title}}</p>
+        <p>{{journal?.movieTitle}}</p>
         <p>{{journal?.watched_at}}</p>
         <h5>{{journal?.title}}<span> {{journal?.like_cnt}} </span><button class="btn btn-primary">좋아요</button></h5>
         <p>{{journal?.content}}</p>
@@ -68,6 +68,7 @@ export default {
             })
             .then((response) => {
                 this.journal = response.data
+                console.log(this.journal)
                 this.$store.commit('GET_JOURNAL', response.data)
             })
             .catch((error) => {
