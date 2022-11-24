@@ -64,11 +64,14 @@ def journal_detail(request, journal_pk):
     if request.method == 'GET':
         serializer = JournalSerializer(journal)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
     elif request.method == 'PUT':
         serializer = JournalSerializer(journal, data=request.data)
+        print(serializer)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK) 
+
     elif request.method == 'DELETE':
         journal.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
