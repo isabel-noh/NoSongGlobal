@@ -53,27 +53,6 @@
                     <label for="nickname">닉네임: </label> 
                     <input id="nickname" type="nickname" v-model="nickname" autocomplete="off" required>
                 </p>
-                <div>
-                    <p>좋아하는 음악 장르를 선택해주세요. (최대 3개)</p>
-                    <input type="checkbox" name="check" value="genre_1" @click="clickBox">
-                    <label for="genre_1">OST</label>
-                    <input type="checkbox" name="check" value="genre_2" @click="clickBox">
-                    <label for="genre_2">발라드</label>
-                    <input type="checkbox" name="check" value="genre_3" @click="clickBox">
-                    <label for="genre_3">재즈</label>
-                    <input type="checkbox" name="check" value="genre_4" @click="clickBox">
-                    <label for="genre_4">pop</label>
-                    <input type="checkbox" name="check" value="genre_5" @click="clickBox">
-                    <label for="genre_5">힙합</label>
-                    <input type="checkbox" name="check" value="genre_6" @click="clickBox">
-                    <label for="genre_6">클래식</label>
-                    <input type="checkbox" name="check" value="genre_7" @click="clickBox">
-                    <label for="genre_7">트로트</label>
-                    <input type="checkbox" name="check" value="genre_8" @click="clickBox">
-                    <label for="genre_8">뮤지컬</label>
-                    <input type="checkbox" name="check" value="genre_9" @click="clickBox">
-                    <label for="genre_9">락</label>
-                </div>
             </div>
             
             <input type="submit" value="가입하기">

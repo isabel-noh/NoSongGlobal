@@ -32,6 +32,7 @@ def journals_all(request):
             'watched_at': i['watched_at'],
             'journal_image': i['journal_image'],
             'poster_path': movie_poster,
+            'user_id': i['user_id'],
         }
         journal_data_all.append(journal_data)
     return Response(journal_data_all, status=status.HTTP_200_OK)

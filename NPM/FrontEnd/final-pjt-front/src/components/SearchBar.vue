@@ -1,5 +1,5 @@
 <template>
-  <div class="searchBar">
+  <div class="searchBar align-items-center">
     <div class="m-auto"
     style="width:65%"
     >
@@ -73,9 +73,10 @@ export default {
 
 <style>
 .searchBar {
-    padding: 10px;
+    padding: 20px;
     border-top: 1px solid lightgrey;
     border-bottom: 1px solid lightgrey;
+    margin-bottom: 15px;
 }
 .search-input {
     border: 1px solid lightgrey;

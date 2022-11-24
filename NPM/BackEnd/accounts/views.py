@@ -17,7 +17,7 @@ from .models import User, UserAddField
 from journals.models import Journal
 from movies.models import Movie
 from .serializers import UserAddFieldSerializer, UserSerializer
-
+from journals.serializers import JournalListSerializer
 # # Create your views here.
 @api_view(['POST'])
 @csrf_exempt
@@ -25,7 +25,7 @@ def addfields(request):
     if request.method == 'POST':
         user = get_object_or_404(get_user_model(), username=request.user)
         data = request.data
-        user_add = UserAddField(user=request.user, name=data['name'], nickname=data['nickname'], 
+        user_add = UserAddField(user=user, name=data['name'], nickname=data['nickname'], 
         like_ost_genre=data['like_ost_genre'], profile_image=request.FILES.get('profile_image'))
         user_add.save()
         user_add = UserAddField.objects.get(name=data['name'])
@@ -38,16 +38,16 @@ def addfields(request):
 # @permission_classes([IsAuthenticated])
 def mypage(request):
     user = get_object_or_404(User, username=request.user)
-    add = get_object_or_404(UserAddField, user=user.id)
-    serializer_user = UserSerializer(user)
+    add = get_object_or_404(UserAddField, user=user)
+    # serializer_user = UserSerializer(user)
     serializer_add = UserAddFieldSerializer(add)
     # print(serializer_user.data) -> 로그인한 사람의 기본 정보
     # print(serializer_add.data) -> 로그인한 사람의 추가 정보
+    # journals = list(filter(lambda x: x.user == user, get_list_or_404(Journal)))
     context = {
-        'serializer_user': serializer_user.data,
         'serializer_add': serializer_add.data,
     }
-    return Response(context)
+    return Response(context, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])

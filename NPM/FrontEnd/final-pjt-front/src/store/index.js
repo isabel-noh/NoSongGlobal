@@ -20,6 +20,7 @@ export default new Vuex.Store({
     searchList: [],
     journal: null,
     recommendMovieList: null,
+    journalList: [],
   },
   getters: {
     userData(state){
@@ -36,6 +37,9 @@ export default new Vuex.Store({
     },
     getRecommendMovieList(state){
       return state.recommendMovieList
+    },
+    journalList(state) {
+      return state.journalList
     }
 
   },
@@ -83,6 +87,12 @@ export default new Vuex.Store({
     RECOMMEND_MOVIE_LIST(state, data){
       state.recommendMovieList = data.recommendMovieList
     },
+    JOURNAL_LIST(state, data) {
+      state.journalList = data
+    },
+    USER_PROFILE(state, data) {
+      state.user['profileImg'] = data.profile_image
+    }
   },
   actions: {
     isLogin(context){
@@ -260,7 +270,33 @@ export default new Vuex.Store({
           context.commit('RECOMMEND_MOVIE_LIST', res.data)
         })   
       }
-    }
+    },
+    loadJournalList(context) {
+      axios({
+          method: 'GET',
+          url: `${API_URL}/journals/`
+      })
+      .then((response) => {
+        let journalList = []
+        let isActive_url = false
+        for (const j of response.data){
+          if(j.journal_image !== null){
+            j.journal_image = 'http://localhost:8000' + j.journal_image
+            isActive_url = false
+          } else {
+            // this.poster_url = 'https://image.tmdb.org/t/p/w500' + j.poster_path
+            isActive_url = true
+          }
+          j['isActive_url'] = isActive_url
+          j['movieTitle'] = context.state.movieList[j.movie_id-1].title
+          journalList.push(j)
+        }
+        context.commit('JOURNAL_LIST', journalList)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
   },
   modules: {
     

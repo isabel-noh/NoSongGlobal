@@ -24,10 +24,10 @@ export default {
       }
     },
     created(){
-      this.getProfile()
+      // this.getProfile()
     },
     updated(){
-      this.getProfile()
+      // this.getProfile()
     }
 }
 </script>

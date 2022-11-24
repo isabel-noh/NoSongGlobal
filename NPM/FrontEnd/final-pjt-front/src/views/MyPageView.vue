@@ -4,7 +4,7 @@
 
     />
     <MyPageTabbar/>
-    <MyPageBodyView/>
+    <MyPageBodyView :userJournalList="userJournalList"/>
   </div>
 </template>
 
@@ -25,14 +25,11 @@ export default {
     },
     data() {
       return{
-        
+        userJournalList: [],
       }
     },
     methods: {
       getProfileImg(){
-        // const user_data = this.$store.state.token
-        // const user = localStorage.getItem('token')
-        // console.log('!', user)
         axios({
           mothod: 'GET',
           url: `${API_URL}/auth/mypage/`,
@@ -41,18 +38,22 @@ export default {
           },
         })
         .then((response) => {
-          console.log('axios요청 됨', response.data)
+          this.$store.commit('USER_PROFILE', response.data.serializer_add)
           
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err, 1)
         })
       }
     },
     created(){
       this.$store.dispatch('isLogin')
-      console.log('!', this.$store.state.token)
       this.getProfileImg()
+      const userJournalList = this.$store.getters.journalList.filter((journal)=>{
+        return journal.user_id == this.$store.getters.userData.user_id
+      })
+      this.userJournalList =  userJournalList 
+      console.log(this.userJournalList)
     }
 }
 </script>
