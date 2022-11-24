@@ -46,7 +46,7 @@ export default new Vuex.Store({
     ,
     LOG_IN(state, data){
       state.token = data.key
-      state.user = data.user
+      // state.user = data.user
       if(router.currentRoute.name != 'home'){
         router.push({ name : 'home' })
       } else {
@@ -118,8 +118,11 @@ export default new Vuex.Store({
         }
       })
       .then((response) => {
-        context.dispatch('isLogin')
         context.commit('LOG_IN', response.data)
+        context.dispatch('isLogin')
+      // })
+      // .then((response) => {
+      //   console.log(response)
       })
       .catch((error) => {
         alert('유저정보를 확인해주세요.')
