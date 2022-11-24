@@ -107,7 +107,7 @@ export default {
 </script>
 
 
-<style>
+<style lang="scss">
 #app {
   min-width: 672px;
   font-family:Helvetica, Arial, sans-serif;
