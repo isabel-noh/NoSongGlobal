@@ -106,6 +106,9 @@ export default new Vuex.Store({
     USER_JOURNAL_LIST(state, data) {
       state.userJournalList = data
     },
+    DELETE_JOURNAL(state, id){
+      state.journalList = state.journalList.splice(id-1,1)
+    }
   },
   actions: {
     isLogin(context){
@@ -195,7 +198,7 @@ export default new Vuex.Store({
       formdata.append('watched_at', data.journal_date)
       formdata.append('journal_image', data.journal_img)
       formdata.append('journal_rank', data.journal_rank)
-      formdata.append('movie_title', data.movie_title)
+      // formdata.append('movie_title', data.movie_title)
       const local = localStorage.getItem('vuex')
       const user = JSON.parse(local)
 

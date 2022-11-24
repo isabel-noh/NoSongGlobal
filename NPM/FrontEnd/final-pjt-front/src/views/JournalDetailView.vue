@@ -146,6 +146,7 @@ export default {
             .then((response) => {
                 console.log(response)
                 console.log('삭제되었습니다.')
+                this.$store.commit('DELETE_JOURNAL', this.journal_id)
                 this.$router.push({ name : 'journal'})
             })
             .catch((error) => {

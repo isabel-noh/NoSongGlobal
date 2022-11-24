@@ -110,7 +110,7 @@ export default {
             const journal_date = this.journal_date
             const journal_img = this.journal_img
             const journal_rank = this.journal_rank
-            const movie_title = this.movie_title
+            // const movie_title = this.movie_title
             const data = {
                 movie_id,
                 journal_title,
@@ -118,7 +118,7 @@ export default {
                 journal_date,
                 journal_img,
                 journal_rank,
-                movie_title,
+                // movie_title,
             }
             console.log('%', data)
             this.$store.dispatch('addJournal', data)
@@ -147,13 +147,13 @@ export default {
           } else {
             this.isShow = false
           }
-          this.movie_title = this.searchInput
+          // this.movie_title = this.searchInput
         },
         searchInputChange(event) {
           this.searchInput = event.target.innerHTML
           this.selectedMovieId = event.target.value
           this.isShow = false
-          this.movie_title = event.target.innerHTML
+          // this.movie_title = event.target.innerHTML
         }
         
     },

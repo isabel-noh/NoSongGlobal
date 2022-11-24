@@ -119,10 +119,10 @@ export default {
             const movie_id = this.movie_id
             const journal_title = this.journal_title
             const journal_content = this.journal_content
-            const journal_image = this.journal_image
+            const journal_image = this.journal_image? this.journal_image : this.previous_image
             const journal_rank = this.journal_rank
             const watched_at = this.watched_at
-
+            console.log(journal_image)
             const payload = {
                 movie_id : movie_id,
                 journal_title : journal_title,

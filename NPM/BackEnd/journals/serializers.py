@@ -9,7 +9,7 @@ class JournalListSerializer(serializers.ModelSerializer):
     journal_image = serializers.ImageField(use_url=True)
     class Meta:
         model = Journal
-        fields = ('title', 'pk', 'movie_id', 'watched_at', 'journal_image', 'movie_title', 'user_id')
+        fields = ('title', 'pk', 'movie_id', 'watched_at', 'journal_image', 'user_id')
 
 # 해당 저널의 댓글 목록 제공
 class CommentSerializer(serializers.ModelSerializer):
@@ -29,4 +29,4 @@ class JournalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Journal
         fields = '__all__'
-        read_only_fields = ('nickname', 'comment_set', 'comment_count',)
+        read_only_fields = ('nickname', 'comment_set', 'comment_count', 'like_users')

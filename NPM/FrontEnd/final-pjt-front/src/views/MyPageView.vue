@@ -52,7 +52,7 @@ export default {
       const userJournalList = this.$store.getters.journalList.filter((journal)=>{
         return journal.user_id == this.$store.getters.userData.user_id
       })
-      this.userJournalList =  userJournalList 
+      this.$store.commit('USER_JOURNAL_LIST', userJournalList)
       console.log(this.userJournalList)
     }
 }

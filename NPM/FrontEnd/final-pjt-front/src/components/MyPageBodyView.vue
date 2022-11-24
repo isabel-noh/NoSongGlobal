@@ -23,7 +23,7 @@
                 </div>  
               </div>
               <div class="item front" 
-                v-if="journal?.isActive_url"
+                v-else
                 style="margin-bottom:10px;">
                 <div
                   class="card-img-top item front rounded-2"
@@ -54,15 +54,19 @@
 
 export default {
     name:'MyPageBodyView',
+    data() {
+      return {
+      }
+    }
+    ,
     components: {
     },
     methods:{
+      goToDetailPage(id){
+        this.$router.push({name : 'journalDetail', params:{journal_id :id}})
+      },
     },
     created() {
-      this.$store.commit('USER_JOURNAL_LIST', this.userJournalList)
-    },
-    props: {
-      userJournalList:Array
     },
     computed: {
       journalList() {

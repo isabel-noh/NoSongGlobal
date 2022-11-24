@@ -48,7 +48,7 @@ def journals_create(request):
     # 각 값을 journal model field에 맞게 저장
     print(request.data)
     journal = Journal(user=request.user, title= data['title'], content = data['content'], 
-    movie_id=int(data['movie_id']), movie_title=data['movie_title'], journal_image=request.FILES.get('journal_image'),
+    movie_id=int(data['movie_id']), journal_image=request.FILES.get('journal_image'),
     watched_at=data['watched_at'], rank=int(data['journal_rank']))
     journal.save()
     journal = Journal.objects.get(pk=journal.pk)
