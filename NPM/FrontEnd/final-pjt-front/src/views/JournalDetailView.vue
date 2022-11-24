@@ -1,13 +1,23 @@
 <template>
   <div class="JournalDetailView">
     <h1 id="journal-title-h1">Remember Movie Moment</h1>
-    <div style="max-height:300px; box-sizing:content-box; overflow:hidden; margin-bottom: 10px;">
-        <img
-            v-if="journal?.journal_image" 
-            :src="url_formatting" 
-            style="border-radius:0px; ">
+    <div 
+        style="max-height:300px; 
+        box-sizing:content-box; 
+        overflow:hidden; 
+        margin-bottom: 10px;">
+        <div v-if="journal?.journal_image" 
+            :style="`borderRadius:0px; 
+            backgroundImage:url(${url_formatting});
+            width: 100%;
+            height: 300px;
+            background-size: contain;
+            margin: auto;
+            background-repeat: no-repeat;
+            }`">
+
+        </div>
     </div>
-    <div class="youtube_music_player"></div>
     <div class="journal_content">
         <p>{{journal?.movieTitle}}</p>
         <p>{{journal?.watched_at}}</p>

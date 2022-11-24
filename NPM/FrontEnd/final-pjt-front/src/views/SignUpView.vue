@@ -114,7 +114,9 @@ export default {
             if (!this.email.trim) {
                 alert('이메일을 입력해주세요.')
             }
-            // this.$store.dispatch('signUp', payload)
+            if(this.password1.length < 8){
+                alert('비밀번호가 너무 짧습니다.')
+            }
             
             axios({
                 method: 'POST',
@@ -131,12 +133,13 @@ export default {
                 this.second_page = true
             }).
             catch((error) => {
-                console.log(error)
+                if(error.response.data.username[0] === '해당 사용자 이름은 이미 존재합니다.'){
+                    alert('중복된 이메일입니다.')
+                }
             })
             
         },
         addUserData(){
-            //
             const name = this.name;
             const nickname = this.nickname;
             const profile_image = this.profile_image;
@@ -170,6 +173,7 @@ export default {
                 this.$router.push({ name : 'home' })
             }).
             catch((error) => {
+                alert('회원가입을 다시 진행해주세요.')
                 console.log(error)
             })
 
