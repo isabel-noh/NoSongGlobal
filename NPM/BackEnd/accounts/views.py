@@ -19,20 +19,26 @@ from movies.models import Movie
 from .serializers import UserAddFieldSerializer, UserSerializer
 from journals.serializers import JournalListSerializer
 # # Create your views here.
-@api_view(['POST'])
+@api_view(['POST', 'PUT'])
 @csrf_exempt
 def addfields(request):
+    user = get_object_or_404(get_user_model(), username=request.user)
+    data = request.data
     if request.method == 'POST':
-        user = get_object_or_404(get_user_model(), username=request.user)
-        data = request.data
         user_add = UserAddField(user=user, name=data['name'], nickname=data['nickname'], 
         profile_image=request.FILES.get('profile_image'))
         user_add.save()
         user_add = UserAddField.objects.get(name=data['name'])
-        serializer = UserAddFieldSerializer(data=user_add)
         return Response('not valid')
-
-
+    elif request.method == 'PUT':
+        user_add = get_object_or_404(UserAddField, user=user)
+        data['user']=user_add
+        data['pofile_image']= user_add.profile_image if user_add.profile_image else None
+        serializer = UserAddFieldSerializer(user_add, data=data)
+        print(serializer)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 # @permission_classes([IsAuthenticated])
@@ -63,6 +69,7 @@ def isLogin(request):
         'user_id': serializer_user.data['id'],
         'is_active': serializer_user.data['is_active'],
         'nickname': serializer_add.data['nickname'],
+        'username': serializer_user.data['username'],
     }
     return Response(context)
 

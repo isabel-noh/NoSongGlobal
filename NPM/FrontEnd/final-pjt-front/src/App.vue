@@ -42,7 +42,7 @@
           </button> -->
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" @click="logOut">LogOut</a></li>
-            <li><router-link class="dropdown-item" :to="{ name : 'myPage' }" >MyPage</router-link></li>
+            <li @click="tabNumBase"><router-link class="dropdown-item" :to="{ name : 'myPage' }" >MyPage</router-link></li>
           </ul>
         </div>
       </div>
@@ -84,6 +84,9 @@ export default {
     },
     logOut(){
       this.$store.dispatch('logOut')
+    },
+    tabNumBase() {
+      this.$store.commit('TAB_NUM', 1)
     }
   },
   computed:{

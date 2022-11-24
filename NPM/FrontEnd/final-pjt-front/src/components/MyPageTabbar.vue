@@ -1,9 +1,9 @@
 <template>
   <div class="MyPageTabbar">
     <nav class="border-bottom p-1 mt-5 d-flex justify-content-around">
-      <span @click="tab1" class="btn">내가 남긴 기록</span>
-      <span @click="tab2" class="btn">좋아요한 기록</span>
-      <span @click="tab3" class="btn">환경설정</span>
+      <span @click="tab1" class="btn">내 기록들</span>
+      <span @click="tab2" class="btn">내가 '좋아요'한 기록들</span>
+      <span @click="tab3" class="btn">계정 설정</span>
     </nav>
   </div>
 </template>

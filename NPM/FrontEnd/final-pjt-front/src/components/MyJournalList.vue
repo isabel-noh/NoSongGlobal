@@ -42,16 +42,21 @@
 <script>
 export default {
   name: 'MyJournalList',
+  data() {
+    return {
+      journalList: null,
+    }
+  },
   computed:{
-    journalList() {
-        return this.$store.getters.userJournalList
-      },
   },
   methods:{
     goToDetailPage(id){
       this.$router.push({name : 'journalDetail', params:{journal_id :id}})
     },
   },
+  created() {
+    this.journalList = this.$store.getters.userJournalList
+  }
 }
 </script>
 

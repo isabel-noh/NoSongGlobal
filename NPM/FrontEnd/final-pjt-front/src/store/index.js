@@ -23,7 +23,9 @@ export default new Vuex.Store({
     journalList: [],
     userJournalList: [],
     likeJournalList: [],
-    tabNum: 1
+    tabNum: 1,
+    NicknameOrPassword: 0,
+    changeProfile: false,
   },
   getters: {
     userData(state){
@@ -52,6 +54,15 @@ export default new Vuex.Store({
     },
     tabNum(state) {
       return state.tabNum
+    },
+    changePassword(state) {
+      return state.changePassword
+    },
+    changeProfile(state) {
+      return state.changeProfile
+    },
+    nop(state) {
+      return state.NicknameOrPassword
     }
 
   },
@@ -63,7 +74,11 @@ export default new Vuex.Store({
     LOG_IN(state, data){
       state.token = data.key
       // state.user = data.user
-      if(router.currentRoute.name != 'home'){
+      if(router.currentRoute.name == 'myPage'){
+        state.changeProfile = true
+        state.NicknameOrPassword = 0
+      }
+      else if(router.currentRoute.name != 'home'){
         router.push({ name : 'home' })
       } else {
         router.go(router.currentRoute)
@@ -120,7 +135,11 @@ export default new Vuex.Store({
       state.likeJournalList = data
     },
     TAB_NUM(state, num){
+      if (num === 3) state.changeProfile = false
       state.tabNum = num
+    },
+    CHANGE_NOP(state, num) {
+      state.NicknameOrPassword = num
     }
   },
   actions: {
@@ -138,6 +157,7 @@ export default new Vuex.Store({
         .then((response) => {
           // console.log('islogin 됨')
           // console.log('->', user.token)
+          console.log(response)
           context.commit('IS_LOGIN', response.data)
         })
         .catch((error) => {
@@ -185,8 +205,51 @@ export default new Vuex.Store({
         console.log(error)
       })
       
-    }
-    ,
+    },
+    changePassword(context, newPassword) {
+      axios({
+        method: 'post',
+        url: 'http://127.0.0.1:8000/accounts/password/change/',
+        headers: {
+          Authorization : `Token ${context.state.token}`
+        },
+        data: {
+          new_password1 : newPassword.new_password1,
+          new_password2 : newPassword.new_password2,
+        }
+      })
+      .then((res) => {
+        console.log(res)
+        context.state.changePassword = false
+        alert('비밀번호 수정 완료!')
+      })
+      .catch((err) => {
+        console.log(err)
+        alert('비밀번호 수정에 실패하였습니다!')
+      })
+    },
+    updateNickname(context, nickname) {
+      console.log(context.state.user)
+      axios({
+        method: 'PUT',
+        url: `${API_URL}/auth/`,
+        headers: {
+          Authorization: `Token ${context.state.token}`
+        },
+        data: {
+          'user':context.state.user.id,
+          'nickname':nickname,
+          'name':context.state.user.username
+        }
+      })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+
     search(context, keyword){
       axios({
         method: 'GET',
