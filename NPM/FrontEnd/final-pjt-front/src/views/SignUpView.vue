@@ -2,10 +2,10 @@
   <div class="signUp" style="padding:0px; margin:0px;">
     <div v-if="!second_page" class="form">
         <div id="signup-logo">
-            <h2>회원가입</h2>
+            <h2 style="font-family:'Roboto'">SIGN UP</h2>
         </div>
         <form
-            @submit.prevent="signup"
+            @submit.prevent="turnNextpage"
             class="form__content">
             <div class="form__box">
                 <input class="form__input" id="email" type="email" v-model="email" autocomplete="off" required>
@@ -28,10 +28,10 @@
         </form>
     </div>
     <!-- second page - 프로필 이미지 설정, 닉네임, 성함, 좋아하는 장르 -->
-    <div v-if="second_page">
-        <form @submit.prevent="addUserData">
+    <div v-if="second_page" class="form">
+        <form @submit.prevent="signup" class="form__content">
             <div class="signup-form">
-                <div class="img-div" style="text-align:center;">
+                <div class="img-div" style="text-align:center; margin-bottom: 10px;">
                     <img 
                         style="width: 150px; height: 150px; border-radius: 100px;  margin: 20px auto;"
                         v-if="preview"    
@@ -40,7 +40,7 @@
                     <img 
                         v-if="!preview"
                         @click="handleClick"
-                        src="../assets/profile_img.png"
+                        src="../assets/empty_profile.png"
                         style="width: 150px; height: 150px; border-radius: 100px; margin: 20px auto;"/>
                     <input
                         @change="encodeFileToBase64"
@@ -49,14 +49,14 @@
                         style="margin:20px auto; display: none; 
                         color: transparent; text-shadow: 0 0 0 #2196f3;"/>
                 </div>
-                <div>
-                    <label class="form__label" for="name">성함: </label>  
+                <div class="form__box" style="margin-bottom: 10px;">
                     <input class="form__input" id="name" type="name" v-model="name" autocomplete="off" required>
+                    <label class="form__label" for="name">성함: </label>  
                     <div class="form__shadow"></div>
                 </div>
-                <div>
-                    <label class="form__label" for="nickname">닉네임: </label> 
+                <div class="form__box">
                     <input class="form__input" id="nickname" type="nickname" v-model="nickname" autocomplete="off" required>
+                    <label class="form__label" for="nickname">닉네임: </label> 
                     <div class="form__shadow"></div>
                 </div>
             </div>
@@ -90,11 +90,7 @@ export default {
         }
     },
     methods: {
-        signup(){ 
-            const email = this.email;
-            const password1 = this.password1;
-            const password2 = this.password2;
-
+        turnNextpage(){
             if (this.password1 != this.password2) {
                 alert('비밀번호가 일치하지 않습니다.')
             }
@@ -104,7 +100,22 @@ export default {
             if(this.password1.length < 8){
                 alert('비밀번호가 너무 짧습니다.')
             }
-            
+            this.second_page = true
+        },
+        signup(){ 
+            if (!this.name.trim) {
+                alert('성함을 입력해주세요.')
+            }
+            if (!this.nickname.trim) {
+                alert('닉네임을 입력해주세요.')
+            }
+            const email = this.email;
+            const password1 = this.password1;
+            const password2 = this.password2;
+            const name = this.name;
+            const nickname = this.nickname;
+            const profile_image = this.profile_image;
+
             axios({
                 method: 'POST',
                 url: `${API_URL}/accounts/signup/`,
@@ -117,53 +128,37 @@ export default {
             }).
             then((response) => {
                 localStorage.setItem('token', response.data.key)
-                this.second_page = true
+            }).
+            then(()=> {
+                const formdata = new FormData()
+                formdata.append('name', name)
+                formdata.append('nickname', nickname)
+                formdata.append('profile_image', profile_image)
+                
+                const user = localStorage.getItem('token')
+                axios({
+                    method: 'POST',
+                    url: `${API_URL}/auth/`,
+                    headers:{
+                        'Content-Type': 'multipart/form-data',
+                        'Authorization' : `Token ${user}`,
+                    },
+                    data: formdata,
+                }).
+                then(() => {    
+                    localStorage.removeItem('token')
+                    this.$router.push({ name : 'home' })
+                })
+                .catch((err) => {
+                    alert('회원가입을 다시 진행해주세요.')
+                    console.log(err)
+                })
             }).
             catch((error) => {
                 if(error.response.data.username[0] === '해당 사용자 이름은 이미 존재합니다.'){
                     alert('중복된 이메일입니다.')
                 }
             })
-            
-        },
-        addUserData(){
-            const name = this.name;
-            const nickname = this.nickname;
-            const profile_image = this.profile_image;
-            const like_ost_genre = this.like_ost_genre;
-
-            
-            if (!this.name.trim) {
-                alert('성함을 입력해주세요.')
-            }
-            if (!this.nickname.trim) {
-                alert('닉네임을 입력해주세요.')
-            }
-            const formdata = new FormData()
-            formdata.append('name', name)
-            formdata.append('nickname', nickname)
-            formdata.append('profile_image', profile_image)
-            formdata.append('like_ost_genre', like_ost_genre)
-            
-            const user = localStorage.getItem('token')
-            axios({
-                method: 'POST',
-                url: `${API_URL}/auth/`,
-                headers:{
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization' : `Token ${user}`,
-                },
-                data: formdata,
-            }).
-            then(() => {
-                localStorage.removeItem('token')
-                this.$router.push({ name : 'home' })
-            }).
-            catch((error) => {
-                alert('회원가입을 다시 진행해주세요.')
-                console.log(error)
-            })
-
         },
         // 3개 이상 클릭하면 alert뜨고 전 선택 취소되게 하기
         // 선택했던 것은 취소되게 하기
