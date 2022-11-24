@@ -161,20 +161,27 @@ a #logo_desc {
 .nav2{
   margin: auto 0px;
 }
+
+@media screen and (min-width: 968px) {
+  :root{
+    --normal-font-size: 1rem;
+  }
+}
+
 /* input 기본 스타일 초기화 */
-/* input {
+input {
     -webkit-appearance: none;
        -moz-appearance: none;
             appearance: none;
-} */
+}
 
 /* input type number 에서 화살표 제거 */
-/* input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
     -webkit-appearance: none;
        -moz-appearance: none;
             appearance: none;
-} */
+}
 /* Select box 스타일 초기화 */ 
 /* select {
     -webkit-appearance: none;
