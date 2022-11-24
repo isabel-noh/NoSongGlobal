@@ -33,7 +33,7 @@
         <input style="margin-top:10px;" type="button" value="닉네임 변경" @click="changeNickname">
     </div>
     <div
-        v-else
+        v-if="comp_n === 3"
         class="mt-3 mb-3 row" style="margin: auto; width: 100%"
         >
             <label for="new_password" class="col-sm-2 col-form-label">new password</label>
@@ -42,20 +42,6 @@
             <input type="password" id="new_password2" v-model="new_password2" class="form-control" placeholder="비밀번호를 다시 입력해주세요">
             <input style="margin-top:10px;" type="button" value="비밀번호 변경" @click="changePassword">
     </div>
-        <!-- <div  class="mt-3 mb-3 row" style="margin: auto; width: 100%">
-            <label for="nickname" class="col-sm-2 col-form-label">Nickname</label>
-            <input type="text" id="nickname" v-model="nickname.trim" class="form-control" placeholder="닉네임을 입력해주세요">
-        </div>
-        <div  class="mt-3 mb-3 row" style="margin: auto; width: 100%">
-            <label for="new_password" class="col-sm-2 col-form-label">new password</label>
-            <input type="password" id="new_password" v-model="new_password.trim" class="form-control" placeholder="비밀번호를 입력해주세요">
-        </div>
-        <div  class="mt-3 mb-3 row" style="margin: auto; width: 100%">
-            <label for="new_password2" class="col-sm-2 col-form-label">new password check</label>
-            <input type="password" id="new_password2" v-model="new_password2.trim" class="form-control" placeholder="비밀번호를 다시 입력해주세요">
-        </div> -->
-
-    <!-- </div> -->
   </div>
 </template>
 
@@ -157,6 +143,6 @@ export default {
 <style>
 .setting{
     margin: 10px auto;
-    width: 30vw;
+    width: 40vw;
 }
 </style>
