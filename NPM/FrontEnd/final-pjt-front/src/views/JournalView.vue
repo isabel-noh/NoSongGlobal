@@ -57,7 +57,8 @@
                   class="card-img-top item back"> -->
                 <div
                 class="card-img-top item back rounded-2"
-                :style="{ backgroundImage:`url(${journal?.journal_image})`}"
+                :style="{ backgroundImage:`url(${journal?.journal_image})`,
+              backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}"
                 >
                 </div>  
                 
@@ -68,7 +69,8 @@
                 v-if="journal?.isActive_url">
                 <div
                 class="card-img-top item back rounded-2"
-                :style="{ backgroundImage:`url(https://image.tmdb.org/t/p/w500/${journal?.poster_path})`}"
+                :style="{ backgroundImage:`url(https://image.tmdb.org/t/p/w500/${journal?.poster_path})`,
+              backgroundSize: 'contain', backgroundRepeat: 'no-repeat'}"
                 >
                 </div>  
                 <!-- <img 

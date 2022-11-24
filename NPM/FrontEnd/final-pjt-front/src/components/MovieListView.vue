@@ -43,9 +43,9 @@
             <router-link 
               :to="{ name : 'movieDetail', params: { movie_id: movie.id}}">
             <!-- @click="getDetailMovie(movie?.movie_id)"> -->
-            <div class="card h-100" style="border:none;">
+            <div class="card" style="border:none;">
                 <figure>
-                    <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" class="card-img"/>
+                    <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" class="card-img" style="height:50vh;"/>
                 </figure>
                 <div class="card-img-overlay" style="top: 50%; right: 0px; left: 0px;margin:0px; padding:0px;">
                     <div class="movie-title-and-movie-genre">

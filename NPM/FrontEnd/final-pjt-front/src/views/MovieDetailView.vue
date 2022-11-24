@@ -5,25 +5,17 @@
         <img :src="`https://image.tmdb.org/t/p/w300/${movie?.poster_path}`">
       </div>
       <div class="content-box">
-        <h2>{{movie?.title}} <span>({{movie?.original_title}})</span> </h2>
+        <h2>{{movie?.title}} <span v-if="movie?.original_title">({{movie?.original_title}})</span> </h2>
         <!-- <button class="btn btn-light" style="margin-bottom:10px;">좋아요</button> -->
         <p>개봉일: {{movie?.release_date}}</p>
         <p>장르: {{genres}}</p>
         <p>평점: {{movie?.vote_average}}</p>
-        <p>러닝타임: {{runtime}}</p>
+        <p class="mb-5">러닝타임: {{runtime}}</p>
+        <h3 class="text-center mt-5 my-3">영화 소개 / 줄거리</h3>
+        <p>{{movie?.overview}}</p>
       </div>
-    </div>
-    <div class="movie-overview">
-      <h4>영화 소개 / 줄거리</h4>
-      <p>{{movie?.overview}}</p>
     </div>
     <hr>
-    <div class="movie-ost">
-      <h4>영화 OST</h4>
-      <div class="movie-ost-list">
-
-      </div>
-    </div>
   </div>
 </template>
 
