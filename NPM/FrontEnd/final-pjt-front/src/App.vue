@@ -104,7 +104,8 @@ export default {
 <style>
 #app {
   min-width: 672px;
-  font-family:Helvetica, Arial, sans-serif;
+  /* font-family:Helvetica, Arial, sans-serif; */
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
