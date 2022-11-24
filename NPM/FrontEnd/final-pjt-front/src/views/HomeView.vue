@@ -2,6 +2,7 @@
   <div class="home">
     <!-- 영화 페이지 -->
     <RecommendView/>
+    <hr>
     <MovieListView/>
   </div>
 </template>

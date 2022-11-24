@@ -5,7 +5,7 @@
         <img :src="`https://image.tmdb.org/t/p/w300/${movie?.poster_path}`">
       </div>
       <div class="content-box">
-        <h2>{{movie?.title}} <span>({{movie?.original_title}})</span> </h2>
+        <h2>{{movie?.title}} </h2>
         <!-- <button class="btn btn-light" style="margin-bottom:10px;">좋아요</button> -->
         <p>개봉일: {{movie?.release_date}}</p>
         <p>장르: {{genres}}</p>

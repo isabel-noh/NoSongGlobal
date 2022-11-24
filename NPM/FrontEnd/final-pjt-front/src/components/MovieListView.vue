@@ -1,5 +1,6 @@
 <template>
   <div class="MovieListView">
+    <h4 id="movie-list-title">Movies</h4>
     <div style="display: flex; margin-bottom: 10px;">
         <div class="select_genre" style="margin-right:10px;">
             <select class="form-select form-select-sm" aria-label=".form-select-sm example" v-model="selected_genre" @change="getFilteredMovies">
@@ -128,6 +129,12 @@ export default {
 </script>
 
 <style>
+#movie-list-title{
+  text-align: initial;
+  font-family: "Do Hyeon", sans-serif;
+  color: black;
+  padding: 10px 0px;
+}
 h4 {
     text-decoration: none;
     color: transparent;

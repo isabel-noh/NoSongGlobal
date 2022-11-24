@@ -2,7 +2,7 @@
   <div class="recommend">
     <!-- 로그인유저 -->
     <div v-if="nickname">
-        <h4 id="recommend-title"><span class="btn">{{nickname}}</span>님을 위한 추천 영화</h4>
+        <h4 id="recommend-title">Recommendation for <span class="btn">{{nickname}}</span></h4>
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -170,7 +170,7 @@
     </div>
     <!-- 비로그인 유저 -->
     <div v-else>
-        <h4 id="recommend-title">오늘의 추천 영화</h4>
+        <h4 id="recommend-title">Movie for Today</h4>
             <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
