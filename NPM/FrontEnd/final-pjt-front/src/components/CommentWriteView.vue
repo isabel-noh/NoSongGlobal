@@ -29,19 +29,22 @@ export default {
             const local = localStorage.getItem('vuex')
             const user = JSON.parse(local)
             const comment = this?.commentData
+
             if(comment === ''){
                 alert('댓글을 입력해주세요.')
             }
-            const payload = {
-                comment: comment
-            }
+            console.log('댓글 달기')
+            console.log('->', user.user)
+            console.log('-->', user.token)
             axios({
                 method: 'POST',
-                url: `${API_URL}/journals/${this?.journal_id}/comment/create`,
+                url: `${API_URL}/journals/${this.$route.params.journal_id}/comment/create/`,
                 headers:{
-                    'Authorization': `${user.token}`
+                    'Authorization': `Token ${user.token}`
                 },
-                data: payload,
+                data: {
+                    comment,
+                }
             })
             .then((response) => {
                 console.log(response.data)
