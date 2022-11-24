@@ -27,7 +27,7 @@
         <div class="row row-cols-1 row-cols-md-3">
           <!-- 아래 반복 -->
           <div class="col" 
-            @click="goToDetailPage(journal?.pk)"
+            @click="goToDetailPage(journal?.id)"
             v-for="journal in journalList" 
             :key="journal.pk" style="margin-bottom:10px;">
             <div class="container">
@@ -51,19 +51,29 @@
                 </div>
               </div>
               <div class="item back" v-if="journal?.journal_image">
-                <img
+                <!-- <img
                   
                   :src= "journal?.journal_image"
-                  class="card-img-top item back">
-                  
+                  class="card-img-top item back"> -->
+                <div
+                class="card-img-top item back rounded-2"
+                :style="{ backgroundImage:`url(${journal?.journal_image})`}"
+                >
+                </div>  
+                
               </div>
               <div 
                 class="item back" 
                 style="margin-bottom:10px;"
                 v-if="journal?.isActive_url">
-                <img 
+                <div
+                class="card-img-top item back rounded-2"
+                :style="{ backgroundImage:`url(https://image.tmdb.org/t/p/w500/${journal?.poster_path})`}"
+                >
+                </div>  
+                <!-- <img 
                   class="card-img-top item back"
-                  :src="`https://image.tmdb.org/t/p/w500/${journal?.poster_path}`">
+                  :src="`https://image.tmdb.org/t/p/w500/${journal?.poster_path}`"> -->
 
               </div>
             </div>
@@ -149,7 +159,7 @@ export default {
 
 .container {
   width: 15rem;
-  height: 15rem;
+  height: 20rem;
   /*        부모의 자식 요소가 3차원의 애니메이션 효과를 가질때, 300px의 거리에서 보는 원근감을 줌*/
   perspective: 300px;
 }
@@ -171,7 +181,7 @@ export default {
 .container .item.back {
   /*y축을 중심으로 -180도 회전*/
   transform: rotateY(-180deg);
-  height: 15rem;
+  height: 20rem;
   width: 15rem;
   padding: 2px;
   /*카드의 뒷면을 안보이게 처리-카드가 뒤집히면 뒷면이 안보임*/
@@ -186,13 +196,13 @@ export default {
 }
 
 .card-img-top {
-  height: 15rem;
+  height: 20rem;
   width: 15rem;
   object-fit: cover;
 }
 
 .card{
-  height: 15rem;
+  height: 20rem;
   width: 15rem;
 }
 
