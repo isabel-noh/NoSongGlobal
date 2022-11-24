@@ -70,8 +70,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-const API_URL = 'http://127.0.0.1:8000'
 
 export default {
     name: 'JournalView',
@@ -79,37 +77,11 @@ export default {
       return{
         journalList: [],
         each_movie: null,
-        isActive_url: null,
       }
     },
     methods: {
       goAddJournalView(){
         this.$router.push({name:'createJournal'})
-      },
-      getJournalAll(){
-        axios({
-          method: 'GET',
-          url: `${API_URL}/journals/`
-        })
-        .then((response) => {
-          for (const j of response.data){
-            if(j.journal_image !== null){
-              j.journal_image = 'http://localhost:8000' + j.journal_image
-              this.isActive_url = false
-            } else {
-              this.each_movie = j
-              console.log(this.each_movie)
-              // this.poster_url = 'https://image.tmdb.org/t/p/w500' + j.poster_path
-              this.isActive_url = true
-            }
-            j['isActive_url'] = this.isActive_url
-            j['movieTitle'] = this.movieList[j.movie_id-1].title
-            this.journalList.push(j)
-          }
-        })
-        .catch((error) => {
-          console.log(error)
-        })
       },
       getListNewest(){
         this.journalList = this.journalList.sort((a, b) => b.pk - a.pk)
@@ -129,7 +101,7 @@ export default {
       }
     },
     created(){
-      this.getJournalAll()
+      this.journalList = this.$store.getters.journalList
     },
 }
 </script>

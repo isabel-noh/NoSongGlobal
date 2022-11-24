@@ -97,6 +97,7 @@ export default {
   created(){
     this.$store.dispatch('loadMovieData')
     this.$store.dispatch('isLogin')
+    this.$store.dispatch('loadJournalList')
   }
 }
 </script>
