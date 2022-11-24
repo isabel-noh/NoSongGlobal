@@ -88,22 +88,24 @@ export default new Vuex.Store({
     isLogin(context){
       const local = localStorage.getItem('vuex')
       const user = JSON.parse(local)
-      axios({
-        method:'GET',
-        url: `${API_URL}/auth/isLogin/`,
-        headers: {
-          'Authorization': `Token ${user.token}`
-        }
-      })
-      .then((response) => {
-        console.log('islogin 됨')
-        console.log('->', user.token)
-        context.commit('IS_LOGIN', response.data)
-      })
-      .catch((error) => {
-        console.log('islogin 안됨')
-        console.log(error)
-      })
+      if (user.token){
+        axios({
+          method:'GET',
+          url: `${API_URL}/auth/isLogin/`,
+          headers: {
+            'Authorization': `Token ${user.token}`
+          }
+        })
+        .then((response) => {
+          // console.log('islogin 됨')
+          // console.log('->', user.token)
+          context.commit('IS_LOGIN', response.data)
+        })
+        .catch((error) => {
+          // console.log('islogin 안됨')
+          console.log(error)
+        })
+      }
     },
 
     logIn(context, userData) {
@@ -239,19 +241,21 @@ export default new Vuex.Store({
     recommendMovie(context) {
       const local = localStorage.getItem('vuex')
       const user = JSON.parse(local)
-      axios({
-        method:'POST',
-        url: `${API_URL}/auth/get_user_data/`,
-        headers: {
-          Authorization: `Token ${user.token}`
-        },
-        data: {
-          user_id: user.user_id
-        }
-      })
-      .then((res) => {
-        context.commit('RECOMMEND_MOVIE_LIST', res.data)
-      })
+      if(user.token){
+        axios({
+          method:'POST',
+          url: `${API_URL}/auth/get_user_data/`,
+          headers: {
+            Authorization: `Token ${user.token}`
+          },
+          data: {
+            user_id: user.user_id
+          }
+        })
+        .then((res) => {
+          context.commit('RECOMMEND_MOVIE_LIST', res.data)
+        })   
+      }
     }
   },
   modules: {

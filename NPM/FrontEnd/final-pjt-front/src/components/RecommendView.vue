@@ -11,75 +11,99 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item rounded-4 active"
-            style="height:40vw;"
-            :style="{ backgroundImage:`linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url(${imgUrl}${movieList[recommendMovieList[0]].backdrop_path})` ,
-            backgroundSize: 'cover'}"
-            >
-            <div class="d-flex align-items-center border border-0 bg-white rounded-4"
-                style="height:25vw; width:40vw; margin-top:7vw; margin-left:15vw;"
-            >
-                <img :src="imgUrl + movieList[recommendMovieList[0]].poster_path"
-                style="height:25vw;"
-                alt="..."
-                
-                >
-                <!-- style="margin-right:40vw; margin-top:7vw" -->
-                <div>
-                <h5>{{movieList[recommendMovieList[0]].title}}</h5>
-                <p>{{movieList[recommendMovieList[0]].overview}}</p>
+                style="height:40vw;"
+                :style="{ 
+                    backgroundImage:`linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url(${imgUrl}${movieList[recommendMovieList[0]].backdrop_path})` ,
+                    backgroundSize: 'cover'}">
+                <div class="d-flex align-items-center border border-0 bg-white rounded-4"
+                    style="height:fit-content; width:fit-content; margin:4vw auto;"
+                    @click="goToDetailMovie(movieList[recommendMovieList[0]].id)">
+                    <img :src="imgUrl + movieList[recommendMovieList[0]].poster_path"
+                    style="height:25vw; width:100%; cursor:pointer;"
+                    :alt="`${movieList[recommendMovieList[0]].title}`">
+                    <div
+                        v-if="movieList[recommendMovieList[0]].overview"
+                        style="background-color: transparent;
+                                position: absolute;
+                                bottom: 10%;
+                                left: 0;
+                                right: 0;">
+                        <h5 style="font-family: 'Do Hyeon">{{movieList[recommendMovieList[0]].title}}</h5>
+                        <p>{{movieList[recommendMovieList[0]].overview}}</p>
+                    </div>
+                    <div
+                        v-else
+                        style="background-color: transparent;
+                                position: absolute;
+                                bottom: 15%;
+                                left: 0;
+                                right: 0;">
+                        <h5 style="font-family: 'Do Hyeon">{{movieList[recommendMovieList[0]].title}}</h5>
+                    </div>
                 </div>
-                <!-- <div class="carousel-caption d-none d-md-block">
-                <h5>{{movieList[recommendMovieList[0]].title}}</h5>
-                <p>Some representative placeholder content for the first slide.</p>
-                </div> -->
-            </div>
             </div>
             <div class="carousel-item rounded-4"
-            style="height:40vw;"
-            :style="{ backgroundImage:`linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url(${imgUrl}${movieList[recommendMovieList[1]].backdrop_path})` ,
-            backgroundSize: 'cover'}"
-            >
+                style="height:40vw;"
+                :style="{ backgroundImage:`linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), 
+                url(${imgUrl}${movieList[recommendMovieList[1]].backdrop_path})` ,
+                backgroundSize: 'cover'}">
             <div class="d-flex align-items-center border border-0 bg-white rounded-4"
-                style="height:25vw; width:40vw; margin-top:7vw; margin-left:15vw;"
-            >
+                style="height:fit-content; width:fit-content; margin:4vw auto;"
+                @click="goToDetailMovie(movieList[recommendMovieList[1]].id)">
                 <img :src="imgUrl + movieList[recommendMovieList[1]].poster_path"
-                style="height:25vw;"
-                alt="..."
-                
-                >
-                <!-- style="margin-right:40vw; margin-top:7vw" -->
-                <div>
-                <h5>{{movieList[recommendMovieList[1]].title}}</h5>
-                <p>{{movieList[recommendMovieList[1]].overview}}</p>
+                style="height:25vw; width:100%; cursor:pointer;"
+                :alt="`${movieList[recommendMovieList[1]].title}`">
+                <div
+                    v-if="movieList[recommendMovieList[1]].overview"
+                    style="background-color: transparent;
+                            position: absolute;
+                            bottom: 10%;
+                            left: 0;
+                            right: 0;">
+                    <h5 style="font-family: 'Do Hyeon">{{movieList[recommendMovieList[1]].title}}</h5>
+                    <p>{{movieList[recommendMovieList[1]].overview}}</p>
                 </div>
-                <!-- <div class="carousel-caption d-none d-md-block">
-                <h5>{{movieList[recommendMovieList[0]].title}}</h5>
-                <p>Some representative placeholder content for the first slide.</p>
-                </div> -->
+                <div
+                    v-else
+                    style="background-color: transparent;
+                            position: absolute;
+                            bottom: 15%;
+                            left: 0;
+                            right: 0;">
+                    <h5 style="font-family: 'Do Hyeon">{{movieList[recommendMovieList[1]].title}}</h5>
+                </div>
             </div>
             </div>
             <div class="carousel-item rounded-4"
-            style="height:40vw;"
-            :style="{ backgroundImage:`linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url(${imgUrl}${movieList[recommendMovieList[2]].backdrop_path})` ,
-            backgroundSize: 'cover'}"
-            >
+                style="height:40vw;"
+                :style="{ backgroundImage:`linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), 
+                url(${imgUrl}${movieList[recommendMovieList[2]].backdrop_path})` ,
+                backgroundSize: 'cover'}">
             <div class="d-flex align-items-center border border-0 bg-white rounded-4"
-                style="height:25vw; width:40vw; margin-top:7vw; margin-left:15vw;"
-            >
+                style="height:fit-content; width:fit-content; margin:4vw auto;"
+                @click="goToDetailMovie(movieList[recommendMovieList[2]].id)">
                 <img :src="imgUrl + movieList[recommendMovieList[2]].poster_path"
-                style="height:25vw;"
-                alt="..."
-                
-                >
-                <!-- style="margin-right:40vw; margin-top:7vw" -->
-                <div>
-                <h5>{{movieList[recommendMovieList[2]].title}}</h5>
-                <p>{{movieList[recommendMovieList[2]].overview}}</p>
+                style="height:25vw; width:100%; cursor:pointer;"
+                :alt="`${movieList[recommendMovieList[2]].title}`">
+                <div
+                    v-if="movieList[recommendMovieList[2]].overview"
+                    style="background-color: transparent;
+                            position: absolute;
+                            bottom: 10%;
+                            left: 0;
+                            right: 0;">
+                    <h5 style="font-family: 'Do Hyeon">{{movieList[recommendMovieList[2]].title}}</h5>
+                    <p>{{movieList[recommendMovieList[2]].overview}}</p>
                 </div>
-                <!-- <div class="carousel-caption d-none d-md-block">
-                <h5>{{movieList[recommendMovieList[0]].title}}</h5>
-                <p>Some representative placeholder content for the first slide.</p>
-                </div> -->
+                <div
+                    v-else
+                    style="background-color: transparent;
+                            position: absolute;
+                            bottom: 15%;
+                            left: 0;
+                            right: 0;">
+                    <h5 style="font-family: 'Do Hyeon">{{movieList[recommendMovieList[2]].title}}</h5>
+                </div>
             </div>
             </div>
         </div>
@@ -147,9 +171,6 @@
     <!-- 비로그인 유저 -->
     <div v-else>
         <h4 id="recommend-title">오늘의 추천 영화</h4>
-        <!-- <div class="card text-bg-dartk" style="position: relative; width: 100%; max-height: 300px;overflow: hidden;border: none;"> -->
-        <div>
-            <!-- <span v-for=" item in recommend_movieList" :key="item?.id">{{item?.title}}</span> -->
             <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -164,26 +185,61 @@
                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="9" aria-label="Slide 10"></button>
                 </div>
                 <div class="carousel-inner">
-                    <!-- <div class="carousel-item active" v-for=" item in recommend_movieList" :key="item?.id"> -->
-                    <div class="carousel-item active">
-                        <!-- ${movieList[recommendMovieList[1]].backdrop_path -->
-                        <img :src="`${recommend_movieList[0].poster_path}`" 
-                            class="d-block w-100"
-                            style="heigh : 10px;" 
-                            :alt="`${recommend_movieList[0].title}`">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>{{recommend_movieList[0].title}}</h5>
+                    <div class="carousel-item rounded-4 active"
+                        style="height: 40vw;"
+                        :style="{ 
+                            backgroundImage: `linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), 
+                            url(${recommend_movieList[0].backdrop_path})`, 
+                            backgroundSize: 'cover'}">
+                        <div 
+                            class="d-flex align-items-center border border-0 bg-white rounded-4"
+                            style="height:fit-content; width:fit-content; margin:4vw auto; "
+                            @click="goToDetailMovie(recommend_movieList[0].id)">
+                            <img :src="`${recommend_movieList[0].poster_path}`" 
+                                style="height:25vw; width:100%; cursor:pointer;"
+                                :alt="`${recommend_movieList[0].title}`">
+                        </div>
+                        <div 
+                            v-if="recommend_movieList[0].overview"
+                            style="background-color: transparent;
+                                position: absolute;
+                                bottom: 8%;
+                                left: 0;
+                                right: 0;">
+                            <h5 style="font-family: 'Do Hyeon">{{recommend_movieList[0].title}}</h5>
                             <p>{{recommend_movieList[0].overview}}</p>
                         </div>
+                        <div 
+                            v-else
+                            style="background-color: transparent;
+                                position: absolute;
+                                bottom: 15%;
+                                left: 0;
+                                right: 0;">
+                            <h5 style="font-family: 'Do Hyeon">{{recommend_movieList[0].title}}</h5>
+                        </div>
                     </div>
-                    <div class="carousel-item" 
-                        v-for=" item in recommend_movieList.slice(1,9)" :key="item?.id">
-                        <img :src="`${item?.poster_path}`" 
-                            class="d-block w-100"
-                            style="heigh : 10px;" 
-                            :alt="`${item?.title}`">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>{{item?.title}}</h5>
+                    <div class="carousel-item rounded-4" 
+                        v-for=" item in recommend_movieList.slice(1,9)" :key="item?.id"
+                        style="height: 40vw;"
+                        :style="{ 
+                            backgroundImage: `linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), 
+                            url(${item?.backdrop_path})`, 
+                            backgroundSize: 'cover'}">
+                        <div
+                            class="d-flex align-items-center border border-0 bg-white rounded-4"
+                            style="height:fit-content; width:fit-content; margin:4vw auto; cursor:pointer;"
+                            @click="goToDetailMovie(recommend_movieList[0].id)">
+                            <img :src="`${item?.poster_path}`" 
+                                style="height:25vw; width:100%; cursor:pointer;"
+                                :alt="`${item?.title}`">
+                        </div>
+                        <div style="background-color: transparent;
+                                position: absolute;
+                                bottom: 10%;
+                                left: 0;
+                                right: 0;">
+                            <h5 style="font-family: 'Do Hyeon">{{item?.title}}</h5>
                             <p>{{item?.overview}}</p>
                         </div>
                     </div>
@@ -197,16 +253,7 @@
                     <span class="visually-hidden">Next</span>
                 </button>
                 </div>
-            <!-- <img src="@/assets/example1.jpeg" class="card-img" alt="#"> -->
-            <!-- <div style="position:absolute; bottom: 3%; left: 2%; text-align:left;">
-                <h5 class="card-title">Movie title</h5>
-                <p class="card-text"
-                    style="margin-bottom:10px">Movie description</p>
-                <button type="button" class="btn btn-dark"
-                    @click="goToDetailMovie(movie?.id)">상세정보</button> -->
-            <!-- </div> -->
         </div>
-  </div>
 </div>
 </template>
 
@@ -237,7 +284,11 @@ export default {
             let movieList = this.$store.getters.movieData
             movieList = _.sampleSize(movieList, 10)
             for(const j of movieList) {
+                j.backdrop_path = 'https://image.tmdb.org/t/p/w500' + j.backdrop_path
                 j.poster_path = 'https://image.tmdb.org/t/p/w500' + j.poster_path
+                let temp = j.overview.split(' ')
+                temp = temp.slice(0, 3)
+                j.overview = temp.join(' ')
             }
             this.recommend_movieList = movieList
             console.log(this.recommend_movieList)

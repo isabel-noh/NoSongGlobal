@@ -76,11 +76,6 @@ export default {
     }
   },
   methods: {
-    isLoggedIn(){
-      this.$store.dispatch('isLogin')
-      this.isLogin = this.$store.getters.isLogin
-      this.nickname = this.$store.getters.userData.nickname
-    },
     closeModal(){
       this.openModal = false
     },
@@ -100,7 +95,6 @@ export default {
     }
   },
   created(){
-    this.isLoggedIn()
     this.$store.dispatch('loadMovieData')
   }
 }
