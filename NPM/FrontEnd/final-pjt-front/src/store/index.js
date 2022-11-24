@@ -23,7 +23,7 @@ export default new Vuex.Store({
   },
   getters: {
     userData(state){
-      return state.user ? state.user : null
+      return state.user ? state.user : ''
     },
     isLogin(state) {
       return state.token ? true : false

@@ -2,7 +2,7 @@
   <div class="recommend">
     <!-- 로그인유저 -->
     <div v-if="nickname">
-        <h4 id="recommend-title"><span class="btn">{{username}}</span>님을 위한 추천 영화</h4>
+        <h4 id="recommend-title"><span class="btn">{{nickname}}</span>님을 위한 추천 영화</h4>
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -177,7 +177,7 @@
                         </div>
                     </div>
                     <div class="carousel-item" 
-                        v-for=" item in recommend_movieList" :key="item?.id">
+                        v-for=" item in recommend_movieList.slice(1,9)" :key="item?.id">
                         <img :src="`${item?.poster_path}`" 
                             class="d-block w-100"
                             style="heigh : 10px;" 
@@ -250,7 +250,7 @@ export default {
       isLogin(){
         return this.$store.getters.isLogin
       },
-      username() {
+      nickname() {
         return this.$store.getters.userData.nickname
       },
       movieList() {

@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <!-- 영화 페이지 -->
-    <RecommendView :nickname="getNickname"/>
+    <RecommendView/>
     <MovieListView/>
   </div>
 </template>
@@ -18,10 +18,6 @@ export default {
     MovieListView,
   },
   computed:{
-    getNickname(){
-      const nickname = this.$store.getters.userData.nickname
-      return nickname
-    }
   }
 
 }
