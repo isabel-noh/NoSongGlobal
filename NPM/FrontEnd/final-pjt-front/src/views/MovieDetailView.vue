@@ -10,20 +10,12 @@
         <p>개봉일: {{movie?.release_date}}</p>
         <p>장르: {{genres}}</p>
         <p>평점: {{movie?.vote_average}}</p>
-        <p>러닝타임: {{runtime}}</p>
+        <p class="mb-5">러닝타임: {{runtime}}</p>
+        <h3 class="text-center mt-5 my-3">영화 소개 / 줄거리</h3>
+        <p>{{movie?.overview}}</p>
       </div>
-    </div>
-    <div class="movie-overview">
-      <h4>영화 소개 / 줄거리</h4>
-      <p>{{movie?.overview}}</p>
     </div>
     <hr>
-    <div class="movie-ost">
-      <h4>영화 OST</h4>
-      <div class="movie-ost-list">
-
-      </div>
-    </div>
   </div>
 </template>
 
