@@ -73,7 +73,7 @@ export default new Vuex.Store({
     SET_MOVIE_LIST(state, data){
       const objectToList = []
       for (const idx in data) {
-        objectToList.push(data[idx])
+        objectToList.push(data[idx]) 
       }
       state.movieList = objectToList
     },
