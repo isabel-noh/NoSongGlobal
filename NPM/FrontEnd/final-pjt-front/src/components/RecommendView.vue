@@ -15,23 +15,23 @@
             <div class="carousel-item rounded-4 active"
                 style="height:40vw;"
                 :style="{ 
-                    backgroundImage:`linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url(${imgUrl}${movieList[recommendMovieList[0]].backdrop_path})` ,
+                    backgroundImage:`linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url(${imgUrl}${recommendMovieList[0].backdrop_path})` ,
                     backgroundSize: 'cover'}">
                 <div class="d-flex align-items-center border border-0 bg-white rounded-4"
                     style="height:fit-content; width:fit-content; margin:4vw auto;"
-                    @click="goToDetailMovie(movieList[recommendMovieList[0]].id)">
-                    <img :src="imgUrl + movieList[recommendMovieList[0]].poster_path"
+                    @click="goToDetailMovie(recommendMovieList[0].id)">
+                    <img :src="imgUrl + recommendMovieList[0].poster_path"
                     style="height:25vw; width:100%; cursor:pointer;"
-                    :alt="`${movieList[recommendMovieList[0]].title}`">
+                    :alt="`${recommendMovieList[0].title}`">
                     <div
-                        v-if="movieList[recommendMovieList[0]].overview"
+                        v-if="recommendMovieList[0].overview"
                         style="background-color: transparent;
                                 position: absolute;
                                 bottom: 10%;
                                 left: 0;
                                 right: 0;">
-                        <h5 style="font-family: 'Do Hyeon">{{movieList[recommendMovieList[0]].title}}</h5>
-                        <p>{{movieList[recommendMovieList[0]].overview}}</p>
+                        <h5 style="font-family: 'Do Hyeon">{{recommendMovieList[0].title}}</h5>
+                        <p>{{recommendMovieList[0].overview}}</p>
                     </div>
                     <div
                         v-else
@@ -40,30 +40,30 @@
                                 bottom: 15%;
                                 left: 0;
                                 right: 0;">
-                        <h5 style="font-family: 'Do Hyeon">{{movieList[recommendMovieList[0]].title}}</h5>
+                        <h5 style="font-family: 'Do Hyeon">{{recommendMovieList[0].title}}</h5>
                     </div>
                 </div>
             </div>
             <div class="carousel-item rounded-4"
                 style="height:40vw;"
                 :style="{ backgroundImage:`linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), 
-                url(${imgUrl}${movieList[recommendMovieList[1]].backdrop_path})` ,
+                url(${imgUrl}${recommendMovieList[1].backdrop_path})` ,
                 backgroundSize: 'cover'}">
             <div class="d-flex align-items-center border border-0 bg-white rounded-4"
                 style="height:fit-content; width:fit-content; margin:4vw auto;"
-                @click="goToDetailMovie(movieList[recommendMovieList[1]].id)">
-                <img :src="imgUrl + movieList[recommendMovieList[1]].poster_path"
+                @click="goToDetailMovie(recommendMovieList[1].id)">
+                <img :src="imgUrl + recommendMovieList[1].poster_path"
                 style="height:25vw; width:100%; cursor:pointer;"
-                :alt="`${movieList[recommendMovieList[1]].title}`">
+                :alt="`${recommendMovieList[1].title}`">
                 <div
-                    v-if="movieList[recommendMovieList[1]].overview"
+                    v-if="recommendMovieList[1].overview"
                     style="background-color: transparent;
                             position: absolute;
                             bottom: 10%;
                             left: 0;
                             right: 0;">
-                    <h5 style="font-family: 'Do Hyeon">{{movieList[recommendMovieList[1]].title}}</h5>
-                    <p>{{movieList[recommendMovieList[1]].overview}}</p>
+                    <h5 style="font-family: 'Do Hyeon">{{recommendMovieList[1].title}}</h5>
+                    <p>{{recommendMovieList[1].overview}}</p>
                 </div>
                 <div
                     v-else
@@ -72,30 +72,30 @@
                             bottom: 15%;
                             left: 0;
                             right: 0;">
-                    <h5 style="font-family: 'Do Hyeon">{{movieList[recommendMovieList[1]].title}}</h5>
+                    <h5 style="font-family: 'Do Hyeon">{{recommendMovieList[1].title}}</h5>
                 </div>
             </div>
             </div>
             <div class="carousel-item rounded-4"
                 style="height:40vw;"
                 :style="{ backgroundImage:`linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), 
-                url(${imgUrl}${movieList[recommendMovieList[2]].backdrop_path})` ,
+                url(${imgUrl}${recommendMovieList[2].backdrop_path})` ,
                 backgroundSize: 'cover'}">
             <div class="d-flex align-items-center border border-0 bg-white rounded-4"
                 style="height:fit-content; width:fit-content; margin:4vw auto;"
-                @click="goToDetailMovie(movieList[recommendMovieList[2]].id)">
-                <img :src="imgUrl + movieList[recommendMovieList[2]].poster_path"
+                @click="goToDetailMovie(recommendMovieList[2].id)">
+                <img :src="imgUrl + recommendMovieList[2].poster_path"
                 style="height:25vw; width:100%; cursor:pointer;"
-                :alt="`${movieList[recommendMovieList[2]].title}`">
+                :alt="`${recommendMovieList[2].title}`">
                 <div
-                    v-if="movieList[recommendMovieList[2]].overview"
+                    v-if="recommendMovieList[2].overview"
                     style="background-color: transparent;
                             position: absolute;
                             bottom: 10%;
                             left: 0;
                             right: 0;">
-                    <h5 style="font-family: 'Do Hyeon">{{movieList[recommendMovieList[2]].title}}</h5>
-                    <p>{{movieList[recommendMovieList[2]].overview}}</p>
+                    <h5 style="font-family: 'Do Hyeon">{{recommendMovieList[2].title}}</h5>
+                    <p>{{recommendMovieList[2].overview}}</p>
                 </div>
                 <div
                     v-else
@@ -104,7 +104,7 @@
                             bottom: 15%;
                             left: 0;
                             right: 0;">
-                    <h5 style="font-family: 'Do Hyeon">{{movieList[recommendMovieList[2]].title}}</h5>
+                    <h5 style="font-family: 'Do Hyeon">{{recommendMovieList[2].title}}</h5>
                 </div>
             </div>
             </div>
@@ -135,10 +135,10 @@
             <b-carousel-slide
                 caption="First slide"
                 text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-                :img-src="imgUrl + movieList[recommendMovieList[0]].poster_path"
+                :img-src="imgUrl + recommendMovieList[0].poster_path"
             ></b-carousel-slide>
 
-            <b-carousel-slide :img-src="imgUrl + movieList[recommendMovieList[1]].poster_path">
+            <b-carousel-slide :img-src="imgUrl + recommendMovieList[1].poster_path">
                 <h1>Hello world!</h1>
             </b-carousel-slide>
 
