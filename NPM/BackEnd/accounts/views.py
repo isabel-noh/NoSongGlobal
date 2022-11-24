@@ -122,3 +122,12 @@ def get_user_data(request):
     return Response({'recommendMovieList' : recommend_movie_list}, status=status.HTTP_200_OK)
 
 
+
+
+
+
+#             data = {
+#             'nickname': nickname,
+#             'token': token,  
+#             }
+#             return Response(data, status=)
