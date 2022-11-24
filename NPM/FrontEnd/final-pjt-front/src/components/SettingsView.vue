@@ -77,7 +77,7 @@ export default {
             })
             .then (() => {
                 this.$store.commit('MY_PAGE_COMPONENT', 1)
-                this.user = this.$store.state.userData.serializer_add
+                this.user = this.$store.getters.userData
                 this.nickname = this.user?.nickname
                 console.log(this.nickname, this.user)
             })
