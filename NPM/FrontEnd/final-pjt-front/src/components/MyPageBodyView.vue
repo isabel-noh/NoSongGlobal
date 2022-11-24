@@ -1,8 +1,3 @@
-<!-- 
-  - journal detail 이동 오류 수정
-  - 페이지 새로고침 시 이미지 로드 되지 않는 오류 수정
--->
-
 <template>
   <div class="MyPageBodyView">
     <MyJournalList v-if="comp_num === 1"/>          
@@ -22,6 +17,7 @@
 </template>
 
 <script>
+import SettingsView from '@/components/SettingsView'
 import MyJournalList from '@/components/MyJournalList'
 import LikeJournalList from '@/components/LikeJournalList'
 import SettingsView from '@/views/SettingsView'
@@ -30,12 +26,20 @@ import NicknameChange from '@/components/NicknameChange'
 
 export default {
     name:'MyPageBodyView',
+    data(){
+      return{
+      }
+    },
     components: {
       NicknameChange,
       ChangePassword,
       SettingsView,
       LikeJournalList,
       MyJournalList
+    },
+    
+    props: {
+      userJournalList:Array,
     },
     methods:{
       goToDetailPage(id){
@@ -46,7 +50,10 @@ export default {
       },
       changePassword(){
         this.$store.commit('CHANGE_NOP', 2)
-      }
+      },
+      created() {
+      this.$store.commit('USER_JOURNAL_LIST', this.userJournalList)
+      },
     },
     computed: {
       comp_num() {

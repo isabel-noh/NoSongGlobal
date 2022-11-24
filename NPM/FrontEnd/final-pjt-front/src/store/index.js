@@ -26,6 +26,7 @@ export default new Vuex.Store({
     tabNum: 1,
     NicknameOrPassword: 0,
     changeProfile: false,
+    myPageComponent : 0
   },
   getters: {
     userData(state){
@@ -63,6 +64,9 @@ export default new Vuex.Store({
     },
     nop(state) {
       return state.NicknameOrPassword
+    },
+    myPageComponent(state){
+      return state.myPageComponent
     }
 
   },
@@ -140,6 +144,9 @@ export default new Vuex.Store({
     },
     CHANGE_NOP(state, num) {
       state.NicknameOrPassword = num
+    },
+    MY_PAGE_COMPONENT(state, num){
+      state.myPageComponent = num
     }
   },
   actions: {
@@ -307,7 +314,7 @@ export default new Vuex.Store({
       formdata.append('journal_pk', data.journal_id)
       const local = localStorage.getItem('vuex')
       const user = JSON.parse(local)
-
+      console.log(formdata)
       axios({
         method: 'PUT',
         url: `${API_URL}/journals/${data.journal_id}/detail/`,
@@ -343,7 +350,6 @@ export default new Vuex.Store({
     recommendMovie(context) {
       const local = localStorage.getItem('vuex')
       const user = JSON.parse(local)
-      console.log(user.token)
       if(user?.token){
         axios({
           method:'POST',

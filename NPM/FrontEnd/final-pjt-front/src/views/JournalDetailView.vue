@@ -28,12 +28,12 @@
         </div>
     </div>
     <div class="journal_content">
-        <h6>{{journal?.movie_title}}</h6>
+        <h6>영화 제목: {{movieData}}</h6>
         <p>{{journal?.watched_at}}</p>
         <h5>{{journal?.title}}<span> {{journal?.like_cnt}} </span>
-            <button class="btn btn-primary"
+            <button class="btn btn-danger"
                 @click="likeJournal"
-            >좋아요</button>
+            ><i class="bi bi-suit-heart-fill"></i></button>
             <span
                 v-if="like_count"
             > {{ like_count }} </span>
@@ -215,9 +215,10 @@ export default {
         return new_journal
       },
       movieData() {
-        console.log(this.$store.getters.movieData)
-        return this.$store.getters.movieData
-      }
+        const movies = this.$store.getters.movieData
+        const movie_id = this.journal?.movie
+        return movies[movie_id-1]?.title
+      },
     },
     created(){
         this.$store.dispatch('isLogin')

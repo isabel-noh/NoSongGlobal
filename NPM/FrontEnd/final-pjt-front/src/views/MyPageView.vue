@@ -1,8 +1,6 @@
 <template>
   <div class="myPage">
-    <MyPageHeader
-
-    />
+    <MyPageHeader/>
     <MyPageTabbar/>
     <MyPageBodyView/>
   </div>
@@ -28,6 +26,9 @@ export default {
       }
     },
     methods: {
+      changeComponent(num){
+        this.comp_num = num
+      },
       getProfileImg(){
         axios({
           mothod: 'GET',

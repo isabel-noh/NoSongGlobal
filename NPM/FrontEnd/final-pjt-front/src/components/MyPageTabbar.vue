@@ -21,6 +21,7 @@ export default {
       },
       tab3() {
         this.$store.commit('TAB_NUM', 3)
+        this.$store.commit('MY_PAGE_COMPONENT', 0)
       },
     }
 }
