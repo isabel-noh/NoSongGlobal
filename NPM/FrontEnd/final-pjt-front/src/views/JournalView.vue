@@ -28,10 +28,9 @@
           <!-- 아래 반복 -->
           <div class="col" 
             @click="goToDetailPage(journal?.id)"
-            v-for="journal in journalList" 
+            v-for="journal in journalList.slice(0,20)" 
             :key="journal.pk" style="margin-bottom:10px;">
             <div class="container">
-              
               <div class="item front" v-if="journal?.journal_image">
                 <div
                   class="card-img-top item front rounded-2"

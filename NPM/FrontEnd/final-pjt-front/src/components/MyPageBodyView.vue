@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import SettingsView from '@/components/SettingsView'
 import MyJournalList from '@/components/MyJournalList'
 import LikeJournalList from '@/components/LikeJournalList'
 import SettingsView from '@/views/SettingsView'

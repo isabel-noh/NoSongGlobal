@@ -228,6 +228,7 @@ export default new Vuex.Store({
       .then((res) => {
         console.log(res)
         context.state.changePassword = false
+        context.state.tabNum = 1
         alert('비밀번호 수정 완료!')
       })
       .catch((err) => {

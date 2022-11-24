@@ -39,7 +39,7 @@
     <div class="row row-cols-1 row-cols-md-4">
         <div class="col"
             style="cursor : pointer;" 
-            v-for="(movie) in movieList" 
+            v-for="(movie) in movieList.slice(0,20)" 
             :key="movie?.movie_id">
             <router-link 
               :to="{ name : 'movieDetail', params: { movie_id: movie.id}}">
