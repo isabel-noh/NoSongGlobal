@@ -23,7 +23,8 @@ export default new Vuex.Store({
     journalList: [],
     userJournalList: [],
     likeJournalList: [],
-    tabNum: 1
+    tabNum: 1,
+    myPageComponent : 0
   },
   getters: {
     userData(state){
@@ -52,6 +53,9 @@ export default new Vuex.Store({
     },
     tabNum(state) {
       return state.tabNum
+    },
+    myPageComponent(state){
+      return state.myPageComponent
     }
 
   },
@@ -121,6 +125,9 @@ export default new Vuex.Store({
     },
     TAB_NUM(state, num){
       state.tabNum = num
+    },
+    MY_PAGE_COMPONENT(state, num){
+      state.myPageComponent = num
     }
   },
   actions: {

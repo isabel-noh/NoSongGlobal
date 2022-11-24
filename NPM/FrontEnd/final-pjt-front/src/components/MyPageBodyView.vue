@@ -30,7 +30,6 @@ export default {
     
     props: {
       userJournalList:Array,
-      comp_num:Number,
     },
     methods:{
       goToDetailPage(id){
