@@ -54,18 +54,7 @@ export default {
         })
       }
     },
-    computed:{
-      runtime(){
-        const r = this.movie?.runtime
-        let hour = 0
-        let minute = 0
-        if (r >= 60){
-          hour = parseInt(r / 60)
-          minute = r - (hour * 60)
-        }
-        return `${hour}시간 ${minute}분`
-      }
-    },
+    
     created(){
       this.getMovieDetail()
     },

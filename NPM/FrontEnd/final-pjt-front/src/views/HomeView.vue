@@ -1,23 +1,20 @@
 <template>
   <div class="home">
     <!-- 영화 페이지 -->
-    <!-- <RecommendView :nickname="getNickname"/> -->
-    <!-- <MusicRecommendView /> -->
+    <RecommendView :nickname="getNickname"/>
     <MovieListView/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-// import RecommendView from '@/components/RecommendView'
-// import MusicRecommendView from '@/components/MusicRecommendView'
+import RecommendView from '@/components/RecommendView'
 import MovieListView from '@/components/MovieListView'
 
 export default {
   name: 'HomeView',
   components: {
-    // RecommendView,
-    // MusicRecommendView,
+    RecommendView,
     MovieListView,
   },
   computed:{
